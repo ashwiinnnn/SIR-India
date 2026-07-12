@@ -4,9 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Machine That Erases You</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -19,10 +16,13 @@
   --red: #cc1111;
   --red-bright: #e82020;
   --red-dim: #6b0f0f;
+  --red-glow: rgba(204,17,17,0.15);
   --cream: #dedad3;
   --cream-muted: #9e9990;
   --cream-dim: #5a5652;
   --white: #f0ece4;
+  --newsprint: #e9e4d8;
+  --newsprint-ink: #1a1a1a;
 }
 
 html { scroll-behavior: smooth; }
@@ -30,9 +30,9 @@ html { scroll-behavior: smooth; }
 body {
   background: var(--black);
   color: var(--cream);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   font-size: 17px;
-  line-height: 1.85;
+  line-height: 1.8;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
@@ -40,94 +40,110 @@ body {
 p { text-align: justify; text-justify: inter-word; hyphens: auto; }
 
 /* TICKER */
-.ticker-wrap { background: var(--red); overflow: hidden; padding: 0.45rem 0; position: sticky; top: 0; z-index: 100; border-bottom: 2px solid #ff3333; }
-.ticker-inner { display: flex; align-items: center; }
-.ticker-label { background: #fff; color: var(--red); font-size: 0.62rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.15rem 0.7rem; white-space: nowrap; flex-shrink: 0; margin-right: 1.5rem; }
-.ticker-track { display: flex; gap: 4rem; animation: ticker 32s linear infinite; white-space: nowrap; }
-.ticker-track span { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: #fff; }
+.ticker-wrap {
+  background: var(--red);
+  overflow: hidden;
+  padding: 0.45rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 2px solid #ff3333;
+}
+.ticker-inner { display: flex; align-items: center; gap: 0; }
+.ticker-label {
+  background: #fff; color: var(--red);
+  font-size: 0.62rem; font-weight: 800; letter-spacing: 0.18em;
+  text-transform: uppercase; padding: 0.15rem 0.7rem;
+  white-space: nowrap; flex-shrink: 0; margin-right: 1.5rem;
+}
+.ticker-track {
+  display: flex; gap: 4rem;
+  animation: ticker 32s linear infinite;
+  white-space: nowrap;
+}
+.ticker-track span { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #fff; }
 .ticker-dot { color: rgba(255,255,255,0.5); }
 @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
 /* HERO */
-.hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 4rem 2rem 3rem; border-bottom: 1px solid var(--border); position: relative; overflow: hidden; text-align: center; }
-.hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 45%, rgba(150,0,0,0.22) 0%, transparent 70%), var(--black); z-index: 0; }
-.hero-noise { position: absolute; inset: 0; z-index: 0; opacity: 0.05; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
-.hero > * { position: relative; z-index: 1; }
-.hero-tag { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.62rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red-bright); margin-bottom: 1rem; }
-.live-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--red-bright); animation: blink 1.1s ease-in-out infinite; }
-@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.15; } }
-
+.hero {
+  min-height: 100vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 5rem 2rem 4rem; border-bottom: 1px solid var(--border);
+  position: relative; overflow: hidden; text-align: center;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 55%, rgba(150,0,0,0.25) 0%, transparent 70%), var(--black);
+  z-index: 0;
+}
+.hero-noise {
+  position: absolute; inset: 0; z-index: 0; opacity: 0.05; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
 .hero-map-bg { position: absolute; inset: 0; z-index: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 0; opacity: 0.65; pointer-events: none; mask-image: radial-gradient(ellipse 60% 60% at 50% 46%, transparent 0%, transparent 40%, black 78%); -webkit-mask-image: radial-gradient(ellipse 60% 60% at 50% 46%, transparent 0%, transparent 40%, black 78%); }
 .hero-name { font-size: 0.72rem; font-weight: 600; color: var(--cream-dim); padding: 0.55rem 0.4rem; text-align: center; letter-spacing: 0.02em; transition: color 0.6s ease, opacity 0.6s ease; position: relative; }
 .hero-name.struck { color: var(--red-bright); opacity: 0.9; }
 .hero-name.struck::after { content: ''; position: absolute; left: 8%; right: 8%; top: 50%; height: 2px; background: var(--red-bright); transform: scaleX(0); transform-origin: left; animation: strike 0.45s ease forwards; }
 @keyframes strike { to { transform: scaleX(1); } }
-.hero-tag, .hero-counter, .hero-counter-label, .hero-title, .hero-deck { text-shadow: 0 2px 18px rgba(0,0,0,0.85), 0 1px 3px rgba(0,0,0,0.9); }
+.hero > * { position: relative; z-index: 1; }
+.hero-map-bg { position: absolute !important; inset: 0; z-index: 0 !important; }
+.hero-tag { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red-bright); margin-bottom: 3rem; text-shadow: 0 2px 18px rgba(0,0,0,0.85); }
+.live-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--red-bright); animation: blink 1.1s ease-in-out infinite; }
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.15; } }
 
-.hero-counter { font-size: clamp(3.6rem, 11vw, 8.5rem); font-weight: 700; color: var(--white); line-height: 1; letter-spacing: -0.03em; margin-bottom: 0.5rem; font-variant-numeric: tabular-nums; }
-.hero-counter-label { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red-bright); margin-bottom: 2.4rem; }
-.hero-title { font-size: clamp(2.2rem, 5.5vw, 4.2rem); font-weight: 600; line-height: 1.05; letter-spacing: -0.01em; max-width: 820px; margin-bottom: 1.3rem; color: var(--white); text-align: center; }
-.hero-deck { max-width: 540px; margin-bottom: 1rem; }
-.hero-deck-staged { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; }
-.hero-deck-staged .stage { font-size: clamp(1.05rem, 2.1vw, 1.25rem); font-weight: 500; color: var(--cream-muted); line-height: 1.5; text-align: center; opacity: 0; animation: stageIn 0.8s ease forwards; }
-.hero-deck-staged .stage-1 { animation-delay: 0.1s; }
-.hero-deck-staged .stage-2 { animation-delay: 0.3s; }
-.hero-deck-staged .stage-3 { animation-delay: 0.5s; }
-.hero-deck-staged .stage-4 { color: var(--white); font-weight: 600; margin-top: 0.5rem; animation-delay: 0.7s; }
-@keyframes stageIn { from { opacity: 0; } to { opacity: 1; } }
-
-/* removed: state scale board, superseded by the spread-grid tracker later in the article */
-
-.scroll-cue { margin-top: 2rem; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase; color: var(--cream-dim); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
+.hero-counter { font-size: clamp(4rem, 12vw, 9.5rem); font-weight: 800; color: var(--white); line-height: 1; letter-spacing: -0.03em; margin-bottom: 0.6rem; font-variant-numeric: tabular-nums; text-shadow: 0 2px 18px rgba(0,0,0,0.85), 0 1px 3px rgba(0,0,0,0.9); }
+.hero-counter-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red-bright); margin-bottom: 3rem; text-shadow: 0 2px 18px rgba(0,0,0,0.85); }
+.hero-divider { width: 40px; height: 3px; background: var(--red); margin: 0 auto 3rem; }
+.hero-title { font-size: clamp(2.2rem, 5.5vw, 4.2rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.01em; max-width: 820px; margin-bottom: 1.5rem; color: var(--white); text-shadow: 0 2px 18px rgba(0,0,0,0.85), 0 1px 3px rgba(0,0,0,0.9); }
+.hero-deck { font-size: clamp(1rem, 2vw, 1.2rem); font-weight: 600; color: var(--white); max-width: 600px; line-height: 1.6; margin-bottom: 3rem; text-shadow: 0 2px 18px rgba(0,0,0,0.85), 0 1px 3px rgba(0,0,0,0.9); text-align: center; }
+.hero-meta { font-size: 0.62rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cream-dim); }
+.scroll-cue { margin-top: 5rem; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase; color: var(--cream-dim); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
 .scroll-cue::after { content: '↓'; font-size: 1rem; animation: bob 2s ease-in-out infinite; }
 @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(7px); } }
 
 /* ARTICLE */
 .article-wrap { max-width: 700px; margin: 0 auto; padding: 5rem 2rem; }
+
 .section-header { margin: 4.5rem 0 1.5rem; border-top: 1px solid var(--border-bright); padding-top: 2rem; }
-.section-eyebrow { font-size: 0.6rem; font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase; color: var(--red); margin-bottom: 0.6rem; display: block; }
-.section-title { font-size: clamp(1.4rem, 3vw, 1.9rem); font-weight: 600; color: var(--white); line-height: 1.25; letter-spacing: -0.005em; }
+.section-eyebrow { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--red); margin-bottom: 0.6rem; display: block; }
+.section-title { font-size: clamp(1.4rem, 3vw, 1.9rem); font-weight: 700; color: var(--white); line-height: 1.25; letter-spacing: -0.005em; text-align: left; }
 
-.body p { margin-bottom: 1.85rem; color: var(--cream); font-weight: 400; }
+.body p { margin-bottom: 1.6rem; color: var(--cream); font-weight: 400; }
 .body p:first-child { font-size: 1.1rem; font-weight: 500; color: var(--white); }
-.body p.tight { font-size: 0.95rem; color: var(--cream-muted); margin-bottom: 1.5rem; }
 
-.pull-quote { margin: 3rem 0; padding: 1.8rem 2rem; border-left: 4px solid var(--red-bright); background: var(--card); }
-.pull-quote p { font-size: clamp(1.15rem, 2.6vw, 1.5rem); font-weight: 600; color: var(--white); line-height: 1.4; margin: 0 0 0.7rem; text-align: left; }
-.pull-quote cite { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.13em; text-transform: uppercase; color: var(--red-bright); font-style: normal; }
+.pull-quote { margin: 3.5rem 0; padding: 2rem 2rem; border-left: 4px solid var(--red-bright); background: var(--card); }
+.pull-quote p { font-size: clamp(1.2rem, 2.8vw, 1.55rem); font-weight: 600; color: var(--white); line-height: 1.4; letter-spacing: -0.005em; margin: 0 0 0.8rem; text-align: left; }
+.pull-quote cite { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--red-bright); font-style: normal; }
 
-.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); margin: 2.2rem 0; }
-.stat-card { background: var(--card); padding: 1.4rem 1.1rem; text-align: center; cursor: pointer; transition: background 0.15s ease; }
-.stat-card:hover { background: #171010; }
-.stat-number { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 700; color: var(--red-bright); line-height: 1; margin-bottom: 0.5rem; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
-.stat-label { font-size: 0.6rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cream-dim); line-height: 1.6; }
-.stat-detail { font-size: 0.66rem; color: var(--cream-muted); margin-top: 0.6rem; line-height: 1.5; display: none; text-align: left; }
-.stat-card.open .stat-detail { display: block; }
-.stat-card .stat-toggle { font-size: 0.58rem; color: var(--red-bright); margin-top: 0.5rem; text-transform: uppercase; letter-spacing: 0.1em; }
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); margin: 2.5rem 0; }
+.stat-card { background: var(--card); padding: 1.5rem 1.2rem; text-align: center; }
+.stat-number { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; color: var(--red-bright); line-height: 1; margin-bottom: 0.5rem; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.stat-label { font-size: 0.6rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cream-dim); line-height: 1.6; }
 
-.countdown-block { background: var(--dark); border: 1px solid var(--red-dim); border-top: 3px solid var(--red-bright); padding: 2.2rem; margin: 3rem 0; text-align: center; }
-.countdown-status { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red-bright); margin-bottom: 1.1rem; }
-.countdown-name { font-size: 0.95rem; font-weight: 500; color: var(--cream-muted); margin-bottom: 1.6rem; line-height: 1.6; text-align: center; }
-.countdown-timer { display: flex; justify-content: center; gap: 2rem; margin-bottom: 1.3rem; flex-wrap: wrap; }
+.countdown-block { background: var(--dark); border: 1px solid var(--red-dim); border-top: 3px solid var(--red-bright); padding: 2.5rem; margin: 3.5rem 0; text-align: center; }
+.countdown-status { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red-bright); margin-bottom: 1.2rem; }
+.countdown-name { font-size: 0.95rem; font-weight: 500; color: var(--cream-muted); margin-bottom: 1.8rem; line-height: 1.6; text-align: center; }
+.countdown-timer { display: flex; justify-content: center; gap: 2rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
 .countdown-unit { text-align: center; }
-.countdown-num { font-size: clamp(2.6rem, 6vw, 3.8rem); font-weight: 700; color: var(--white); line-height: 1; display: block; font-variant-numeric: tabular-nums; }
-.countdown-unit-label { font-size: 0.55rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cream-dim); margin-top: 0.4rem; }
-.countdown-sub { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.1em; color: var(--cream-dim); text-transform: uppercase; }
+.countdown-num { font-size: clamp(2.8rem, 6vw, 4rem); font-weight: 800; color: var(--white); line-height: 1; display: block; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+.countdown-unit-label { font-size: 0.55rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cream-dim); margin-top: 0.4rem; }
+.countdown-sub { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.12em; color: var(--cream-dim); text-transform: uppercase; }
 
-.alert-box { background: rgba(139,0,0,0.18); border: 1px solid var(--red-dim); border-left: 4px solid var(--red-bright); padding: 1.4rem 1.7rem; margin: 2.2rem 0; }
-.alert-label { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red-bright); display: block; margin-bottom: 0.6rem; }
+.alert-box { background: rgba(139,0,0,0.18); border: 1px solid var(--red-dim); border-left: 4px solid var(--red-bright); padding: 1.5rem 1.8rem; margin: 2.5rem 0; }
+.alert-label { font-size: 0.58rem; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red-bright); display: block; margin-bottom: 0.6rem; }
 .alert-box p { font-size: 0.95rem; font-weight: 500; color: #f8c6c6; line-height: 1.75; margin: 0; }
 
-.timeline { margin: 2.2rem 0; border-left: 2px solid var(--red-dim); padding-left: 1.7rem; }
-.timeline-item { position: relative; margin-bottom: 1.6rem; }
-.timeline-item::before { content: ''; position: absolute; left: -2.25rem; top: 0.4rem; width: 8px; height: 8px; border-radius: 50%; background: var(--red); border: 2px solid var(--black); }
+.timeline { margin: 2.5rem 0; border-left: 2px solid var(--red-dim); padding-left: 1.8rem; }
+.timeline-item { position: relative; margin-bottom: 1.8rem; }
+.timeline-item::before { content: ''; position: absolute; left: -2.3rem; top: 0.4rem; width: 8px; height: 8px; border-radius: 50%; background: var(--red); border: 2px solid var(--black); }
 .timeline-item:last-child::before { background: var(--red-bright); animation: blink 1.1s ease-in-out infinite; }
-.timeline-year { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.15em; color: var(--red); text-transform: uppercase; margin-bottom: 0.3rem; }
+.timeline-year { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.15em; color: var(--red); text-transform: uppercase; margin-bottom: 0.3rem; }
 .timeline-text { font-size: 0.9rem; font-weight: 400; color: var(--cream-muted); line-height: 1.65; text-align: left; }
 
-.phases-block { margin: 2.6rem 0; background: var(--card); border: 1px solid var(--border-bright); padding: 1.8rem; }
-.phases-label { font-size: 0.6rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 1.4rem; }
-.phase-row { display: flex; align-items: flex-start; margin-bottom: 0.9rem; gap: 1rem; }
+.phases-block { margin: 3rem 0; background: var(--card); border: 1px solid var(--border-bright); padding: 2rem; }
+.phases-label { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); margin-bottom: 1.5rem; }
+.phase-row { display: flex; align-items: flex-start; margin-bottom: 1rem; gap: 1rem; }
 .phase-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; margin-top: 0.35rem; }
 .phase-dot.done { background: var(--red); }
 .phase-dot.active { background: #f59e0b; animation: blink 1.1s ease-in-out infinite; }
@@ -138,30 +154,50 @@ p { text-align: justify; text-justify: inter-word; hyphens: auto; }
 .phase-bar-track { width: 100%; height: 6px; background: var(--border-bright); margin-top: 0.6rem; overflow: hidden; }
 .phase-bar-fill { height: 100%; background: linear-gradient(90deg, var(--red-dim), var(--red-bright)); width: 0%; transition: width 1.6s cubic-bezier(.2,.7,.3,1); }
 
-.dossier { margin: 2.6rem 0; background: var(--card); border: 1px solid var(--border-bright); border-left: 4px solid var(--red-bright); padding: 1.8rem 1.8rem 1.6rem; position: relative; overflow: hidden; }
-.dossier-watermark { position: absolute; right: -0.4rem; top: -1.6rem; font-weight: 700; font-size: 7rem; color: rgba(232,32,32,0.05); line-height: 1; pointer-events: none; user-select: none; }
-.dossier-meta { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.4rem; font-size: 0.68rem; letter-spacing: 0.05em; color: var(--cream-dim); text-transform: uppercase; margin-bottom: 1rem; position: relative; font-weight: 500; }
+/* CASE DOSSIER CARDS */
+.dossier {
+  margin: 3rem 0;
+  background: var(--card);
+  border: 1px solid var(--border-bright);
+  border-left: 4px solid var(--red-bright);
+  padding: 2rem 2rem 1.8rem;
+  position: relative;
+  overflow: hidden;
+}
+.dossier-watermark {
+  position: absolute; right: -0.4rem; top: -1.6rem;
+  font-weight: 800; font-size: 7.5rem;
+  color: rgba(232,32,32,0.05); line-height: 1; pointer-events: none; user-select: none;
+}
+.dossier-meta {
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.4rem;
+  font-size: 0.66rem; letter-spacing: 0.06em;
+  color: var(--cream-dim); text-transform: uppercase; margin-bottom: 1.1rem;
+  position: relative; font-weight: 700;
+}
 .dossier-meta strong { color: var(--red-bright); font-weight: 800; }
-.dossier h3 { font-weight: 600; font-size: clamp(1.15rem, 2.4vw, 1.45rem); color: var(--white); margin-bottom: 0.7rem; line-height: 1.3; position: relative; text-align: left; }
+.dossier h3 {
+  font-weight: 700; font-size: clamp(1.2rem, 2.4vw, 1.5rem);
+  color: var(--white); margin-bottom: 0.8rem; line-height: 1.3; position: relative; text-align: left;
+}
 .dossier p { font-size: 0.92rem; color: var(--cream); line-height: 1.75; margin-bottom: 0; position: relative; }
-.dossier-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 1.3rem; }
-.dossier-stat { background: var(--dark); padding: 0.85rem 0.5rem; text-align: center; }
-.dossier-stat b { display: block; font-size: 1.1rem; font-weight: 700; color: var(--red-bright); font-variant-numeric: tabular-nums; }
-.dossier-stat span { font-size: 0.55rem; color: var(--cream-dim); text-transform: uppercase; letter-spacing: 0.04em; line-height: 1.5; display: block; margin-top: 0.25rem; }
-.dossier-source { font-size: 0.66rem; color: var(--cream-dim); margin-top: 1rem; font-style: italic; position: relative; text-align: left; }
+.dossier-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 1.4rem; }
+.dossier-stat { background: var(--dark); padding: 0.9rem 0.5rem; text-align: center; }
+.dossier-stat b { display: block; font-size: 1.15rem; font-weight: 800; color: var(--red-bright); font-variant-numeric: tabular-nums; }
+.dossier-stat span { font-size: 0.56rem; color: var(--cream-dim); text-transform: uppercase; letter-spacing: 0.05em; line-height: 1.5; display: block; margin-top: 0.25rem; }
+.dossier-source { font-size: 0.66rem; color: var(--cream-dim); margin-top: 1.1rem; font-style: italic; position: relative; text-align: left; }
 
-.chart-block { margin: 2.6rem 0; background: var(--card); border: 1px solid var(--border-bright); padding: 1.7rem 1.7rem 1.3rem; }
-.chart-title { font-size: 0.6rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 1.5rem; }
-.bar-row { margin-bottom: 1rem; cursor: pointer; }
+/* BAR CHART - deletions by state */
+.chart-block { margin: 3rem 0; background: var(--card); border: 1px solid var(--border-bright); padding: 1.8rem 1.8rem 1.4rem; }
+.chart-title { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 1.6rem; }
+.bar-row { margin-bottom: 1.1rem; }
 .bar-label-row { display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--cream-muted); margin-bottom: 0.35rem; }
-.bar-label-row strong { color: var(--white); font-weight: 600; }
+.bar-label-row strong { color: var(--white); font-weight: 700; }
 .bar-track { width: 100%; height: 16px; background: var(--border); overflow: hidden; }
 .bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--red-dim), var(--red-bright)); transition: width 1.8s cubic-bezier(.2,.8,.2,1); }
-.bar-row .bar-extra { display: none; font-size: 0.68rem; color: var(--cream-dim); margin-top: 0.4rem; text-align: left; }
-.bar-row.open .bar-extra { display: block; }
-.chart-note { font-size: 0.65rem; color: var(--cream-dim); margin-top: 0.9rem; line-height: 1.6; }
+.chart-note { font-size: 0.65rem; color: var(--cream-dim); margin-top: 1rem; line-height: 1.6; }
 
-.proof-grid { display: flex; flex-direction: column; gap: 0.9rem; }
+.proof-grid { display: flex; flex-direction: column; gap: 1rem; }
 .proof-item { display: flex; align-items: center; gap: 1rem; font-size: 0.85rem; color: var(--cream); line-height: 1.5; text-align: left; }
 .proof-item svg { width: 34px; height: 34px; flex-shrink: 0; }
 .proof-ring { fill: none; stroke-width: 2; }
@@ -174,29 +210,40 @@ p { text-align: justify; text-justify: inter-word; hyphens: auto; }
 .proof-mark.neutral { stroke: var(--cream-dim); }
 .proof-item.reject span { color: var(--cream-muted); }
 
-.spread-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(46px, 1fr)); gap: 6px; margin-bottom: 0.9rem; }
-.spread-tile { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.02em; color: var(--white); border-radius: 3px; text-transform: uppercase; cursor: pointer; transition: transform 0.15s ease; }
-.spread-tile:hover { transform: scale(1.1); }
+.spread-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(46px, 1fr)); gap: 6px; margin-bottom: 1.2rem; }
+.spread-tile {
+  aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+  font-size: 0.62rem; font-weight: 800; letter-spacing: 0.02em; color: var(--white);
+  border-radius: 3px; text-transform: uppercase;
+}
 .spread-tile.done { background: var(--red-dim); }
 .spread-tile.active { background: var(--red-bright); box-shadow: 0 0 10px rgba(232,32,32,0.5); animation: blink 2.2s ease-in-out infinite; }
 .spread-tile.upcoming { background: var(--border-bright); color: var(--cream-dim); }
-.spread-legend { display: flex; gap: 1.3rem; flex-wrap: wrap; font-size: 0.65rem; color: var(--cream-muted); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 0.9rem; }
+.spread-legend { display: flex; gap: 1.4rem; flex-wrap: wrap; font-size: 0.65rem; color: var(--cream-muted); text-transform: uppercase; letter-spacing: 0.05em; }
 .spread-legend .dot { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 0.4rem; }
 .spread-legend .dot.done { background: var(--red-dim); }
 .spread-legend .dot.active { background: var(--red-bright); }
 .spread-legend .dot.upcoming { background: var(--border-bright); }
-.spread-readout { font-size: 0.72rem; color: var(--cream-muted); border-top: 1px dashed var(--border-bright); padding-top: 0.8rem; text-align: left; min-height: 20px; }
 
 .flow-list { display: flex; flex-direction: column; }
-.flow-step { display: flex; gap: 1rem; padding: 0.85rem 0; border-bottom: 1px solid var(--border-bright); }
+.flow-step { display: flex; gap: 1rem; padding: 0.9rem 0; border-bottom: 1px solid var(--border-bright); }
 .flow-step.last { border-bottom: none; }
-.flow-num { flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: var(--red-dim); color: var(--white); font-weight: 700; font-size: 0.75rem; display: flex; align-items: center; justify-content: center; }
+.flow-num {
+  flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%;
+  background: var(--red-dim); color: var(--white); font-weight: 800; font-size: 0.75rem;
+  display: flex; align-items: center; justify-content: center;
+}
 .flow-step.last .flow-num { background: var(--red-bright); }
 .flow-text { font-size: 0.85rem; color: var(--cream-muted); line-height: 1.65; padding-top: 0.15rem; text-align: left; }
 .flow-text strong { color: var(--white); font-weight: 600; }
 
-.sides-tabs { display: flex; gap: 0.5rem; margin-bottom: 1.3rem; flex-wrap: wrap; }
-.sides-tab { flex: 1; min-width: 140px; background: var(--dark); border: 1px solid var(--border-bright); color: var(--cream-muted); font-family: inherit; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase; padding: 0.75rem 0.8rem; cursor: pointer; transition: all 0.2s ease; }
+.sides-tabs { display: flex; gap: 0.5rem; margin-bottom: 1.4rem; flex-wrap: wrap; }
+.sides-tab {
+  flex: 1; min-width: 140px; background: var(--dark); border: 1px solid var(--border-bright);
+  color: var(--cream-muted); font-family: inherit; font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 0.02em; text-transform: uppercase; padding: 0.75rem 0.8rem; cursor: pointer;
+  transition: all 0.2s ease;
+}
 .sides-tab:hover { border-color: var(--red-dim); color: var(--cream); }
 .sides-tab.active { background: var(--red-dim); border-color: var(--red-bright); color: var(--white); }
 .sides-panel { display: none; }
@@ -206,261 +253,579 @@ p { text-align: justify; text-justify: inter-word; hyphens: auto; }
 .quote-mark { color: var(--red-bright); font-weight: 600; }
 
 .verdict-grid { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); }
-.verdict-row { display: flex; align-items: center; justify-content: space-between; gap: 1.1rem; background: var(--dark); padding: 1rem 1.2rem; cursor: pointer; }
+.verdict-row { display: flex; align-items: center; justify-content: space-between; gap: 1.2rem; background: var(--dark); padding: 1rem 1.2rem; }
 .verdict-q { font-size: 0.82rem; color: var(--cream); line-height: 1.6; text-align: left; }
-.verdict-a { flex-shrink: 0; font-weight: 700; font-size: 0.9rem; color: var(--red-bright); border: 1.5px solid var(--red-bright); border-radius: 3px; padding: 0.3rem 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.verdict-a {
+  flex-shrink: 0; font-weight: 800; font-size: 0.9rem;
+  color: var(--red-bright); border: 1.5px solid var(--red-bright); border-radius: 3px;
+  padding: 0.3rem 0.8rem; text-transform: uppercase; letter-spacing: 0.05em;
+}
 
-.ending { border-top: 1px solid var(--border-bright); margin-top: 4.5rem; padding-top: 3rem; text-align: center; }
-.ending-line { font-size: clamp(1.5rem, 3.5vw, 2.3rem); font-weight: 700; color: var(--white); line-height: 1.35; margin-bottom: 2rem; text-align: center; }
+/* ENDING */
+.ending { border-top: 1px solid var(--border-bright); margin-top: 5rem; padding-top: 3.5rem; text-align: center; }
+.ending-line { font-size: clamp(1.5rem, 3.5vw, 2.3rem); font-weight: 700; color: var(--white); line-height: 1.4; letter-spacing: -0.005em; margin-bottom: 2rem; text-align: center; }
 .ending-line .red { color: var(--red-bright); }
-.mono { font-weight: 600; color: var(--red-bright); background: rgba(204,17,17,0.1); padding: 0.1em 0.3em; letter-spacing: 0.02em; }
+.mono { font-weight: 700; color: var(--red-bright); background: rgba(204,17,17,0.1); padding: 0.1em 0.3em; }
 
-.crowd-section { position: relative; background: #000; padding: 4.5rem 1.5rem 5.5rem; border-top: 3px solid var(--red-bright); overflow: hidden; text-align: center; }
-.crowd-eyebrow { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--red-bright); margin-bottom: 0.8rem; }
+/* ===== THE CROWD, final banger visual ===== */
+.crowd-section {
+  position: relative;
+  background: #000;
+  padding: 5rem 1.5rem 6rem;
+  border-top: 3px solid var(--red-bright);
+  overflow: hidden;
+  text-align: center;
+}
+.crowd-eyebrow { font-size: 0.62rem; font-weight: 800; letter-spacing: 0.25em; text-transform: uppercase; color: var(--red-bright); margin-bottom: 0.8rem; }
 .crowd-heading { font-size: clamp(1.6rem, 4vw, 2.6rem); font-weight: 700; color: var(--white); max-width: 720px; margin: 0 auto 0.8rem; line-height: 1.3; text-align: center; }
-.crowd-sub { font-size: 0.85rem; color: var(--cream-muted); max-width: 560px; margin: 0 auto 2.8rem; line-height: 1.7; text-align: center; }
-.crowd-grid { display: grid; grid-template-columns: repeat(28, 1fr); gap: 4px; max-width: 760px; margin: 0 auto; position: relative; }
-.crowd-dot { width: 100%; aspect-ratio: 1; background: var(--cream-dim); border-radius: 50%; opacity: 0.9; transition: background 0.25s ease, transform 0.25s ease, opacity 0.25s ease; }
-.crowd-dot.gone { background: var(--red-bright); transform: scale(0.55); opacity: 0.35; box-shadow: 0 0 6px rgba(232,32,32,0.7); }
-.crowd-footer-number { margin-top: 3rem; font-size: clamp(2.4rem, 7vw, 4.2rem); font-weight: 700; color: var(--red-bright); letter-spacing: -0.02em; }
-.crowd-footer-label { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cream-dim); margin-top: 0.5rem; }
-.crowd-footer-line { margin-top: 2.2rem; font-size: clamp(1.1rem, 2.6vw, 1.5rem); font-weight: 700; color: var(--white); max-width: 620px; margin-left: auto; margin-right: auto; line-height: 1.5; text-align: center; }
+.crowd-sub { font-size: 0.85rem; color: var(--cream-muted); max-width: 560px; margin: 0 auto 3rem; line-height: 1.7; text-align: center; }
 
-.live-ticker { margin: 3.5rem auto 0; max-width: 480px; border: 1px solid var(--red-dim); border-top: 3px solid var(--red-bright); background: rgba(139,0,0,0.08); padding: 2rem 1.7rem; }
-.live-ticker-label { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red-bright); margin-bottom: 1.1rem; }
-.live-ticker-number { font-weight: 700; font-size: clamp(2.6rem, 8vw, 4.4rem); color: var(--white); line-height: 1; font-variant-numeric: tabular-nums; margin-bottom: 0.8rem; }
-.live-ticker-sub { font-size: 0.78rem; color: var(--cream-muted); line-height: 1.6; margin-bottom: 1.1rem; text-align: center; }
+.crowd-grid {
+  display: grid;
+  grid-template-columns: repeat(28, 1fr);
+  gap: 4px;
+  max-width: 760px;
+  margin: 0 auto;
+  position: relative;
+}
+.crowd-dot {
+  width: 100%; aspect-ratio: 1;
+  background: var(--cream-dim);
+  border-radius: 50%;
+  opacity: 0.9;
+  transition: background 0.25s ease, transform 0.25s ease, opacity 0.25s ease;
+}
+.crowd-dot.gone {
+  background: var(--red-bright);
+  transform: scale(0.55);
+  opacity: 0.35;
+  box-shadow: 0 0 6px rgba(232,32,32,0.7);
+}
+
+.crowd-footer-number { margin-top: 3.2rem; font-size: clamp(2.4rem, 7vw, 4.2rem); font-weight: 800; color: var(--red-bright); letter-spacing: -0.02em; }
+.crowd-footer-label { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cream-dim); margin-top: 0.5rem; }
+.crowd-footer-line { margin-top: 2.5rem; font-size: clamp(1.1rem, 2.6vw, 1.5rem); font-weight: 800; color: var(--white); max-width: 620px; margin-left: auto; margin-right: auto; line-height: 1.5; text-align: center; }
+
+.live-ticker {
+  margin: 4rem auto 0; max-width: 480px;
+  border: 1px solid var(--red-dim); border-top: 3px solid var(--red-bright);
+  background: rgba(139,0,0,0.08);
+  padding: 2.2rem 1.8rem;
+}
+.live-ticker-label {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-size: 0.62rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--red-bright); margin-bottom: 1.2rem;
+}
+.live-ticker-number {
+  font-weight: 800;
+  font-size: clamp(2.6rem, 8vw, 4.4rem);
+  color: var(--white); line-height: 1; letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+  margin-bottom: 0.9rem;
+}
+.live-ticker-sub { font-size: 0.78rem; color: var(--cream-muted); line-height: 1.6; margin-bottom: 1.2rem; text-align: center; }
 .live-ticker-note { font-size: 0.65rem; color: var(--cream-dim); line-height: 1.7; font-style: italic; border-top: 1px dashed var(--border-bright); padding-top: 1rem; text-align: left; }
 
+/* TRIBUNAL BACKLOG CALCULATOR */
+.calc-block { margin: 3rem 0; background: var(--card); border: 1px solid var(--border-bright); border-top: 3px solid var(--red-bright); padding: 2rem 1.8rem; }
+.calc-row { margin-bottom: 1.9rem; }
+.calc-label-row { display: flex; justify-content: space-between; align-items: baseline; font-size: 0.78rem; color: var(--cream-muted); margin-bottom: 0.7rem; }
+.calc-label-row strong { color: var(--red-bright); font-variant-numeric: tabular-nums; font-size: 0.95rem; }
+.calc-slider { -webkit-appearance: none; appearance: none; width: 100%; height: 5px; border-radius: 3px; background: var(--border-bright); outline: none; cursor: pointer; }
+.calc-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: var(--red-bright); cursor: pointer; box-shadow: 0 0 10px rgba(232,32,32,0.6); border: 2px solid var(--black); }
+.calc-slider::-moz-range-thumb { width: 16px; height: 16px; border-radius: 50%; background: var(--red-bright); cursor: pointer; border: 2px solid var(--black); }
+.calc-scale { display: flex; justify-content: space-between; font-size: 0.58rem; color: var(--cream-dim); margin-top: 0.4rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.calc-result { margin-top: 1.8rem; padding: 1.8rem 1.2rem; background: var(--dark); border: 1px solid var(--red-dim); text-align: center; transition: border-color 0.3s ease; }
+.calc-result-num { font-size: clamp(2.4rem, 7vw, 3.6rem); font-weight: 800; color: var(--red-bright); line-height: 1; font-variant-numeric: tabular-nums; transition: color 0.3s ease; }
+.calc-result-label { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cream-dim); margin-top: 0.7rem; }
+.calc-result.fast .calc-result-num { color: #4ade80; }
+.calc-result.fast { border-color: #2d6a4f; }
+.calc-note { font-size: 0.65rem; color: var(--cream-dim); margin-top: 1.2rem; line-height: 1.65; }
+
+/* QUOTE CAROUSEL */
+.quote-carousel { margin: 3.5rem 0; background: var(--card); border: 1px solid var(--border-bright); border-top: 3px solid var(--red-bright); padding: 2.2rem 1.9rem; position: relative; overflow: hidden; }
+.quote-carousel-label { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 1.6rem; }
+.quote-slide { display: none; min-height: 140px; }
+.quote-slide.active { display: block; animation: fadeIn 0.4s ease; }
+.quote-slide .quote-mark-big { font-size: 2.4rem; color: var(--red-dim); line-height: 0.5; display: block; margin-bottom: 0.6rem; }
+.quote-slide .quote-text { font-size: clamp(1.1rem, 2.6vw, 1.35rem); font-weight: 600; color: var(--white); line-height: 1.5; margin-bottom: 1rem; text-align: left; }
+.quote-slide.paraphrase .quote-text { font-style: italic; font-weight: 500; color: var(--cream); }
+.quote-slide .quote-tag { display: inline-block; font-size: 0.56rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cream-dim); border: 1px solid var(--border-bright); padding: 0.2rem 0.55rem; margin-bottom: 0.9rem; }
+.quote-slide .quote-attribution { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--red-bright); }
+.quote-slide .quote-context { font-size: 0.8rem; color: var(--cream-muted); margin-top: 0.5rem; line-height: 1.6; text-align: left; }
+.quote-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 1.8rem; padding-top: 1.4rem; border-top: 1px solid var(--border-bright); }
+.quote-dots { display: flex; gap: 0.55rem; }
+.quote-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border-bright); cursor: pointer; border: none; padding: 0; transition: background 0.2s ease, transform 0.2s ease; }
+.quote-dot.active { background: var(--red-bright); transform: scale(1.25); }
+.quote-arrows { display: flex; gap: 0.6rem; }
+.quote-arrow { background: var(--dark); border: 1px solid var(--border-bright); color: var(--cream); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-size: 0.95rem; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease; }
+.quote-arrow:hover { border-color: var(--red-bright); color: var(--red-bright); }
+
+/* EXPANDABLE PROOF CARDS */
+.proof-item.expandable { cursor: pointer; align-items: flex-start; }
+.proof-item.expandable .proof-body { flex: 1; }
+.proof-item.expandable .proof-toggle { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red-bright); margin-top: 0.35rem; display: inline-block; }
+.proof-detail { max-height: 0; overflow: hidden; transition: max-height 0.35s ease, margin-top 0.35s ease; font-size: 0.78rem; color: var(--cream-dim); line-height: 1.6; margin-top: 0; text-align: left; }
+.proof-item.expandable.open .proof-detail { max-height: 200px; margin-top: 0.6rem; }
+.proof-item.expandable.open .proof-toggle { color: var(--cream-dim); }
+
+.bar-row.compact { margin-bottom: 0.9rem; }
+
 @media (max-width: 600px) {
-  .pull-quote { margin: 2.2rem 0; padding: 1.4rem; }
+  .pull-quote { margin: 2.5rem 0; padding: 1.5rem; }
   .article-wrap { padding: 3rem 1.25rem; }
   .countdown-timer { gap: 1rem; }
-  .dossier { padding: 1.4rem 1.2rem; }
+  .dossier { padding: 1.5rem 1.3rem; }
   .dossier-stats { grid-template-columns: 1fr; }
   .crowd-grid { grid-template-columns: repeat(18, 1fr); }
   .verdict-row { flex-direction: column; align-items: flex-start; gap: 0.6rem; }
+  .calc-block { padding: 1.5rem 1.3rem; }
+  .quote-carousel { padding: 1.7rem 1.3rem; }
 }
 </style>
 </head>
 <body>
 
+<!-- TICKER -->
 <div class="ticker-wrap">
   <div class="ticker-inner">
     <div class="ticker-track">
-      <span>5.2 crore Indians removed from electoral rolls</span><span class="ticker-dot">&#9679;</span>
-      <span>Calcutta HC: SIR appeals will take 21 years to clear</span><span class="ticker-dot">&#9679;</span>
-      <span>Saleha Khatun deportation stay expires July 16</span><span class="ticker-dot">&#9679;</span>
-      <span>Delhi SIR underway: 13,000+ officers, 1.45 crore voters</span><span class="ticker-dot">&#9679;</span>
-      <span>Sirajul Shekh denied passport: court says prove citizenship first</span><span class="ticker-dot">&#9679;</span>
-      <span>Phase III: 16 states, 36.73 crore electors, Supreme Court certified</span><span class="ticker-dot">&#9679;</span>
-      <span>5.2 crore Indians removed from electoral rolls</span><span class="ticker-dot">&#9679;</span>
-      <span>Calcutta HC: SIR appeals will take 21 years to clear</span><span class="ticker-dot">&#9679;</span>
-      <span>Saleha Khatun deportation stay expires July 16</span><span class="ticker-dot">&#9679;</span>
-      <span>Delhi SIR underway: 13,000+ officers, 1.45 crore voters</span><span class="ticker-dot">&#9679;</span>
-      <span>Sirajul Shekh denied passport: court says prove citizenship first</span><span class="ticker-dot">&#9679;</span>
-      <span>Phase III: 16 states, 36.73 crore electors, Supreme Court certified</span><span class="ticker-dot">&#9679;</span>
+      <span>5.2 crore Indians removed from electoral rolls</span>
+      <span class="ticker-dot">&#9679;</span>
+      <span>Calcutta HC: SIR appeals will take 21 years to clear</span>
+      <span class="ticker-dot">&#9679;</span>
+      <span>Saleha Khatun deportation stay expires July 16</span>
+      <span class="ticker-dot">&#9679;</span>
+      <span>Delhi SIR underway: 13,000+ officers, 1.45 crore voters</span>
+      <span class="ticker-dot">&#9679;</span>
+      <span>Sirajul Shekh denied passport: court says prove citizenship first</span>
+      <span class="ticker-dot">&#9679;</span>
+      <span>33+ BLO deaths reported nationwide amid SIR workload</span>
+      <span class="ticker-dot">&#9679;</span>
+      <span>Phase III: 16 states, 36.73 crore electors, Supreme Court certified</span>
+      <span class="ticker-dot">&#9679;</span>
+      <span>5.2 crore Indians removed from electoral rolls</span>
+      <span class="ticker-dot">&#9679;</span>
+      <span>Calcutta HC: SIR appeals will take 21 years to clear</span>
+      <span class="ticker-dot">&#9679;</span>
+      <span>Saleha Khatun deportation stay expires July 16</span>
+      <span class="ticker-dot">&#9679;</span>
+      <span>Delhi SIR underway: 13,000+ officers, 1.45 crore voters</span>
+      <span class="ticker-dot">&#9679;</span>
+      <span>Sirajul Shekh denied passport: court says prove citizenship first</span>
+      <span class="ticker-dot">&#9679;</span>
+      <span>33+ BLO deaths reported nationwide amid SIR workload</span>
+      <span class="ticker-dot">&#9679;</span>
+      <span>Phase III: 16 states, 36.73 crore electors, Supreme Court certified</span>
+      <span class="ticker-dot">&#9679;</span>
     </div>
   </div>
 </div>
 
+<!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-noise"></div>
   <div class="hero-map-bg" id="heroNameGrid"></div>
-  <div class="hero-tag"><span class="live-dot"></span>India &nbsp;&middot;&nbsp; Special Intensive Revision</div>
-  <div class="hero-counter" id="counterDisplay">0</div>
-  <p class="hero-counter-label">Indians removed from electoral rolls, and counting</p>
-  <h1 class="hero-title">The Machine That Erases You</h1>
-  <div class="hero-deck hero-deck-staged">
-    <p class="stage stage-1">Tomorrow, someone will have to prove they exist.</p>
-    <p class="stage stage-4">It might be you.</p>
+  <div class="hero-tag">
+    <span class="live-dot"></span>
+    India &nbsp;&middot;&nbsp; Special Intensive Revision
   </div>
+  <div class="hero-counter" id="counterDisplay">5,20,00,000</div>
+  <p class="hero-counter-label">Indians removed from electoral rolls</p>
+  <div class="hero-divider"></div>
+  <h1 class="hero-title">The Machine That Erases You</h1>
+  <p class="hero-deck">Tomorrow, someone will have to prove they exist.<br>It might be you.</p>
   <div class="scroll-cue">Read</div>
 </section>
 
+<!-- ARTICLE -->
 <main class="article-wrap">
 
   <div class="body">
-    <p>In December 2025, a woman named Aheda Khatun was walked across the Bangladesh border and left there. Not deported to a homeland. Exiled to a country she had never once set foot in. She had lived her whole life in Assam, in the same district her parents had. A tribunal in Nagaon had decided in 2019 that she could not prove the link to those parents, never mind that four separate voter lists carried their names next to hers. Six years of appeals later, a High Court threw the case out, not because her documents were bad, but because she filed too late. Nobody read the documents. She is still in Bangladesh. Her brother is arguing her case now, because she cannot.</p>
-    <p class="tight">That is not a glitch in the system. It is the system working exactly as designed.</p>
+    <p>In December 2025, Aheda Khatun was pushed across the border into Bangladesh.</p>
+    <p>She had lived in Assam her entire life, in the same district her parents had. What she also had, since a Foreigners' Tribunal in Nagaon ruled in 2019 that she had failed to prove the link to her own parents, was a status the state uses instead of a name: <span class="mono">Declared Foreigner.</span></p>
+    <p>That ruling set a clock running. Detention. A writ petition. The Gauhati High Court dismissed her case in August 2025, not on the merits of anything she had submitted, but because she was six years late in filing. Weeks later, she was deported to a country she had never lived in. She is still there. Her case is now before the Supreme Court, argued through an affidavit her brother filed on her behalf, because she cannot appear to speak for herself.</p>
   </div>
 
+  <!-- CASE DOSSIER: AHEDA KHATUN -->
   <div class="dossier">
     <div class="dossier-watermark">01</div>
-    <div class="dossier-meta"><span>Case File, Assam</span><strong>Deported, December 2025</strong></div>
-    <h3>Aheda Khatun, 44, widow, Nagaon: filed nine documents, was heard on none of them</h3>
-    <p>Four voter lists. A registered gift deed. A school certificate. Her own headmaster's testimony. The gift deed was thrown out over a state emblem the tribunal called irregular. The High Court never weighed any of it, it ruled on a filing delay and moved on. She was deported to a country she had spent exactly zero days in.</p>
+    <div class="dossier-meta">
+      <span>Case File, Assam</span>
+      <strong>Deported, December 2025</strong>
+    </div>
+    <h3>Aheda Khatun, 44, widow, Nagaon: "Foreigner of post-1971 stream"</h3>
+    <p>Nine documents were submitted on her behalf over the years, including four consecutive voter lists carrying her parents' names, a registered gift deed, a school certificate, and testimony from her own headmaster. The gift deed was rejected on a technicality, it bore a state emblem the tribunal called irregular. None of the nine were ever weighed by the High Court. It ruled on the delay in her filing alone, and the deportation followed.</p>
     <div class="dossier-stats">
-      <div class="dossier-stat"><b>9</b><span>Documents filed</span></div>
-      <div class="dossier-stat"><b>28</b><span>Years in proceedings</span></div>
-      <div class="dossier-stat"><b>0</b><span>Days lived in Bangladesh, before deportation there</span></div>
+      <div class="dossier-stat"><b>9</b><span>Documents Filed</span></div>
+      <div class="dossier-stat"><b>28</b><span>Years In Proceedings</span></div>
+      <div class="dossier-stat"><b>0</b><span>Days She Had Lived In Bangladesh Before Being Sent There</span></div>
     </div>
     <p class="dossier-source">Source: The India Forum, Gauhati High Court order, August 2025</p>
   </div>
 
+  <!-- COUNTDOWN -->
   <div class="countdown-block">
-    <div class="countdown-status"><span class="live-dot"></span>Active Supreme Court deadline</div>
-    <p class="countdown-name">Saleha Khatun &amp; Sarbhanu Begum &nbsp;&middot;&nbsp; Goalpara Detention Camp, Assam<br>Status-quo protection expires</p>
+    <div class="countdown-status">
+      <span class="live-dot"></span>
+      Active Supreme Court Deadline
+    </div>
+    <p class="countdown-name">
+      Saleha Khatun &amp; Sarbhanu Begum &nbsp;&middot;&nbsp; Goalpara Detention Camp, Assam<br>
+      Status-quo protection expires
+    </p>
     <div class="countdown-timer">
       <div class="countdown-unit"><span class="countdown-num" id="cd-days">--</span><div class="countdown-unit-label">Days</div></div>
       <div class="countdown-unit"><span class="countdown-num" id="cd-hours">--</span><div class="countdown-unit-label">Hours</div></div>
       <div class="countdown-unit"><span class="countdown-num" id="cd-mins">--</span><div class="countdown-unit-label">Minutes</div></div>
       <div class="countdown-unit"><span class="countdown-num" id="cd-secs">--</span><div class="countdown-unit-label">Seconds</div></div>
     </div>
-    <p class="countdown-sub">July 16, 2026 &nbsp;&middot;&nbsp; Next Supreme Court hearing</p>
+    <p class="countdown-sub">July 16, 2026 &nbsp;&middot;&nbsp; Next Supreme Court Hearing</p>
   </div>
 
   <div class="body">
-    <p>Two women are sitting in that camp today under an order that runs out on the date above. Saleha Khatun, 50, cannot read or write. Sarbhanu Begum's own name shows up spelled three different ways across her own government records, "Sarbhanu," "Sorbhanu," "Saharbhanu," and that inconsistency is being used against her. A vacation bench bought them a few more weeks. Whether it becomes a few more years depends on what happens on the clock above.</p>
-    <p>On May 27 the Supreme Court looked at the machine feeding that camp and told the entire country to go ahead and build one too. Full marks for constitutionality, basically. Then it waved the thing into sixteen more states. Delhi's version started June 30. So did Karnataka's. Right now, while you're reading this, something close to four lakh officers are going door to door across India making people prove who they are. Phase III alone is 36.73 crore people. By December, everywhere except Himachal, Jammu and Kashmir, and Ladakh gets the same knock.</p>
+    <p>Right now, today, four women are sitting in the Goalpara detention camp in Assam under a status-quo order, waiting to find out if the Court extends it. Saleha Khatun, 50, illiterate, detained since March 2, declared a foreigner by a tribunal in 2018 and confirmed by the Gauhati High Court in December 2025. Sarbhanu Begum, whose citizenship claim was rejected because her name appeared in different official records as <em>"Sarbhanu," "Sorbhanu," and "Saharbhanu."</em> Three spelling variations, decades in India. Not enough. A vacation bench granted them interim protection and listed the matter for July 16, the date on the clock above.</p>
+    <p>The same Supreme Court, on May 27, looked at what feeds this pipeline and gave it a constitutional blessing: it upheld the Special Intensive Revision in full, calling it within the Election Commission's mandate, then let it expand to sixteen more states.</p>
+    <p>Delhi's turn began June 30. So did Karnataka's. Nearly four lakh booth-level officers are going door-to-door, right now, across the country. Phase III alone covers 36.73 crore Indians. The entire country, except Himachal Pradesh, Jammu &amp; Kashmir and Ladakh, before the year ends.</p>
   </div>
 
-  <div class="section-header"><span class="section-eyebrow">01 / The Machine</span><h2 class="section-title">What a voter list now decides</h2></div>
+  <!-- SECTION 1 -->
+  <div class="section-header">
+    <span class="section-eyebrow">01 / The Machine</span>
+    <h2 class="section-title">What the roll now decides</h2>
+  </div>
 
   <div class="stat-grid">
-    <div class="stat-card" data-detail="7.2 crore names deleted against 2 crore fresh additions, net 5.2 crore. Bihar alone lost 47 lakh in the first round.">
-      <div class="stat-number">5.2 Cr</div><div class="stat-label">Net deletions so far</div>
-      <div class="stat-detail">7.2 crore deleted, 2 crore re-added. That gap is the net figure. Nobody who fell into it got a personal explanation.</div>
-      <div class="stat-toggle">tap for detail</div>
-    </div>
-    <div class="stat-card" data-detail="West Bengal">
-      <div class="stat-number">91 L</div><div class="stat-label">West Bengal deletions</div>
-      <div class="stat-detail">Ration cards for flagged families were cancelled immediately, before any appeal, on the database flag alone.</div>
-      <div class="stat-toggle">tap for detail</div>
-    </div>
-    <div class="stat-card" data-detail="21 years">
-      <div class="stat-number">21 yrs</div><div class="stat-label">To clear the appeals backlog</div>
-      <div class="stat-detail">That is the Calcutta High Court's own estimate, at the current pace, for its own appeal queue. Not an activist's number. The court's.</div>
-      <div class="stat-toggle">tap for detail</div>
-    </div>
-    <div class="stat-card" data-detail="Bihar">
-      <div class="stat-number">47 L</div><div class="stat-label">Bihar, Phase I</div>
-      <div class="stat-detail">Bihar voted on this roll in November 2025. The Supreme Court did not rule on whether the exercise was even legal until six months later.</div>
-      <div class="stat-toggle">tap for detail</div>
-    </div>
+    <div class="stat-card"><div class="stat-number">5.2 Cr</div><div class="stat-label">Net deletions across 12+ states</div></div>
+    <div class="stat-card"><div class="stat-number">91 L</div><div class="stat-label">West Bengal deletions</div></div>
+    <div class="stat-card"><div class="stat-number">21 yrs</div><div class="stat-label">HC estimate to clear WB appeals at current pace</div></div>
+    <div class="stat-card"><div class="stat-number">47 L</div><div class="stat-label">Bihar voters removed in Phase I</div></div>
   </div>
 
+  <!-- CHART: deletions by state -->
   <div class="chart-block">
-    <div class="chart-title">Names deleted, by state, since 2025 &nbsp;&middot;&nbsp; click a bar</div>
-    <div class="bar-row" data-extra="India's first ever election in 1951-52 had a total electorate of roughly 17.3 crore. Uttar Pradesh's deletions alone are already more than a tenth of that founding number.">
-      <div class="bar-label-row"><span>Uttar Pradesh</span><strong>2.04 Cr</strong></div>
-      <div class="bar-track"><div class="bar-fill" data-pct="100"></div></div>
-      <div class="bar-extra"></div>
-    </div>
-    <div class="bar-row" data-extra="Ration card cancellations followed the same flag, no appeal required first.">
-      <div class="bar-label-row"><span>West Bengal</span><strong>91 L</strong></div>
-      <div class="bar-track"><div class="bar-fill" data-pct="45"></div></div>
-      <div class="bar-extra"></div>
-    </div>
-    <div class="bar-row" data-extra="This is the roll the November 2025 state election was actually fought on.">
-      <div class="bar-label-row"><span>Bihar</span><strong>47 L</strong></div>
-      <div class="bar-track"><div class="bar-fill" data-pct="23"></div></div>
-      <div class="bar-extra"></div>
-    </div>
-    <div class="bar-row" data-extra="Draft figures only, the final Uttarakhand count is still being finalised as enumeration continues.">
-      <div class="bar-label-row"><span>Uttarakhand, draft</span><strong>~12.8 L</strong></div>
-      <div class="bar-track"><div class="bar-fill" data-pct="6"></div></div>
-      <div class="bar-extra"></div>
-    </div>
-    <p class="chart-note">Figures are net or gross deletions as reported by the Election Commission and state Chief Electoral Officers at each stage. Cut-off dates and methodology differ by state. The Commission's own national running count, gross rather than net, is nearing six crore, with over 5.18 crore removed in the second phase alone. Phase III is still underway and will add more.</p>
+    <div class="chart-title">Names Deleted, By State &nbsp;&middot;&nbsp; Since 2025</div>
+    <div class="bar-row"><div class="bar-label-row"><span>Uttar Pradesh</span><strong>2.04 Cr</strong></div><div class="bar-track"><div class="bar-fill" data-pct="100"></div></div></div>
+    <div class="bar-row"><div class="bar-label-row"><span>West Bengal</span><strong>91 L</strong></div><div class="bar-track"><div class="bar-fill" data-pct="45"></div></div></div>
+    <div class="bar-row"><div class="bar-label-row"><span>Bihar</span><strong>47 L</strong></div><div class="bar-track"><div class="bar-fill" data-pct="23"></div></div></div>
+    <div class="bar-row"><div class="bar-label-row"><span>Uttarakhand (draft)</span><strong>~12.8 L</strong></div><div class="bar-track"><div class="bar-fill" data-pct="6"></div></div></div>
+    <p class="chart-note">Figures are net or gross deletions as reported by the ECI and state CEOs at each stage; methodology and cut-off dates vary by state. The Election Commission's own running national count, gross rather than net, is now nearing six crore, with more than 5.18 crore deleted in the second phase alone. Phase III (16 states + Delhi, Chandigarh and 2 more UTs) is still underway and will add far more.</p>
   </div>
 
   <div class="body">
     <p>Officially this is housekeeping. Clean the rolls, cut the duplicates, nothing to see here. In practice the 2003 electoral roll turned into a wall. Can't trace your name, or your father's, back to it? You get one month, and an enumerator with a clipboard gets to decide whether whatever you bring is good enough. The official term for most of what gets caught is "logical discrepancy," which is government-speak for a spelling mismatch, or a name that got transliterated one way in 2003 and another way in 2024, or your own father's name written differently by two clerks who never met each other, forty years apart. None of it your fault. All of it now your problem.</p>
+    <p>Across the states processed so far, a net 5.2 crore Indians have been removed, deletions of 7.2 crore names against 2 crore fresh additions. India's first general election, in 1951-52, had a total electorate of about 17.3 crore. The people removed so far are already close to a third of that founding number.</p>
     <p>The Election Commission has a word for the whole thing: <em>purification</em>. Say that out loud. A voter list is not supposed to decide whether you get to keep being a citizen. This one just does, casually, and calls it cleaning.</p>
   </div>
 
   <div class="chart-block">
-    <div class="chart-title">How one deletion travels</div>
+    <div class="chart-title">How One Deletion Travels</div>
     <div class="flow-list">
-      <div class="flow-step"><span class="flow-num">1</span><div class="flow-text"><strong>Your name gets flagged.</strong> A spelling mismatch, a missing 2003 entry, a father's name recorded two different ways. The system calls it a "logical discrepancy."</div></div>
-      <div class="flow-step"><span class="flow-num">2</span><div class="flow-text"><strong>You get one month.</strong> Bring documents an enumerator may or may not accept, ask Aheda Khatun's family what happened to a certified gift deed rejected over a state emblem.</div></div>
-      <div class="flow-step"><span class="flow-num">3</span><div class="flow-text"><strong>You are deleted.</strong> The voter ID your passport, bank KYC, and ration card quietly lean on stops working, all at once, without warning.</div></div>
-      <div class="flow-step"><span class="flow-num">4</span><div class="flow-text"><strong>The deletion becomes a doubt.</strong> Per the May 27 order, flagged names can be referred to the Citizenship Act's Competent Authority, the same track that in Assam runs straight into a Foreigners Tribunal.</div></div>
-      <div class="flow-step"><span class="flow-num">5</span><div class="flow-text"><strong>The burden flips.</strong> Not the state's job to prove you don't belong. Your job to prove you do, with paperwork decades old, against a tribunal backlog Bengal's own High Court put at 21 years.</div></div>
-      <div class="flow-step last"><span class="flow-num">6</span><div class="flow-text"><strong>If you lose, or never even find out you were on trial:</strong> detention, and in Assam, deportation to a country you may have never set foot in.</div></div>
+      <div class="flow-step">
+        <span class="flow-num">1</span>
+        <div class="flow-text"><strong>Your name is flagged.</strong> A spelling mismatch, a missing 2003 baseline entry, a father's name recorded differently by two clerks. The system calls this a "logical discrepancy."</div>
+      </div>
+      <div class="flow-step">
+        <span class="flow-num">2</span>
+        <div class="flow-text"><strong>You get a month to respond.</strong> With documents the enumerator may or may not accept, as Aheda Khatun's family found out when a certified gift deed was rejected over a state emblem.</div>
+      </div>
+      <div class="flow-step">
+        <span class="flow-num">3</span>
+        <div class="flow-text"><strong>You are deleted from the roll.</strong> Your voter ID number, the one your passport, bank KYC and ration card quietly depend on, stops working.</div>
+      </div>
+      <div class="flow-step">
+        <span class="flow-num">4</span>
+        <div class="flow-text"><strong>The deletion becomes a doubt.</strong> Per the Supreme Court's May 27 order, flagged names can now be referred to the Citizenship Act's Competent Authority, a track that in Assam runs into Foreigners Tribunals.</div>
+      </div>
+      <div class="flow-step">
+        <span class="flow-num">5</span>
+        <div class="flow-text"><strong>The burden is now yours.</strong> Not the state's. You must prove, with paperwork often decades old, that you belong. Tribunal backlogs in Bengal alone run an estimated 21 years.</div>
+      </div>
+      <div class="flow-step last">
+        <span class="flow-num">6</span>
+        <div class="flow-text"><strong>If you lose, or never find out you were being tried:</strong> detention, and in Assam's case, deportation to a country you may never have set foot in.</div>
+      </div>
     </div>
   </div>
 
-  <div class="pull-quote"><p>"Unless declared to be a citizen of India, you cannot be given a passport."</p><cite>Justice Kausik Chanda, Calcutta High Court, Jalpaiguri circuit bench, July 2026, to a man who needed to travel for surgery</cite></div>
+  <div class="pull-quote">
+    <p>"Unless declared to be a citizen of India, you cannot be given a passport."</p>
+    <cite>Justice Kausik Chanda, Calcutta High Court (Jalpaiguri circuit bench), July 2026, to Sirajul Shekh, a man who needed to travel for medical treatment</cite>
+  </div>
 
+  <!-- CASE DOSSIER: SIRAJUL SHEKH -->
   <div class="dossier">
     <div class="dossier-watermark">02</div>
-    <div class="dossier-meta"><span>Case File, West Bengal</span><strong>Denied, July 2026</strong></div>
-    <h3>Sirajul Shekh, Cooch Behar: needs surgery abroad, cannot get a passport to go</h3>
-    <p>The SIR wiped his voter ID in March. Passport Seva froze the renewal. The High Court's answer: go prove your citizenship first, through a tribunal system the court's own bench admits could take two decades to work through.</p>
+    <div class="dossier-meta">
+      <span>Case File, West Bengal</span>
+      <strong>Denied, July 2026</strong>
+    </div>
+    <h3>Sirajul Shekh, Cooch Behar: needs surgery abroad, cannot get a passport</h3>
+    <p>His voter ID number was invalidated when the SIR deleted his name in March. Passport Seva put his renewal on hold. The Calcutta High Court declined to intervene: prove citizenship first, through a tribunal system it itself said could take 21 years to clear the backlog.</p>
     <div class="dossier-stats">
-      <div class="dossier-stat"><b>21</b><span>Years, the court's own backlog estimate</span></div>
-      <div class="dossier-stat"><b>1</b><span>Voter ID invalidated in March</span></div>
-      <div class="dossier-stat"><b>&infin;</b><span>Days until surgery can be scheduled</span></div>
+      <div class="dossier-stat"><b>21</b><span>Years, HC Estimate To Clear The Backlog</span></div>
+      <div class="dossier-stat"><b>1</b><span>Voter ID Number Invalidated In March</span></div>
+      <div class="dossier-stat"><b>&infin;</b><span>Days Until His Surgery Can Be Scheduled</span></div>
     </div>
     <p class="dossier-source">Source: LiveLaw, Calcutta High Court order, July 2026</p>
   </div>
 
-  <div class="alert-box"><span class="alert-label">The trap, stated plainly</span><p>You need to prove citizenship to get a passport. A passport, by the government's own admission, does not prove citizenship. The tribunals that could settle the question have a backlog a High Court bench itself measured this month at 21 years. There is no fast lane out of that loop. That is not an accident of bureaucracy, it is the shape of the system.</p></div>
-
-  <div class="chart-block">
-    <div class="chart-title">What counts as proof, and what gets thrown out</div>
-    <div class="proof-grid">
-      <div class="proof-item"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" class="proof-ring accept"/><path d="M12 20 L18 27 L29 13" class="proof-mark accept"/></svg><span>A voter list entry, but only from the one date the Commission accepts</span></div>
-      <div class="proof-item reject"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" class="proof-ring reject"/><path d="M13 13 L27 27 M27 13 L13 27" class="proof-mark reject"/></svg><span>Village-head certificate, rejected in Aheda Khatun's case over a state emblem</span></div>
-      <div class="proof-item reject"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" class="proof-ring reject"/><path d="M13 13 L27 27 M27 13 L13 27" class="proof-mark reject"/></svg><span>Registered gift deed and land records, rejected over a spelling mismatch</span></div>
-      <div class="proof-item reject"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" class="proof-ring reject"/><path d="M13 13 L27 27 M27 13 L13 27" class="proof-mark reject"/></svg><span>Matriculation certificate, filed by R. Rajagopal, rejected with no reason given at all</span></div>
-      <div class="proof-item"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" class="proof-ring neutral"/><path d="M20 11 L20 23 M20 28 L20 29" class="proof-mark neutral"/></svg><span>Aadhaar, ration card, passport, none of these stands alone, each just points back to the others</span></div>
-    </div>
-    <p class="chart-note">The burden of proving continuous Indian ancestry sits entirely with the individual. A tribunal or an enumerator decides, one case at a time, which decades-old paper is good enough.</p>
+  <div class="alert-box">
+    <span class="alert-label">The trap, stated plainly</span>
+    <p>You need to prove citizenship to get a passport. A passport does not prove citizenship, and India's own Ministry of External Affairs has said so. The tribunals that could establish your status face a backlog a Calcutta High Court bench estimated, this month, would take 21 years to clear. That is not an accident of bureaucracy. That is the shape of the system.</p>
   </div>
 
+  <!-- INTERACTIVE: TRIBUNAL BACKLOG CALCULATOR -->
+  <div class="calc-block">
+    <div class="chart-title">Try It Yourself &nbsp;&middot;&nbsp; Why 21 Years</div>
+    <div class="calc-row">
+      <div class="calc-label-row"><span>Appellate tribunals active</span><strong id="calcTribunalsVal">19</strong></div>
+      <input type="range" min="19" max="500" value="19" step="1" class="calc-slider" id="calcTribunals">
+      <div class="calc-scale"><span>19 (actual, July 2026)</span><span>500</span></div>
+    </div>
+    <div class="calc-row">
+      <div class="calc-label-row"><span>Appeals cleared, per tribunal, per month</span><strong id="calcRateVal">4</strong></div>
+      <input type="range" min="1" max="20" value="4" step="1" class="calc-slider" id="calcRate">
+      <div class="calc-scale"><span>1 (slower)</span><span>20 (faster)</span></div>
+    </div>
+    <div class="calc-result" id="calcResult">
+      <div class="calc-result-num" id="calcYears">21.0</div>
+      <div class="calc-result-label">Years to clear the estimated backlog</div>
+    </div>
+    <p class="calc-note">Illustrative model, not an official figure: it holds an estimated pending-appeals backlog fixed at roughly 19,000, derived from the reported pace of 136 appeals decided by 19 functioning tribunals over about two months, and scales it against the sliders above. At those actual, real-world settings, the model lands on the same roughly 21 years a Calcutta High Court bench cited this month. Drag either slider to see what it would actually take to clear it faster.</p>
+  </div>
+
+  <!-- BURDEN OF PROOF VISUAL, INTERACTIVE -->
+  <div class="chart-block">
+    <div class="chart-title">What Counts As Proof, And What Does Not &nbsp;&middot;&nbsp; Tap A Card</div>
+    <div class="proof-grid">
+      <div class="proof-item expandable">
+        <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" class="proof-ring accept"/><path d="M12 20 L18 27 L29 13" class="proof-mark accept"/></svg>
+        <div class="proof-body">
+          <span>Voter list entry, if it is the one date the ECI accepts</span>
+          <span class="proof-toggle">+ Why</span>
+          <div class="proof-detail">The 2003 electoral roll is treated as the baseline of truth for the entire exercise. If your name or your parent's name cannot be traced there, every other document becomes an uphill argument rather than settled proof.</div>
+        </div>
+      </div>
+      <div class="proof-item expandable reject">
+        <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" class="proof-ring reject"/><path d="M13 13 L27 27 M27 13 L13 27" class="proof-mark reject"/></svg>
+        <div class="proof-body">
+          <span>Gaonburah / village-head certificate, rejected in Aheda Khatun's case for bearing a state emblem</span>
+          <span class="proof-toggle">+ Why</span>
+          <div class="proof-detail">The tribunal called the certificate's use of a state emblem irregular and set it aside on that technicality. It was never weighed against the four voter lists and the school certificate submitted alongside it.</div>
+        </div>
+      </div>
+      <div class="proof-item expandable reject">
+        <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" class="proof-ring reject"/><path d="M13 13 L27 27 M27 13 L13 27" class="proof-mark reject"/></svg>
+        <div class="proof-body">
+          <span>Registered gift deed and land records, rejected for a name spelling mismatch</span>
+          <span class="proof-toggle">+ Why</span>
+          <div class="proof-detail">A name transliterated slightly differently by two clerks, decades apart, was read as a discrepancy rather than the same person. The document's legal registration did not outweigh the spelling.</div>
+        </div>
+      </div>
+      <div class="proof-item expandable reject">
+        <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" class="proof-ring reject"/><path d="M13 13 L27 27 M27 13 L13 27" class="proof-mark reject"/></svg>
+        <div class="proof-body">
+          <span>Matriculation certificate, submitted by R. Rajagopal, no reason given for non-acceptance</span>
+          <span class="proof-toggle">+ Why</span>
+          <div class="proof-detail">A former newspaper editor with a public profile still waited over 100 days and needed the Editors Guild and the Press Club of India to intervene before the same document was finally accepted.</div>
+        </div>
+      </div>
+      <div class="proof-item expandable">
+        <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" class="proof-ring neutral"/><path d="M20 11 L20 23 M20 28 L20 29" class="proof-mark neutral"/></svg>
+        <div class="proof-body">
+          <span>Aadhaar, ration card, passport, none is a substitute; each depends on the others</span>
+          <span class="proof-toggle">+ Why</span>
+          <div class="proof-detail">A passport needs proven citizenship. Citizenship proceedings run through tribunals with a 21-year backlog. Ration cards are cancelled the moment the SIR flags a name. Each document leans on one of the others, and none of them can stand alone.</div>
+        </div>
+      </div>
+    </div>
+    <p class="chart-note">The burden of proving continuous Indian ancestry sits entirely with the individual. The tribunal or enumerator decides, case by case, which decades-old document is good enough.</p>
+  </div>
+
+  <!-- CASE DOSSIER: RAJAGOPAL -->
   <div class="dossier">
     <div class="dossier-watermark">03</div>
-    <div class="dossier-meta"><span>Case File, Kolkata</span><strong>Resolved July 4, 100+ days late</strong></div>
-    <h3>R. Rajagopal, former newspaper editor: missed his daughter's wedding waiting on a passport</h3>
-    <p>Deleted from the Ballygunge roll in March over a "logical discrepancy" traced to a 2002 list. An adverse police report stalled his renewal. He missed his daughter's wedding in San Francisco on April 17, holding a valid ten-year US visa he could not use. It took an MP, a letter from one chief minister to another, and national headlines before the passport turned up by speed post on July 4. "I was an editor once," he wrote. "Today I am voteless, passportless, a football kicked around like millions of Indians." He did not sound relieved when it arrived. He sounded tired, and he asked the only question that matters: what about everyone whose name nobody recognises.</p>
+    <div class="dossier-meta">
+      <span>Case File, Kolkata</span>
+      <strong>Resolved July 4, after 100+ days</strong>
+    </div>
+    <h3>R. Rajagopal, former editor, The Telegraph: missed his daughter's wedding, got his passport 100 days late</h3>
+    <p>Name deleted from the Ballygunge roll in March over "logical discrepancies" tracing to a 2002 list. Passport renewal stalled by an adverse police report. He missed his daughter's wedding in San Francisco on April 17 despite holding a valid ten year US visa. It took an MP's intervention and a letter from Kerala's Chief Minister to West Bengal's before the passport arrived by speed post on July 4.</p>
     <div class="dossier-stats">
-      <div class="dossier-stat"><b>100+</b><span>Days without a passport</span></div>
-      <div class="dossier-stat"><b>2</b><span>Chief ministers pulled in</span></div>
-      <div class="dossier-stat"><b>1</b><span>Wedding missed</span></div>
+      <div class="dossier-stat"><b>100+</b><span>Days Without A Passport</span></div>
+      <div class="dossier-stat"><b>2</b><span>Chief Ministers Involved</span></div>
+      <div class="dossier-stat"><b>1</b><span>Wedding He Missed</span></div>
     </div>
     <p class="dossier-source">Source: The Wire, The Probe, PTI, July 2026</p>
   </div>
 
   <div class="body">
+    <p>He wrote about it himself: "I was an editor once. Today, I am voteless, passportless, a football kicked around like millions of Indians." When his passport finally arrived, he said he did not feel jubilant. It only took a phone call once the Editors Guild, the Press Club of India and national media had made his name impossible to ignore. He asked the obvious question in return: what about everyone whose case nobody picks up. For the 5.2 crore without a platform, there is no MP dialling the Ministry. The machine does not pause. It simply continues.</p>
     <p>West Bengal didn't wait for an appeal. The moment a name got flagged, the ration card tied to it got cancelled, no hearing, no finding of ineligibility, just a flag in a database and a family suddenly buying food at full price. Somewhere between 35 and 60 lakh cards are sitting in that limbo right now. The Supreme Court's move was to send the petitioners back to the Calcutta High Court, the same court that has already told you, on the record, that its own appeals queue needs 21 years.</p>
     <p>Adil Hossain studies citizenship for a living, which makes what happened to him almost funny, if it weren't happening to him. His own name got struck off the roll in Uttar Dinajpur. He had a passport. He had land records going back to the 1950s. None of it got there in time. His parents voted. His sister voted. He didn't. He's said plainly what this actually looks like from where he's standing, that tying a ration card to a voter roll doesn't tidy anything up, it sorts a country into people who count and people who don't. Not a new kind of voter. A new kind of citizen, or half of one. Say both words out loud and hear how different they are.</p>
   </div>
 
+  <!-- INTERACTIVE: BOTH SIDES -->
   <div class="chart-block sides-block">
-    <div class="chart-title">Two accounts of the same exercise, click to compare</div>
+    <div class="chart-title">Two Accounts Of The Same Exercise</div>
     <div class="sides-tabs">
-      <button class="sides-tab active" data-side="opp" type="button">What the opposition says</button>
-      <button class="sides-tab" data-side="ec" type="button">What the EC and government say</button>
+      <button class="sides-tab active" data-side="opp" type="button">What The Opposition Says</button>
+      <button class="sides-tab" data-side="ec" type="button">What The EC And Government Say</button>
     </div>
-    <div class="sides-panel active" data-panel="opp"><p>Twenty-three opposition parties and an independent MP wrote directly to the Chief Justice on June 30, saying they had run out of other options. Congress's Jairam Ramesh has called the exercise <span class="quote-mark">"a vote chori on a gigantic scale."</span> Trinamool Congress makes near-identical claims about West Bengal specifically.</p></div>
-    <div class="sides-panel" data-panel="ec"><p>The Commission says the goal is accuracy, stripping out dead, duplicate, shifted and ineligible entries, with a Booth Level Agent from every party watching the process. In Karnataka, Chief Minister D. K. Shivakumar has pushed back from the other side entirely, denying interference and inviting the Commission to probe any complaint directly.</p></div>
-    <p class="chart-note">Both sides are here because you deserve to read what each is actually arguing, not a summary filtered through the other.</p>
+    <div class="sides-panel active" data-panel="opp">
+      <p>Twenty-three opposition parties and an independent MP wrote to the Chief Justice of India on June 30, 2026, asking the judiciary to intervene because, in their words, they had run out of other options. Congress general secretary Jairam Ramesh has accused the Election Commission of functioning as an extension of the ruling party, calling the exercise <span class="quote-mark">"a vote chori on a gigantic scale."</span> Trinamool Congress has made similar allegations about West Bengal.</p>
+    </div>
+    <div class="sides-panel" data-panel="ec">
+      <p>The Election Commission maintains the goal is simply accuracy: removing dead, duplicate, shifted and ineligible entries so that only genuine citizens remain on the rolls, and that every party gets a Booth Level Agent to watch the process. In Karnataka, Chief Minister D. K. Shivakumar has pushed back on claims of bias from the other direction, telling reporters the government is not interfering and inviting the Commission to investigate any complaint directly.</p>
+    </div>
+    <p class="chart-note">Both accounts are here because you deserve to read what each side is actually arguing, not a summary filtered through the other.</p>
   </div>
-
-  <div class="body"><p>What nobody disputes is the arithmetic. The Commission's own figures put the national total near six crore deletions, with 5.18 crore in the second phase alone. Even inside Karnataka's ruling coalition the process has turned into a fight, BJP and JD(S) accuse booth officers of skipping doorstep visits for camps at community halls and mosques, Congress says those camps exist because nobody can physically knock on every slum door in a month, and both sides have now asked the state's own election officer to investigate the other. When the people running the exercise cannot agree it is being run fairly, that tells you something the topline numbers cannot.</p></div>
-
-  <div class="section-header"><span class="section-eyebrow">01a / The smaller fights</span><h2 class="section-title">Three arguments buried inside the big one</h2></div>
 
   <div class="body">
-    <p>Strip the politics away and three narrower fights remain. Each has already reached a courtroom.</p>
-    <p><strong style="color: var(--white);">Aadhaar.</strong> Bihar's SIR left Aadhaar off the accepted-document list on the theory that it proves identity, not citizenship. Petitioners pointed out Aadhaar is the one document almost every Indian actually holds, so excluding it excludes them too. The Court split the difference: Aadhaar stays off the core checklist but can be used later to file a claim. Chief Justice Surya Kant asked the question that should worry everyone, out loud, in open court: should a labourer handed an Aadhaar card to collect subsidised rations also get to vote on that basis alone?</p>
-    <p><strong style="color: var(--white);">The unexplained deletions.</strong> The Association for Democratic Reforms pulled Bihar's own Chief Electoral Officer records and found 9,968 of 3.66 lakh deleted names carried no stated reason whatsoever, not death, not migration, not duplication, nothing. The Commission says 99 percent of deletions are legitimate. Fine. What happens to the roughly one percent that is not, and to the people inside that one percent, is the actual question, and nobody has answered it.</p>
-    <p><strong style="color: var(--white);">Whose side the process is on.</strong> Justice Joymalya Bagchi told senior advocate Kapil Sibal, arguing for West Bengal and Kerala, that software catches duplicates but only a human catches a dead voter, and that whoever benefits from a dirty roll has every reason to keep it dirty. Fair point. It also landed, next to the Aadhaar exchange, as a moment where a routine cleanup turned, on the record, into an argument about who India's electoral machinery actually protects.</p>
+    <p>What nobody disputes is the arithmetic. The Commission's own figures put the national total near six crore deletions, with 5.18 crore in the second phase alone. Even inside Karnataka's ruling coalition the process has turned into a fight, BJP and JD(S) accuse booth officers of skipping doorstep visits for camps at community halls and mosques, Congress says those camps exist because nobody can physically knock on every slum door in a month, and both sides have now asked the state's own election officer to investigate the other. When the people running the exercise cannot agree it is being run fairly, that tells you something the topline numbers cannot.</p>
   </div>
 
-  <div class="section-header"><span class="section-eyebrow">02 / The precedent</span><h2 class="section-title">Assam already ran this experiment</h2></div>
+  <div class="section-header">
+    <span class="section-eyebrow">01a / The Smaller Fights</span>
+    <h2 class="section-title">Three arguments inside the bigger one</h2>
+  </div>
+
+  <div class="body">
+    <p>Strip away the politics and three narrower, more technical disputes remain, and each of them has already reached a courtroom.</p>
+    <p>The first is about Aadhaar. When the Bihar round began, the Election Commission left Aadhaar off its list of eleven accepted documents, on the reasoning that Aadhaar proves identity, not citizenship. Petitioners pointed out that Aadhaar is the one document nearly every Indian actually holds, and that excluding it would exclude them along with it. The Supreme Court agreed only partway: it let the Commission keep Aadhaar off the core checklist, but ordered that anyone left off the draft roll be allowed to use it anyway when filing a claim to get back on. During the hearings, Chief Justice Surya Kant put the underlying worry in stark terms of his own, asking aloud whether a labourer given an Aadhaar card to collect subsidised rations should, on that basis alone, also get a ballot.</p>
+    <p>The second is about the deletions nobody can explain. Association for Democratic Reforms pulled the Bihar Chief Electoral Officer's own records and found that of 3.66 lakh names struck from the first draft roll, 9,968 carried no reason at all, not death, not migration, not duplication, nothing. The Commission's public position is that 99 percent of all deletions rest on legitimate grounds. Whether that number holds depends on what happens to the roughly 1 percent it does not appear to cover, and to the people inside it.</p>
+    <p>The third is about the argument the Court itself had with the people bringing the case. During one hearing, Justice Joymalya Bagchi told Kapil Sibal, the lawyer appearing for West Bengal and Kerala, that software can catch a duplicate registration but nothing catches a dead voter except a human being checking, and that whichever party benefits from uncleaned rolls has every incentive to leave them uncleaned. Fair point. It also landed, next to the Aadhaar exchange, as a moment where a routine cleanup turned, on the record, into an argument about who India's electoral machinery actually protects.</p>
+  </div>
+
+  <!-- SECTION 1b: THE ENUMERATORS -->
+  <div class="section-header">
+    <span class="section-eyebrow">01b / The Enumerators</span>
+    <h2 class="section-title">The people running the machine are dying inside it</h2>
+  </div>
+
+  <div class="body">
+    <p>Nobody votes on a Booth Level Officer. They are teachers, anganwadi workers, panchayat clerks and junior government staff, roughly four lakh of them nationwide, handed a door-to-door enumeration workload on top of their regular jobs and a deadline the Election Commission does not move. Since the SIR began, a rising number of them have not survived the assignment.</p>
+    <p>West Bengal has recorded the most. Shantimuni Ekka, an anganwadi worker in Jalpaiguri, was found dead near her home in November 2025; her husband said she could not bear the pressure of the work and had been turned away when she sought relief from the local block development office. Rinku Tarafdar, a part-time teacher serving as a BLO in Krishnanagar, died weeks later, leaving behind a note that held the Commission responsible. Haradhan Mandal, a headmaster deployed to Ranibandh in Bankura, died the same month; his note, too, pointed to the workload rather than any personal circumstance. In Malda, two BLOs who were also schoolteachers, Abul Barkat and Anikul Alam, died of heart disease within weeks of each other; a third, Utpal Thakur, followed in March, his family citing the same anxiety among voters placed in the "under adjudication" category that had built up around his booth. In January, Hamimul Islam, a primary school teacher and BLO in Murshidabad, became the eighth BLO death reported in the state since the exercise began, his brother saying the mapping and unmapping workload had gone beyond what his brother could handle.</p>
+    <p>The deaths did not stay confined to Bengal. Karnataka's own house-to-house round, which began in late June alongside Delhi's, had already produced three deaths among government staff on SIR duty within its first weeks, two BLOs and a Village Administrative Officer, with employee unions blaming excessive workload and pressure from superiors for all three.</p>
+  </div>
+
+  <!-- DOSSIER: BLO DEATHS -->
+  <div class="dossier">
+    <div class="dossier-watermark">04</div>
+    <div class="dossier-meta">
+      <span>Case File, Nationwide</span>
+      <strong>Ongoing, since November 2025</strong>
+    </div>
+    <h3>Two counts of the dead, and no agreement on either</h3>
+    <p>An independent think tank, The SPECT Foundation, documented at least 33 verified deaths of BLOs across several states, attributing them to stress-induced cardiac arrests, strokes and suicide. Trinamool Congress, campaigning in West Bengal at the time, put the toll in that state alone above 50, folding in ordinary citizens who died of SIR-linked panic alongside the BLOs. The Election Commission's own counsel called the wider allegations of workload pressure baseless before the Supreme Court, arguing it was reluctance among some BLOs to perform statutory duty, not overwork, that had forced the Commission to consider criminal action against defaulters. The Bharatiya Janata Party accused the state government of politicising natural deaths for electoral advantage. At no point did the two sides agree on a single number.</p>
+    <div class="dossier-stats">
+      <div class="dossier-stat"><b>33+</b><span>Deaths Independently Verified, Nationwide</span></div>
+      <div class="dossier-stat"><b>50+</b><span>Deaths Claimed By TMC, West Bengal Alone</span></div>
+      <div class="dossier-stat"><b>9</b><span>BLO Deaths Specifically Reported In West Bengal</span></div>
+    </div>
+    <p class="dossier-source">Sources: The SPECT Foundation; PTI; The Federal; The Week; Outlook India, November 2025 to July 2026</p>
+  </div>
+
+  <!-- COMPARATIVE BAR CHART: BLO DEATH COUNTS -->
+  <div class="chart-block">
+    <div class="chart-title">Three Numbers, One Crisis &nbsp;&middot;&nbsp; Whose Count Do You Believe</div>
+    <div class="bar-row compact"><div class="bar-label-row"><span>TMC claim, West Bengal alone (incl. panic deaths)</span><strong>50+</strong></div><div class="bar-track"><div class="bar-fill" data-pct="100"></div></div></div>
+    <div class="bar-row compact"><div class="bar-label-row"><span>SPECT Foundation, verified, nationwide</span><strong>33+</strong></div><div class="bar-track"><div class="bar-fill" data-pct="66"></div></div></div>
+    <div class="bar-row compact"><div class="bar-label-row"><span>BLO deaths specifically reported, West Bengal</span><strong>9</strong></div><div class="bar-track"><div class="bar-fill" data-pct="18"></div></div></div>
+    <p class="chart-note">Three different organisations, three different methods, three different numbers, and the gap between the smallest and the largest is itself the story: nobody, including the Election Commission, has published one count everyone accepts.</p>
+  </div>
+
+  <div class="pull-quote">
+    <p>"This is not how the system should function."</p>
+    <cite>Gopal Sankaranarayanan, lawyer for TVK, Supreme Court, on a BLO who was denied leave for his own wedding and later took his life</cite>
+  </div>
+
+  <div class="body">
+    <p>That case was one of several described in a December 2025 application before the Supreme Court: anganwadi workers and teachers sent out on enumeration rounds before and after their regular working hours, FIRs filed against BLOs under the Representation of the People Act for allegedly failing to complete assigned work on time, and a young man who asked for leave to attend his own wedding, was refused, and died by suicide soon after. Kapil Sibal, arguing separately, told the Court the pressure on BLOs was not anecdotal but what he called a harsh reality, and pressed the point that the pace being demanded in a state the size of Uttar Pradesh was simply not humanly sustainable.</p>
+    <p>The Bench, led by Chief Justice Surya Kant with Justice Joymalya Bagchi, responded with what it called firm but compassionate directions: state governments were told to supply additional manpower and cut individual workloads proportionately, employees facing genuine hardship such as illness or pregnancy were to be replaced case by case, and the question of ex gratia compensation for the families of the dead was left open for a later stage. Relief, of a kind. It arrived after the deaths it was responding to, not before them, a sequencing that by now runs through nearly every part of this story.</p>
+  </div>
+
+  <!-- SECTION 1c: THE BENCH, OFF THE CUFF -->
+  <div class="section-header">
+    <span class="section-eyebrow">01c / The Bench, Off The Cuff</span>
+    <h2 class="section-title">Even the officers running the SIR got caught inside it</h2>
+  </div>
+
+  <div class="body">
+    <p>On April 24, 2026, in the middle of West Bengal's own two-phase election, a fresh irony reached the Supreme Court. Roughly 65 people who were themselves on election duty, their names and EPIC numbers printed on their own official duty orders, discovered that the SIR had deleted them from the very rolls they had been assigned to help clean. M.R. Shamshad, the lawyer representing the petitioners, argued the deletions were arbitrary and unexplained, and put the irony plainly to the Bench: the people conducting the election could no longer vote in it.</p>
+  </div>
+
+  <div class="pull-quote">
+    <p>"This election, yes, perhaps they can't vote."</p>
+    <cite>Justice Joymalya Bagchi, Supreme Court, April 24, 2026, on the 65 election duty officers deleted from West Bengal's voter list</cite>
+  </div>
+
+  <div class="body">
+    <p>The Bench of Chief Justice Surya Kant, Justice Bagchi and Justice Vipul Pancholi declined to intervene directly and sent the officers to the same appellate tribunals already carrying a backlog large enough that a Calcutta High Court bench, in a separate order that same month, estimated it would take 21 years to clear. Justice Bagchi framed the trade-off in terms of what he called the more durable right, staying on the rolls at all, over the immediate one, casting a ballot in the election already under way, and said the tribunal would pass appropriate orders in due course. Whether the tribunal reached all 65 officers before the second phase of polling closed on April 29 is not something the public record answers. What the exchange captured, in miniature, was the machine's basic shape: even the people the state deputes to run it are not exempt from what it does, and even they were told, from the bench, to get in the queue.</p>
+  </div>
+
+  <!-- INTERACTIVE: QUOTE CAROUSEL -->
+  <div class="quote-carousel">
+    <div class="quote-carousel-label">Four Moments From The Bench &nbsp;&middot;&nbsp; Click Through</div>
+
+    <div class="quote-slide active" data-slide="0">
+      <span class="quote-mark-big">&ldquo;</span>
+      <p class="quote-text">This election, yes, perhaps they can't vote.</p>
+      <div class="quote-attribution">Justice Joymalya Bagchi &nbsp;&middot;&nbsp; April 24, 2026</div>
+      <p class="quote-context">To 65 election duty officers whose own names were deleted from West Bengal's voter list, declining to intervene and sending them to the appellate tribunals instead.</p>
+    </div>
+
+    <div class="quote-slide" data-slide="1">
+      <span class="quote-mark-big">&ldquo;</span>
+      <p class="quote-text">Unless declared to be a citizen of India, you cannot be given a passport.</p>
+      <div class="quote-attribution">Justice Kausik Chanda &nbsp;&middot;&nbsp; Calcutta High Court, July 2026</div>
+      <p class="quote-context">To Sirajul Shekh, whose passport renewal was frozen after the SIR deleted his voter ID, needing surgery abroad he still could not schedule.</p>
+    </div>
+
+    <div class="quote-slide paraphrase" data-slide="2">
+      <span class="quote-tag">Paraphrased from courtroom reports, not a verbatim quote</span>
+      <p class="quote-text">Should a labourer, given an Aadhaar card only to collect subsidised rations, also get a ballot on that basis alone?</p>
+      <div class="quote-attribution">Chief Justice Surya Kant &nbsp;&middot;&nbsp; Hearing on Aadhaar as proof of identity</div>
+      <p class="quote-context">Raised while the Court was deciding whether Aadhaar, held by nearly every Indian, should count toward inclusion on the electoral roll.</p>
+    </div>
+
+    <div class="quote-slide paraphrase" data-slide="3">
+      <span class="quote-tag">Paraphrased from courtroom reports, not a verbatim quote</span>
+      <p class="quote-text">Software can catch a duplicate registration. Nothing catches a dead voter except a human being checking, and whoever benefits from uncleaned rolls has every incentive to leave them uncleaned.</p>
+      <div class="quote-attribution">Justice Joymalya Bagchi &nbsp;&middot;&nbsp; To Kapil Sibal</div>
+      <p class="quote-context">Made during argument over whether the SIR's method was proportionate to the goal of an accurate electoral roll.</p>
+    </div>
+
+    <div class="quote-nav">
+      <div class="quote-dots" id="quoteDots">
+        <button class="quote-dot active" data-goto="0" aria-label="Quote 1"></button>
+        <button class="quote-dot" data-goto="1" aria-label="Quote 2"></button>
+        <button class="quote-dot" data-goto="2" aria-label="Quote 3"></button>
+        <button class="quote-dot" data-goto="3" aria-label="Quote 4"></button>
+      </div>
+      <div class="quote-arrows">
+        <button class="quote-arrow" id="quotePrev" aria-label="Previous quote">&larr;</button>
+        <button class="quote-arrow" id="quoteNext" aria-label="Next quote">&rarr;</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="section-header">
+    <span class="section-eyebrow">02 / The Precedent</span>
+    <h2 class="section-title">Assam already ran this experiment</h2>
+  </div>
 
   <div class="timeline">
-    <div class="timeline-item"><div class="timeline-year">1997</div><div class="timeline-text">Assam's own intensive roll revision creates the "D-Voter", Doubtful Voter, category. Over 1.1 lakh people get marked this way, most of them women.</div></div>
-    <div class="timeline-item"><div class="timeline-year">2019</div><div class="timeline-text">A Nagaon tribunal rules Aheda Khatun failed to link herself to her own parents, despite four voter lists carrying their names.</div></div>
-    <div class="timeline-item"><div class="timeline-year">August 2025</div><div class="timeline-text">Gauhati High Court dismisses her petition on a technicality about delay, without ever examining her documents.</div></div>
-    <div class="timeline-item"><div class="timeline-year">December 2025</div><div class="timeline-text">She is deported to Bangladesh, a country she never lived in. Her brother now argues her case by affidavit.</div></div>
-    <div class="timeline-item"><div class="timeline-year">March 2026</div><div class="timeline-text">Saleha Khatun and Sarbhanu Begum detained at Goalpara. What took Aheda Khatun decades is now moving in months.</div></div>
-    <div class="timeline-item"><div class="timeline-year">July 16, 2026</div><div class="timeline-text" style="color: #f87171; font-weight: 700;">Status-quo protection for both women expires unless the Supreme Court extends it. The countdown above is ticking toward this exact date.</div></div>
+    <div class="timeline-item"><div class="timeline-year">1997</div><div class="timeline-text">Assam's own intensive revision of electoral rolls creates the "D-Voter" (Doubtful Voter) category. Over 1.1 lakh people are eventually marked this way, a majority of them women.</div></div>
+    <div class="timeline-item"><div class="timeline-year">2019</div><div class="timeline-text">A Foreigners' Tribunal in Nagaon rules Aheda Khatun failed to establish the link to her own parents, despite four consecutive voter lists carrying their names.</div></div>
+    <div class="timeline-item"><div class="timeline-year">August 2025</div><div class="timeline-text">Gauhati High Court dismisses her petition, on a technical point about delay, without examining her documents.</div></div>
+    <div class="timeline-item"><div class="timeline-year">December 2025</div><div class="timeline-text">Aheda Khatun is deported to Bangladesh. A country she had never lived in. Her case is now before the Supreme Court, argued through her brother's affidavit.</div></div>
+    <div class="timeline-item"><div class="timeline-year">March 2026</div><div class="timeline-text">Saleha Khatun and Sarbhanu Begum detained at Goalpara. The pipeline that took Aheda Khatun decades is now processing people in months.</div></div>
+    <div class="timeline-item"><div class="timeline-year">July 16, 2026</div><div class="timeline-text" style="color: #f87171; font-weight: 600;">Status-quo protection for four women expires unless the Supreme Court extends it. The clock above is counting down to this date.</div></div>
   </div>
 
   <div class="body">
@@ -468,54 +833,76 @@ p { text-align: justify; text-justify: inter-word; hyphens: auto; }
     <p>That is the exact machine the May 27 judgment just bolted onto the rest of the country. Bihar voters flagged for "doubtful citizenship" get referred straight to the Citizenship Act's Competent Authority. The Court says, don't worry, this isn't a final citizenship ruling. Go read that line again after the first Foreigners Tribunal opens outside Assam. A deletion becomes a doubt. A doubt becomes a file with your name on it. The burden is yours. It is always yours.</p>
   </div>
 
-  <div class="pull-quote"><p>A spelling mismatch from twenty years ago is now grounds to erase your citizenship. Nobody has to prove you're foreign. You have to prove you're not.</p></div>
+  <div class="pull-quote"><p>A spelling variation in your father's name from twenty years ago. And you must prove you belong in the country you have never left.</p></div>
 
-  <div class="section-header"><span class="section-eyebrow">03 / The court</span><h2 class="section-title">A verdict that arrived after it could still change anything</h2></div>
-
-  <div class="body"><p>Lawyers challenging the exercise in 2025 warned the Supreme Court it risked becoming a citizenship filter dressed up as an electoral roll revision. The Court agreed the questions were serious. Then it let the exercise keep running while it thought about the answer. That one decision, to not press pause, decided everything that came after it.</p></div>
-
-  <div class="chart-block">
-    <div class="chart-title">The spread, state by state, click a tile</div>
-    <div class="spread-legend"><span><i class="dot done"></i>Completed</span><span><i class="dot active"></i>Underway now</span><span><i class="dot upcoming"></i>Not started</span></div>
-    <div class="spread-grid" id="spreadGrid">
-      <div class="spread-tile done" data-full="Bihar" data-note="47 lakh removed, voted on this roll Nov 2025">BR</div>
-      <div class="spread-tile done" data-full="West Bengal" data-note="91 lakh removed, ration cards cancelled on the flag">WB</div>
-      <div class="spread-tile done" data-full="Uttar Pradesh" data-note="2.04 crore removed, largest single-state count">UP</div>
-      <div class="spread-tile done" data-full="Gujarat" data-note="Completed, part of Phase II">GJ</div>
-      <div class="spread-tile done" data-full="Kerala" data-note="Completed, part of Phase II">KL</div>
-      <div class="spread-tile done" data-full="Tamil Nadu" data-note="Completed, part of Phase II">TN</div>
-      <div class="spread-tile done" data-full="Madhya Pradesh" data-note="Completed, part of Phase II">MP</div>
-      <div class="spread-tile done" data-full="Chhattisgarh" data-note="Completed, part of Phase II">CG</div>
-      <div class="spread-tile done" data-full="Goa" data-note="Completed, part of Phase II">GA</div>
-      <div class="spread-tile active" data-full="Delhi" data-note="Started June 30, 1.45 crore voters, 13,000+ officers door to door">DL</div>
-      <div class="spread-tile active" data-full="Karnataka" data-note="Started June 30, already a fight over skipped doorstep visits">KA</div>
-      <div class="spread-tile active" data-full="Telangana" data-note="Enumeration underway now">TG</div>
-      <div class="spread-tile active" data-full="Andhra Pradesh" data-note="Enumeration underway now">AP</div>
-      <div class="spread-tile active" data-full="Uttarakhand" data-note="Draft figures near 12.8 lakh already">UK</div>
-      <div class="spread-tile upcoming" data-full="Maharashtra" data-note="Scheduled, not yet started">MH</div>
-      <div class="spread-tile upcoming" data-full="Punjab" data-note="Scheduled, not yet started">PB</div>
-      <div class="spread-tile upcoming" data-full="Haryana" data-note="Scheduled, not yet started">HR</div>
-      <div class="spread-tile upcoming" data-full="Jharkhand" data-note="Scheduled, not yet started">JH</div>
-      <div class="spread-tile upcoming" data-full="Odisha" data-note="Scheduled, not yet started">OD</div>
-      <div class="spread-tile upcoming" data-full="11 more states and UTs" data-note="Everywhere except Himachal Pradesh, Jammu & Kashmir, and Ladakh">+11</div>
-    </div>
-    <div class="spread-readout" id="spreadReadout">Tap a tile for the state's status.</div>
+  <!-- SECTION 3 -->
+  <div class="section-header">
+    <span class="section-eyebrow">03 / The Court</span>
+    <h2 class="section-title">A verdict that arrived after it could still matter</h2>
   </div>
 
   <div class="body">
-    <p>For months the Court supervised the details in real time, ordering Aadhaar accepted for late claims, ordering district-wise deletion lists published, standing up appellate tribunals. All useful. All beside the one question actually in front of it: did the Commission even have the power to do this. Bihar voted in November 2025 on the roll this exercise produced. A government formed on it. Only then, six months after the votes were counted, on May 27, did the Court rule on legality, in a 124-page judgment that answered all four constitutional questions the Commission's way.</p>
-    <p>The order of operations is the entire criticism. A verdict that lands after the election it was supposed to govern has already happened is not a neutral verdict, it is a rubber stamp with a delay on it. Pausing the exercise until the Court actually ruled would have cost nothing but time. Not pausing it meant that by the time the answer came, the answer could no longer undo Bihar and could only wave fifteen more states through the same door.</p>
+    <p>Lawyers challenging the exercise in 2025 warned the Supreme Court that it risked becoming a citizenship filter wearing an electoral-roll costume. The Court called the questions serious, and declined to stay the exercise while it examined them. That single decision, to let the machine keep running while the case against it was still being argued, shaped everything that followed.</p>
   </div>
 
   <div class="chart-block">
-    <div class="chart-title">Four questions, one winner, click each row</div>
-    <div class="verdict-grid">
-      <div class="verdict-row" data-note="Critics point to the Court's own 1995 ruling in Lal Babu Hussein, which put the burden on whoever objects to a name, not on the voter. This judgment does not explain why that logic no longer applies."><div class="verdict-q">Can the Commission run a blanket revision under Section 21(3), state by state, instead of constituency by constituency?</div><div class="verdict-a">Yes</div></div>
-      <div class="verdict-row" data-note="Ration cards and long-accepted voter IDs were both dropped from the proof list mid-process."><div class="verdict-q">Can the Commission drop long-accepted documents, like ration cards and existing voter ID, from the proof list?</div><div class="verdict-a">Yes</div></div>
-      <div class="verdict-row" data-note="This is the line critics say turns an electoral housekeeping exercise into a citizenship court with none of a citizenship court's procedural protections."><div class="verdict-q">Can the Commission question someone's citizenship during an ordinary roll revision?</div><div class="verdict-a">Yes</div></div>
-      <div class="verdict-row" data-note="Proportionate to what, exactly, is the question nobody in the judgment quite answers."><div class="verdict-q">Was the process proportionate to the goal of a clean roll?</div><div class="verdict-a">Yes</div></div>
+    <div class="chart-title">The Spread, State By State</div>
+    <div class="spread-grid">
+      <div class="spread-tile done">BR</div>
+      <div class="spread-tile done">WB</div>
+      <div class="spread-tile done">UP</div>
+      <div class="spread-tile done">GJ</div>
+      <div class="spread-tile done">KL</div>
+      <div class="spread-tile done">TN</div>
+      <div class="spread-tile done">MP</div>
+      <div class="spread-tile done">CG</div>
+      <div class="spread-tile done">GA</div>
+      <div class="spread-tile active">DL</div>
+      <div class="spread-tile active">KA</div>
+      <div class="spread-tile active">TG</div>
+      <div class="spread-tile active">AP</div>
+      <div class="spread-tile active">UK</div>
+      <div class="spread-tile upcoming">MH</div>
+      <div class="spread-tile upcoming">PB</div>
+      <div class="spread-tile upcoming">HR</div>
+      <div class="spread-tile upcoming">JH</div>
+      <div class="spread-tile upcoming">OD</div>
+      <div class="spread-tile upcoming">+11</div>
     </div>
-    <p class="chart-note" id="verdictNote">Click a row for the counter-argument the judgment does not fully address.</p>
+    <div class="spread-legend">
+      <span><i class="dot done"></i> Completed</span>
+      <span><i class="dot active"></i> Underway now</span>
+      <span><i class="dot upcoming"></i> Not yet started</span>
+    </div>
+    <p class="chart-note">Only Himachal Pradesh, Jammu &amp; Kashmir and Ladakh are excluded from the current schedule. Every other tile on this grid turns red before the process is done.</p>
+  </div>
+
+  <div class="body">
+    <p>For months, the Court supervised the exercise in real time. It ordered Aadhaar to be accepted for claims after the fact, told the Commission to publish district-wise deletion lists, and set up appellate tribunals, all useful, all necessary, and all beside the actual question in front of it: did the Election Commission have the power to run this exercise in this form at all. Bihar voted in November 2025, on the rolls the SIR had produced. A government formed. Only then, on May 27, 2026, six months after the votes had been counted, did the Court finally rule on legality, in a 124-page judgment that answered every one of the four constitutional questions before it in the Commission's favor.</p>
+    <p>The sequencing is the criticism, not a footnote to it. A verdict that arrives after the election it governed has already produced a government is not neutral. Legal scholars writing on the judgment afterward made the point directly: the ruling resolves the legality of an exercise that was, by the time the ink dried, already complete. Pausing the exercise until the Court had actually decided the question would have cost nothing but time. Not pausing it meant that by the time the answer came, the answer could no longer change anything that had already happened in Bihar, and could only bless what would happen next in fifteen more states.</p>
+  </div>
+
+  <div class="chart-block">
+    <div class="chart-title">Four Questions, One Winner</div>
+    <div class="verdict-grid">
+      <div class="verdict-row">
+        <div class="verdict-q">Can the ECI run a blanket revision like this under Section 21(3), across whole states, rather than constituency by constituency?</div>
+        <div class="verdict-a">Yes</div>
+      </div>
+      <div class="verdict-row">
+        <div class="verdict-q">Can the ECI drop long-accepted documents, like ration cards and existing voter ID, from the proof list?</div>
+        <div class="verdict-a">Yes</div>
+      </div>
+      <div class="verdict-row">
+        <div class="verdict-q">Can the ECI question a person's citizenship in the course of an ordinary roll revision?</div>
+        <div class="verdict-a">Yes</div>
+      </div>
+      <div class="verdict-row">
+        <div class="verdict-q">Was the process proportionate to the goal of a clean electoral roll?</div>
+        <div class="verdict-a">Yes</div>
+      </div>
+    </div>
+    <p class="chart-note">All four questions were decided in the Commission's favor in the same 124-page judgment of May 27, 2026. Critics have pointed out that the Court did not weigh this against its own 1995 ruling in Lal Babu Hussein, which held that a person already on the rolls is presumed a citizen and the burden sits with whoever objects, not the other way around, and that it did not explain why existing citizenship-determination procedures under the Citizenship Act were set aside in favor of the Commission's own method.</p>
   </div>
 
   <div class="body">
@@ -524,41 +911,53 @@ p { text-align: justify; text-justify: inter-word; hyphens: auto; }
   </div>
 
   <div class="phases-block">
-    <div class="phases-label">SIR phase tracker &nbsp;&middot;&nbsp; July 2026</div>
-    <div class="phase-row"><div class="phase-dot done"></div><div class="phase-info"><div class="phase-name">Phase I: Bihar</div><div class="phase-count">47 lakh removed &middot; Nov 2025 election held on this roll &middot; government formed</div></div></div>
-    <div class="phase-row"><div class="phase-dot done"></div><div class="phase-info"><div class="phase-name">Phase II: West Bengal, UP &amp; 9 more states and UTs</div><div class="phase-count">91 lakh in WB, 2.04 crore in UP &middot; appeals backlog: 21 years, HC estimate &middot; ration cards cancelled in WB</div></div></div>
-    <div class="phase-row"><div class="phase-dot active"></div><div class="phase-info"><div class="phase-name" style="color:#f59e0b;">Phase III: Delhi, active now, began June 30</div><div class="phase-count">1.45 crore voters &middot; thousands of officers door to door &middot; ongoing</div><div class="phase-bar-track"><div class="phase-bar-fill" data-pct="38"></div></div></div></div>
-    <div class="phase-row"><div class="phase-dot active"></div><div class="phase-info"><div class="phase-name" style="color:#f59e0b;">Also active: Karnataka, Telangana, Andhra Pradesh, Uttarakhand</div><div class="phase-count">House-to-house enumeration underway since late June, running into late July</div></div></div>
-    <div class="phase-row"><div class="phase-dot upcoming"></div><div class="phase-info"><div class="phase-name">Next up: Maharashtra, Punjab, Haryana, Jharkhand, Odisha, and the rest of Phase III</div><div class="phase-count">36.73 crore electors targeted &middot; 16 states plus 3 union territories</div></div></div>
-    <div class="phase-row"><div class="phase-dot upcoming"></div><div class="phase-info"><div class="phase-name">Everywhere else, except HP, J&amp;K, and Ladakh</div><div class="phase-count">Supreme Court certified &middot; no stay &middot; no announced end date</div></div></div>
+    <div class="phases-label">SIR Phase Tracker &nbsp;&middot;&nbsp; July 2026</div>
+    <div class="phase-row"><div class="phase-dot done"></div><div class="phase-info"><div class="phase-name">Phase I: Bihar</div><div class="phase-count">47 lakh removed &middot; Nov 2025 elections held &middot; government formed</div></div></div>
+    <div class="phase-row"><div class="phase-dot done"></div><div class="phase-info"><div class="phase-name">Phase II: West Bengal, UP &amp; 9 states/UTs</div><div class="phase-count">91 lakh in WB, 2.04 crore in UP &middot; appeals backlog: 21 years (HC estimate) &middot; ration cards cancelled in WB</div></div></div>
+    <div class="phase-row"><div class="phase-dot active"></div><div class="phase-info"><div class="phase-name" style="color:#f59e0b;">Phase III: Delhi (active now, began June 30)</div><div class="phase-count">1.45 crore voters &middot; thousands of officers going door-to-door &middot; ongoing</div>
+      <div class="phase-bar-track"><div class="phase-bar-fill" data-pct="38"></div></div>
+    </div></div>
+    <div class="phase-row"><div class="phase-dot active"></div><div class="phase-info"><div class="phase-name" style="color:#f59e0b;">Also active now: Karnataka, Telangana, Andhra Pradesh, Uttarakhand</div><div class="phase-count">House to house enumeration underway since late June, running into late July</div></div></div>
+    <div class="phase-row"><div class="phase-dot upcoming"></div><div class="phase-info"><div class="phase-name">Rolling out on similar timelines: Maharashtra, Punjab, Haryana, Jharkhand, Odisha and the rest of Phase III</div><div class="phase-count">36.73 crore electors targeted &middot; 16 states + 3 UTs</div></div></div>
+    <div class="phase-row"><div class="phase-dot upcoming"></div><div class="phase-info"><div class="phase-name">Remaining: rest of the country except HP, J&amp;K, Ladakh</div><div class="phase-count">Supreme Court certified &middot; no stay &middot; no end date announced</div></div></div>
   </div>
 
+  <!-- ENDING (text) -->
   <div class="ending">
-    <p class="ending-line">It doesn't know your name yet.<br><span class="red">It will.</span><br>Door to door. State by state. Until it does.</p>
-    <div class="body" style="text-align: left; margin-top: 2.2rem;">
-      <p>Saleha Khatun and Sarbhanu Begum's protection runs out July 16 unless the Court says otherwise. Sirajul Shekh still cannot travel for treatment he needs now. R. Rajagopal got his passport back, only because enough people knew his name to make noise. Aheda Khatun is in Bangladesh, still. Five point two crore names are already gone. Sixteen states haven't even started.</p>
+    <p class="ending-line">
+      It does not know your name yet.<br>
+      <span class="red">But it is coming.</span><br>
+      Door to door. State by state.
+    </p>
+    <div class="body" style="text-align: left; margin-top: 2.5rem;">
+      <p>Saleha Khatun and Sarbhanu Begum's protection expires July 16 unless the Court extends it. Sirajul Shekh still cannot travel for his treatment. R. Rajagopal got his passport back, but only because his name was well known enough to matter. Aheda Khatun is in Bangladesh. Five point two crore names are already gone. Sixteen states are still to come.</p>
       <p>A voter list was supposed to record who could vote. It has quietly become the document that decides who gets to stay a citizen at all. That machine now has a Supreme Court ruling behind it, a door-to-door survey running in your city right now, a 21-year queue waiting for anyone who gets caught in it, and not one person in power who has shown any intention of slowing it down.</p>
     </div>
   </div>
 </main>
 
+<!-- ===== THE CROWD, closing visual ===== -->
 <section class="crowd-section" id="crowdSection">
   <div class="crowd-eyebrow">Every dot below is 2 lakh people</div>
-  <h2 class="crowd-heading">Every red dot was a citizen an hour ago.</h2>
-  <p class="crowd-sub">784 dots, each one 2 lakh people. Watch roughly one in ten turn red, the share already struck from India's rolls net of re-additions. It took one scroll for the machine to run once. It runs again in every state still to come, and nobody has told you where it stops.</p>
+  <h2 class="crowd-heading">This is the electorate the SIR has processed so far.</h2>
+  <p class="crowd-sub">784 dots. Roughly one in ten is about to turn red, the share already struck from the rolls net of re-additions. Scroll was all it took for the machine to run once. It will run again in every state still to come.</p>
+
   <div class="crowd-grid" id="crowdGrid"></div>
+
   <div class="crowd-footer-number" id="crowdFooterNumber">0</div>
   <div class="crowd-footer-label">Net names removed from India's electoral rolls, 2025 to 2026</div>
-  <p class="crowd-footer-line">Sixteen more states are still being counted.<br>Nobody has said where it stops. Nobody has said it will.</p>
+  <p class="crowd-footer-line">Sixteen more states are still being counted. Nobody has said where the counting stops.</p>
+
   <div class="live-ticker" id="liveTicker">
-    <div class="live-ticker-label"><span class="live-dot"></span>Still running, right now, as you read this</div>
+    <div class="live-ticker-label"><span class="live-dot"></span>Still Running, Right Now, As You Read This</div>
     <div class="live-ticker-number" id="liveTickerNumber">0</div>
-    <div class="live-ticker-sub">Names estimated struck from India's electoral rolls since you opened this page</div>
-    <p class="live-ticker-note">Illustrative estimate, based on the Commission's own average pace of roughly six crore deletions over the past year. Not an official real-time counter. Nobody publishes one. That absence is, itself, the point.</p>
+    <div class="live-ticker-sub">Names estimated to have been struck from India's electoral rolls since you opened this page</div>
+    <p class="live-ticker-note">Illustrative estimate, based on the Election Commission's own average pace of roughly six crore deletions over the past year. Not an official real-time figure. No one publishes one. That is, on its own, the point.</p>
   </div>
 </section>
 
 <script>
+// Countdown to July 16, 2026 10:30 AM IST
 const target = new Date('2026-07-16T10:30:00+05:30');
 function updateCountdown() {
   const now = new Date();
@@ -576,6 +975,7 @@ function updateCountdown() {
 updateCountdown();
 setInterval(updateCountdown, 1000);
 
+// Hero counter animation
 function formatIndian(n) {
   const s = Math.round(n).toString();
   if (s.length <= 3) return s;
@@ -583,71 +983,76 @@ function formatIndian(n) {
   while (rem.length > 2) { result = rem.slice(-2) + ',' + result; rem = rem.slice(0,-2); }
   return rem + ',' + result;
 }
-
-const commonNames = ["Aheda Khatun","Saleha Khatun","Sarbhanu Begum","Sirajul Shekh","R. Rajagopal","Adil Hossain","Rahul Kumar","Fatima Begum","Suresh Yadav","Anita Devi","Mohammed Ali","Lakshmi Nair","Rajesh Singh","Salma Khatun","Vijay Prasad","Kavita Sharma","Abdul Rahman","Meena Kumari","Ramesh Gupta","Nasreen Bibi","Sunita Rani","Iqbal Hussain","Geeta Devi","Sanjay Verma","Ayesha Siddiqui","Manoj Yadav","Rukhsana Bano","Deepak Rao","Farida Khatun","Ashok Mehta","Nazma Begum","Vinod Chaudhary","Shabana Ansari","Pooja Das","Aslam Sheikh","Radha Krishnan","Tabassum Ara","Ravi Shankar","Hasina Khatoon","Naresh Patel","Salim Mondal","Kamla Devi","Yusuf Ansari","Bimla Devi","Karim Sheikh","Sarita Kumari","Firoz Alam","Mamta Singh","Jamila Khatun","Prakash Jha","Rashida Begum"];
-const nameGrid = document.getElementById('heroNameGrid');
-const CELL_COUNT = 90;
-const cells = [];
-for (let i = 0; i < CELL_COUNT; i++) {
-  const d = document.createElement('div');
-  d.className = 'hero-name';
-  d.textContent = commonNames[Math.floor(Math.random() * commonNames.length)];
-  nameGrid.appendChild(d);
-  cells.push(d);
-}
-function cycleName() {
-  const cell = cells[Math.floor(Math.random() * cells.length)];
-  cell.classList.add('struck');
-  setTimeout(() => {
-    cell.classList.remove('struck');
-    cell.textContent = commonNames[Math.floor(Math.random() * commonNames.length)];
-  }, 1400);
-}
-setInterval(cycleName, 220);
-
 const finalCount = 52000000;
-const counterDuration = 2800;
-const counterEl = document.getElementById('counterDisplay');
-const counterStart = performance.now();
+const duration = 2800;
+const startTime = performance.now();
+const el = document.getElementById('counterDisplay');
 function animateCounter(ts) {
-  const elapsed = ts - counterStart;
-  const progress = Math.min(elapsed / counterDuration, 1);
+  const elapsed = ts - startTime;
+  const progress = Math.min(elapsed / duration, 1);
   const eased = 1 - Math.pow(1 - progress, 3);
-  counterEl.textContent = formatIndian(eased * finalCount);
+  el.textContent = formatIndian(eased * finalCount);
   if (progress < 1) requestAnimationFrame(animateCounter);
 }
-requestAnimationFrame(animateCounter);
+const heroObs = new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) { requestAnimationFrame(animateCounter); heroObs.disconnect(); }
+});
+heroObs.observe(el);
 
+// HERO NAME-ERASURE GRID
+const commonNames = ["Aheda Khatun","Saleha Khatun","Sarbhanu Begum","Sirajul Shekh","R. Rajagopal","Adil Hossain","Rahul Kumar","Fatima Begum","Suresh Yadav","Anita Devi","Mohammed Ali","Lakshmi Nair","Rajesh Singh","Salma Khatun","Vijay Prasad","Kavita Sharma","Abdul Rahman","Meena Kumari","Ramesh Gupta","Nasreen Bibi","Sunita Rani","Iqbal Hussain","Geeta Devi","Sanjay Verma","Ayesha Siddiqui","Manoj Yadav","Rukhsana Bano","Deepak Rao","Farida Khatun","Ashok Mehta","Nazma Begum","Vinod Chaudhary","Shabana Ansari","Pooja Das","Aslam Sheikh","Radha Krishnan","Tabassum Ara","Ravi Shankar","Hasina Khatoon","Naresh Patel","Salim Mondal","Kamla Devi","Yusuf Ansari","Bimla Devi","Karim Sheikh","Sarita Kumari","Firoz Alam","Mamta Singh","Jamila Khatun","Prakash Jha","Rashida Begum"];
+const nameGrid = document.getElementById('heroNameGrid');
+if (nameGrid) {
+  const CELL_COUNT = 90;
+  const cells = [];
+  for (let i = 0; i < CELL_COUNT; i++) {
+    const d = document.createElement('div');
+    d.className = 'hero-name';
+    d.textContent = commonNames[Math.floor(Math.random() * commonNames.length)];
+    nameGrid.appendChild(d);
+    cells.push(d);
+  }
+  function cycleName() {
+    const cell = cells[Math.floor(Math.random() * cells.length)];
+    cell.classList.add('struck');
+    setTimeout(() => {
+      cell.classList.remove('struck');
+      cell.textContent = commonNames[Math.floor(Math.random() * commonNames.length)];
+    }, 1400);
+  }
+  setInterval(cycleName, 220);
+}
+
+// Generic bar-fill reveal (chart + phase tracker)
 const bars = document.querySelectorAll('.bar-fill, .phase-bar-fill');
 const barObs = new IntersectionObserver(entries => {
   entries.forEach(e => {
-    if (e.isIntersecting) { e.target.style.width = e.target.getAttribute('data-pct') + '%'; barObs.unobserve(e.target); }
+    if (e.isIntersecting) {
+      const pct = e.target.getAttribute('data-pct');
+      e.target.style.width = pct + '%';
+      barObs.unobserve(e.target);
+    }
   });
 }, { threshold: 0.4 });
 bars.forEach(b => barObs.observe(b));
 
-document.querySelectorAll('.bar-row').forEach(row => {
-  row.addEventListener('click', () => {
-    const extra = row.querySelector('.bar-extra');
-    if (!extra.textContent) extra.textContent = row.getAttribute('data-extra') || '';
-    row.classList.toggle('open');
-  });
-});
-
-document.querySelectorAll('.stat-card').forEach(card => {
-  card.addEventListener('click', () => card.classList.toggle('open'));
-});
-
+// THE CROWD grid
 const grid = document.getElementById('crowdGrid');
 const TOTAL_DOTS = 784;
-const GONE_COUNT = 78;
-for (let i = 0; i < TOTAL_DOTS; i++) { const d = document.createElement('div'); d.className = 'crowd-dot'; grid.appendChild(d); }
+const GONE_COUNT = 78; // ~10%
+for (let i = 0; i < TOTAL_DOTS; i++) {
+  const d = document.createElement('div');
+  d.className = 'crowd-dot';
+  grid.appendChild(d);
+}
 const allDots = Array.from(grid.children);
+// pick a pseudo-random but stable-looking scatter of "gone" indices
 const goneIndices = new Set();
 let seed = 42;
 function rand() { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; }
 while (goneIndices.size < GONE_COUNT) { goneIndices.add(Math.floor(rand() * TOTAL_DOTS)); }
 
+// Both-sides interactive tabs
 document.querySelectorAll('.sides-tab').forEach(tab => {
   tab.addEventListener('click', () => {
     const side = tab.getAttribute('data-side');
@@ -658,22 +1063,14 @@ document.querySelectorAll('.sides-tab').forEach(tab => {
   });
 });
 
-document.querySelectorAll('.spread-tile').forEach(tile => {
-  tile.addEventListener('click', () => {
-    document.getElementById('spreadReadout').innerHTML = `<strong style="color:var(--white)">${tile.getAttribute('data-full')}</strong> &middot; ${tile.getAttribute('data-note')}`;
-  });
-});
-
-document.querySelectorAll('.verdict-row').forEach(row => {
-  row.addEventListener('click', () => { document.getElementById('verdictNote').textContent = row.getAttribute('data-note'); });
-});
-
-const tickerRatePerSecond = 60000000 / (365 * 24 * 60 * 60);
+// LIVE TICKER, starts counting the moment the page opens, never stops
+const tickerRatePerSecond = 60000000 / (365 * 24 * 60 * 60); // ~6 crore over roughly a year
 const tickerStart = performance.now();
 const tickerEl = document.getElementById('liveTickerNumber');
 function updateTicker() {
   const elapsedSeconds = (performance.now() - tickerStart) / 1000;
-  tickerEl.textContent = formatIndian(Math.floor(elapsedSeconds * tickerRatePerSecond));
+  const count = Math.floor(elapsedSeconds * tickerRatePerSecond);
+  tickerEl.textContent = formatIndian(count);
   requestAnimationFrame(updateTicker);
 }
 requestAnimationFrame(updateTicker);
@@ -683,21 +1080,92 @@ const crowdObs = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (e.isIntersecting && !crowdTriggered) {
       crowdTriggered = true;
-      Array.from(goneIndices).forEach((idx, order) => { setTimeout(() => { allDots[idx].classList.add('gone'); }, order * 22); });
+      const sorted = Array.from(goneIndices);
+      sorted.forEach((idx, order) => {
+        setTimeout(() => { allDots[idx].classList.add('gone'); }, order * 22);
+      });
+
+      // animate footer number
       const numEl = document.getElementById('crowdFooterNumber');
+      const numTarget = 52000000;
       const numStart = performance.now();
+      const numDuration = 2200;
       function stepNum(ts) {
-        const p = Math.min((ts - numStart) / 2200, 1);
+        const p = Math.min((ts - numStart) / numDuration, 1);
         const eased = 1 - Math.pow(1 - p, 3);
-        numEl.textContent = formatIndian(eased * 52000000);
+        numEl.textContent = formatIndian(eased * numTarget);
         if (p < 1) requestAnimationFrame(stepNum);
       }
       requestAnimationFrame(stepNum);
+
       crowdObs.disconnect();
     }
   });
 }, { threshold: 0.3 });
 crowdObs.observe(document.getElementById('crowdSection'));
+
+// TRIBUNAL BACKLOG CALCULATOR
+(function() {
+  const tribunalsSlider = document.getElementById('calcTribunals');
+  const rateSlider = document.getElementById('calcRate');
+  const tribunalsVal = document.getElementById('calcTribunalsVal');
+  const rateVal = document.getElementById('calcRateVal');
+  const yearsEl = document.getElementById('calcYears');
+  const resultBox = document.getElementById('calcResult');
+  if (!tribunalsSlider || !rateSlider) return;
+  const BACKLOG = 19000;
+  function formatYears(y) {
+    if (y < 1) return '< 1';
+    if (y >= 100) return Math.round(y).toLocaleString('en-IN');
+    return y.toFixed(1);
+  }
+  function updateCalc() {
+    const tribunals = parseInt(tribunalsSlider.value, 10);
+    const rate = parseInt(rateSlider.value, 10);
+    tribunalsVal.textContent = tribunals;
+    rateVal.textContent = rate;
+    const monthly = tribunals * rate;
+    const years = BACKLOG / (monthly * 12);
+    yearsEl.textContent = formatYears(years);
+    if (years <= 3) {
+      resultBox.classList.add('fast');
+    } else {
+      resultBox.classList.remove('fast');
+    }
+  }
+  tribunalsSlider.addEventListener('input', updateCalc);
+  rateSlider.addEventListener('input', updateCalc);
+  updateCalc();
+})();
+
+// EXPANDABLE PROOF CARDS
+document.querySelectorAll('.proof-item.expandable').forEach(item => {
+  item.addEventListener('click', () => {
+    const toggle = item.querySelector('.proof-toggle');
+    const isOpen = item.classList.toggle('open');
+    if (toggle) toggle.textContent = isOpen ? '\u2212 Close' : '+ Why';
+  });
+});
+
+// QUOTE CAROUSEL
+(function() {
+  const slides = Array.from(document.querySelectorAll('.quote-slide'));
+  const dots = Array.from(document.querySelectorAll('.quote-dot'));
+  const prevBtn = document.getElementById('quotePrev');
+  const nextBtn = document.getElementById('quoteNext');
+  if (!slides.length) return;
+  let current = 0;
+  function goTo(idx) {
+    current = (idx + slides.length) % slides.length;
+    slides.forEach((s, i) => s.classList.toggle('active', i === current));
+    dots.forEach((d, i) => d.classList.toggle('active', i === current));
+  }
+  dots.forEach(dot => {
+    dot.addEventListener('click', () => goTo(parseInt(dot.getAttribute('data-goto'), 10)));
+  });
+  if (prevBtn) prevBtn.addEventListener('click', () => goTo(current - 1));
+  if (nextBtn) nextBtn.addEventListener('click', () => goTo(current + 1));
+})();
 </script>
 </body>
 </html>
