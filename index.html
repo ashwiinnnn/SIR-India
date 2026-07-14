@@ -53,8 +53,8 @@ p { text-align: justify; text-justify: inter-word; hyphens: auto; }
 .hero-map-bg { position: absolute; inset: 0; z-index: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 0; opacity: 0.65; pointer-events: none; mask-image: radial-gradient(ellipse 60% 60% at 50% 46%, transparent 0%, transparent 40%, black 78%); -webkit-mask-image: radial-gradient(ellipse 60% 60% at 50% 46%, transparent 0%, transparent 40%, black 78%); }
 .hero-name { font-size: 0.72rem; font-weight: 600; line-height: 1.2; color: var(--cream-dim); padding: 0.55rem 0.4rem; text-align: center; letter-spacing: 0.02em; transition: color 0.6s ease, opacity 0.6s ease; position: relative; }
 .hero-name.struck { color: var(--red-bright); opacity: 0.9; }
-.hero-name.struck::after { content: ''; position: absolute; left: 8%; right: 8%; top: calc(50% - 1px); height: 2px; background: var(--red-bright); transform: scaleX(0); transform-origin: left; animation: strike 0.45s ease forwards; }
-@keyframes strike { to { transform: scaleX(1); } }
+.hero-name.struck::after { content: ''; position: absolute; left: 8%; right: 8%; top: 50%; height: 2px; background: var(--red-bright); transform: translateY(-50%) scaleX(0); transform-origin: left; animation: strike 0.45s ease forwards; }
+@keyframes strike { to { transform: translateY(-50%) scaleX(1); } }
 .hero > * { position: relative; z-index: 1; }
 .hero-map-bg { position: absolute !important; inset: 0; z-index: 0 !important; }
 .hero-tag { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red-bright); margin-top: 1.5rem; margin-bottom: 1.1rem; text-shadow: 0 2px 18px rgba(0,0,0,0.85); }
@@ -315,7 +315,7 @@ p { text-align: justify; text-justify: inter-word; hyphens: auto; }
 .fight-panel { display: none; }
 .fight-panel.active { display: block; animation: fadeIn 0.3s ease; }
 .fight-panel p { font-size: 0.9rem; color: var(--cream); line-height: 1.75; margin: 0; text-align: left; }
-.fight-panel .fight-stat { display: inline-block; font-weight: 800; color: var(--red-bright); }
+.fight-panel .fight-stat { font-weight: 800; color: var(--red-bright); }
 
 .memorial-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); margin: 2rem 0; }
 .memorial-row { display: grid; grid-template-columns: 1.6fr 1.4fr 1fr 0.9fr; gap: 0.8rem; background: var(--dark); padding: 0.9rem 1.1rem; align-items: center; }
@@ -400,8 +400,8 @@ p { text-align: justify; text-justify: inter-word; hyphens: auto; }
   <p class="hero-counter-label">Indians removed from electoral rolls</p>
   <div class="hero-divider"></div>
   <h1 class="hero-title">The Machine That Erases You</h1>
-  <p class="hero-punch">Somewhere in India, right now, someone is being asked to prove that they belong here.</p>
-  <p class="hero-deck">You don't think this story is about you.<br>But, that is how every story like this <span style="color: var(--red-bright);">begins</span>.</p>
+  <p class="hero-punch">Somewhere in India, right now, someone is being asked to prove they are real.</p>
+  <p class="hero-deck">You don't think this story is about you.<br>That is how every story like this <span style="color: var(--red-bright);">begins</span>.</p>
   <div class="scroll-cue">Read</div>
 </section>
 
@@ -685,7 +685,7 @@ p { text-align: justify; text-justify: inter-word; hyphens: auto; }
       <p>When the Bihar round began, the Election Commission left Aadhaar off the list of eleven accepted documents, arguing it proves identity, not citizenship. Petitioners countered that Aadhaar is the <span class="fight-stat">one document nearly every Indian holds</span>, and excluding it would exclude them too. The Supreme Court agreed only partway: Aadhaar stayed off the core checklist, but anyone left off the draft roll could use it when filing a claim to get back on.</p>
     </div>
     <div class="fight-panel" data-fpanel="unexplained">
-      <p>The Association for Democratic Reforms pulled Bihar's own Chief Electoral Officer records. Of 3.66 lakh names struck from the first draft roll, <span class="fight-stat">9,968 carried no reason at all</span>. Not death. Not migration. Not duplication. Nothing. The Commission says 99 percent of deletions rest on legitimate grounds. Whether that holds depends on the roughly 1 percent it does not appear to cover, and the people inside it.</p>
+      <p>Association for Democratic Reforms pulled Bihar's own Chief Electoral Officer records. Of 3.66 lakh names struck from the first draft roll, <span class="fight-stat">9,968 carried no reason at all</span>. Not death. Not migration. Not duplication. Nothing. The Commission says 99 percent of deletions rest on legitimate grounds. Whether that holds depends on the roughly 1 percent it does not appear to cover, and the people inside it.</p>
     </div>
     <div class="fight-panel" data-fpanel="humancheck">
       <p>Justice Joymalya Bagchi told Kapil Sibal, arguing for West Bengal and Kerala, that software can catch a duplicate registration, but <span class="fight-stat">nothing catches a dead voter except a human checking</span>, and whichever party benefits from uncleaned rolls has every incentive to leave them uncleaned. Fair point. It also turned a routine cleanup into an argument, on the record, about who India's electoral machinery actually protects.</p>
