@@ -39,52 +39,21 @@ body {
 
 p { text-align: justify; text-justify: inter-word; hyphens: auto; }
 
-/* TICKER */
-.ticker-wrap {
-  background: var(--red);
-  overflow: hidden;
-  padding: 0.45rem 0;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  border-bottom: 2px solid #ff3333;
-}
+.ticker-wrap { background: var(--red); overflow: hidden; padding: 0.45rem 0; position: sticky; top: 0; z-index: 100; border-bottom: 2px solid #ff3333; }
 .ticker-inner { display: flex; align-items: center; gap: 0; }
-.ticker-label {
-  background: #fff; color: var(--red);
-  font-size: 0.62rem; font-weight: 800; letter-spacing: 0.18em;
-  text-transform: uppercase; padding: 0.15rem 0.7rem;
-  white-space: nowrap; flex-shrink: 0; margin-right: 1.5rem;
-}
-.ticker-track {
-  display: flex; gap: 4rem;
-  animation: ticker 32s linear infinite;
-  white-space: nowrap;
-}
+.ticker-label { background: #fff; color: var(--red); font-size: 0.62rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.15rem 0.7rem; white-space: nowrap; flex-shrink: 0; margin-right: 1.5rem; }
+.ticker-track { display: flex; gap: 4rem; animation: ticker 32s linear infinite; white-space: nowrap; }
 .ticker-track span { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #fff; }
 .ticker-dot { color: rgba(255,255,255,0.5); }
 @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-/* HERO */
-.hero {
-  min-height: 100vh; display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  padding: 8rem 2rem 4rem; border-bottom: 1px solid var(--border);
-  position: relative; overflow: hidden; text-align: center;
-}
-.hero-bg {
-  position: absolute; inset: 0;
-  background: radial-gradient(ellipse 80% 60% at 50% 55%, rgba(150,0,0,0.25) 0%, transparent 70%), var(--black);
-  z-index: 0;
-}
-.hero-noise {
-  position: absolute; inset: 0; z-index: 0; opacity: 0.05; pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
+.hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 8rem 2rem 4rem; border-bottom: 1px solid var(--border); position: relative; overflow: hidden; text-align: center; }
+.hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 55%, rgba(150,0,0,0.25) 0%, transparent 70%), var(--black); z-index: 0; }
+.hero-noise { position: absolute; inset: 0; z-index: 0; opacity: 0.05; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
 .hero-map-bg { position: absolute; inset: 0; z-index: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 0; opacity: 0.65; pointer-events: none; mask-image: radial-gradient(ellipse 60% 60% at 50% 46%, transparent 0%, transparent 40%, black 78%); -webkit-mask-image: radial-gradient(ellipse 60% 60% at 50% 46%, transparent 0%, transparent 40%, black 78%); }
-.hero-name { font-size: 0.72rem; font-weight: 600; color: var(--cream-dim); padding: 0.55rem 0.4rem; text-align: center; letter-spacing: 0.02em; transition: color 0.6s ease, opacity 0.6s ease; position: relative; }
+.hero-name { font-size: 0.72rem; font-weight: 600; line-height: 1.2; color: var(--cream-dim); padding: 0.55rem 0.4rem; text-align: center; letter-spacing: 0.02em; transition: color 0.6s ease, opacity 0.6s ease; position: relative; }
 .hero-name.struck { color: var(--red-bright); opacity: 0.9; }
-.hero-name.struck::after { content: ''; position: absolute; left: 8%; right: 8%; top: 50%; height: 2px; background: var(--red-bright); transform: scaleX(0); transform-origin: left; animation: strike 0.45s ease forwards; }
+.hero-name.struck::after { content: ''; position: absolute; left: 8%; right: 8%; top: calc(50% - 1px); height: 2px; background: var(--red-bright); transform: scaleX(0); transform-origin: left; animation: strike 0.45s ease forwards; }
 @keyframes strike { to { transform: scaleX(1); } }
 .hero > * { position: relative; z-index: 1; }
 .hero-map-bg { position: absolute !important; inset: 0; z-index: 0 !important; }
@@ -103,7 +72,6 @@ p { text-align: justify; text-justify: inter-word; hyphens: auto; }
 .scroll-cue::after { content: '↓'; font-size: 1rem; animation: bob 2s ease-in-out infinite; }
 @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(7px); } }
 
-/* ARTICLE */
 .article-wrap { max-width: 700px; margin: 0 auto; padding: 5rem 2rem; }
 
 .section-header { margin: 4.5rem 0 1.5rem; border-top: 1px solid var(--border-bright); padding-top: 2rem; }
@@ -164,21 +132,9 @@ p { text-align: justify; text-justify: inter-word; hyphens: auto; }
 .terminal-submit:hover { background: rgba(74,222,128,0.1); border-color: #4ade80; }
 .terminal-prompt.hidden { display: none; }
 .terminal-result { font-size: clamp(1rem, 2.4vw, 1.4rem); min-height: 1.5em; }
+.terminal-note { display: block; font-size: 0.62rem; color: #2d6a4f; margin-top: 0.6rem; font-style: italic; }
 .cursor-blink { animation: blink 1s step-end infinite; }
-.verify-section {
-  width: 100vw;
-  position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
-  background: #000;
-  padding: 5rem 1.5rem 5.5rem;
-  border-top: 3px solid var(--red-bright);
-  border-bottom: 1px solid var(--border-bright);
-  text-align: center;
-  overflow: hidden;
-}
+.verify-section { width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw; background: #000; padding: 5rem 1.5rem 5.5rem; border-top: 3px solid var(--red-bright); border-bottom: 1px solid var(--border-bright); text-align: center; overflow: hidden; }
 .verify-eyebrow { font-size: 0.62rem; font-weight: 800; letter-spacing: 0.25em; text-transform: uppercase; color: var(--red-bright); margin-bottom: 1rem; display: inline-flex; align-items: center; gap: 0.5rem; }
 .verify-heading { font-size: clamp(1.15rem, 2.6vw, 1.5rem); font-weight: 600; font-style: italic; color: var(--cream-muted); max-width: 480px; margin: 0 auto 2.8rem; line-height: 1.6; text-align: center; }
 .verify-form { max-width: 560px; margin: 0 auto; text-align: left; font-family: 'Courier New', monospace; border: 1px solid var(--border-bright); background: #060606; }
@@ -186,27 +142,14 @@ p { text-align: justify; text-justify: inter-word; hyphens: auto; }
 .verify-field:last-child { border-bottom: none; }
 .verify-field.active { opacity: 1; }
 .verify-q { font-size: clamp(0.85rem, 2vw, 0.98rem); color: var(--cream); line-height: 1.5; }
-.verify-stamp {
-  flex-shrink: 0; font-size: 0.62rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
-  color: var(--cream-dim); border: 1.5px solid var(--border-bright); border-radius: 3px; padding: 0.3rem 0.6rem;
-  transform: rotate(-6deg) scale(0.7); opacity: 0; transition: all 0.35s cubic-bezier(.34,1.56,.64,1);
-  white-space: nowrap;
-}
+.verify-stamp { flex-shrink: 0; font-size: 0.62rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--cream-dim); border: 1.5px solid var(--border-bright); border-radius: 3px; padding: 0.3rem 0.6rem; transform: rotate(-6deg) scale(0.7); opacity: 0; transition: all 0.35s cubic-bezier(.34,1.56,.64,1); white-space: nowrap; }
 .verify-stamp.pending { opacity: 0.75; color: #f59e0b; border-color: #f59e0b; transform: rotate(-6deg) scale(0.85); }
 .verify-stamp.stamped { opacity: 1; color: var(--red-bright); border-color: var(--red-bright); transform: rotate(-6deg) scale(1); box-shadow: 0 0 10px rgba(232,32,32,0.35); }
 .verify-result { margin-top: 3rem; opacity: 0; transform: translateY(12px); transition: opacity 0.7s ease, transform 0.7s ease; }
 .verify-result.visible { opacity: 1; transform: translateY(0); }
-.verify-result-stamp {
-  display: inline-block; font-family: 'Courier New', monospace; font-weight: 800;
-  font-size: clamp(1.05rem, 3vw, 1.5rem); letter-spacing: 0.06em; text-transform: uppercase;
-  color: var(--red-bright); border: 3px solid var(--red-bright); padding: 0.65rem 1.5rem;
-  transform: rotate(-3deg); box-shadow: 0 0 34px rgba(232,32,32,0.28);
-}
+.verify-result-stamp { display: inline-block; font-family: 'Courier New', monospace; font-weight: 800; font-size: clamp(1.05rem, 3vw, 1.5rem); letter-spacing: 0.06em; text-transform: uppercase; color: var(--red-bright); border: 3px solid var(--red-bright); padding: 0.65rem 1.5rem; transform: rotate(-3deg); box-shadow: 0 0 34px rgba(232,32,32,0.28); }
 .verify-result-sub { margin-top: 1.6rem; font-size: 0.85rem; color: var(--cream-muted); line-height: 1.7; text-align: center; max-width: 480px; margin-left: auto; margin-right: auto; }
-@media (max-width: 600px) {
-  .verify-field { flex-direction: column; align-items: flex-start; gap: 0.6rem; }
-  .verify-stamp { align-self: flex-end; }
-}
+@media (max-width: 600px) { .verify-field { flex-direction: column; align-items: flex-start; gap: 0.6rem; } .verify-stamp { align-self: flex-end; } }
 .alert-box { background: rgba(139,0,0,0.18); border: 1px solid var(--red-dim); border-left: 4px solid var(--red-bright); padding: 1.5rem 1.8rem; margin: 2.5rem 0; }
 .alert-label { font-size: 0.58rem; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red-bright); display: block; margin-bottom: 0.6rem; }
 .alert-box p { font-size: 0.95rem; font-weight: 500; color: #f8c6c6; line-height: 1.75; margin: 0; }
@@ -231,32 +174,11 @@ p { text-align: justify; text-justify: inter-word; hyphens: auto; }
 .phase-bar-track { width: 100%; height: 6px; background: var(--border-bright); margin-top: 0.6rem; overflow: hidden; }
 .phase-bar-fill { height: 100%; background: linear-gradient(90deg, var(--red-dim), var(--red-bright)); width: 0%; transition: width 1.6s cubic-bezier(.2,.7,.3,1); }
 
-/* CASE DOSSIER CARDS */
-.dossier {
-  margin: 3rem 0;
-  background: var(--card);
-  border: 1px solid var(--border-bright);
-  border-left: 4px solid var(--red-bright);
-  padding: 2rem 2rem 1.8rem;
-  position: relative;
-  overflow: hidden;
-}
-.dossier-watermark {
-  position: absolute; right: -0.4rem; top: -1.6rem;
-  font-weight: 800; font-size: 7.5rem;
-  color: rgba(232,32,32,0.05); line-height: 1; pointer-events: none; user-select: none;
-}
-.dossier-meta {
-  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.4rem;
-  font-size: 0.66rem; letter-spacing: 0.06em;
-  color: var(--cream-dim); text-transform: uppercase; margin-bottom: 1.1rem;
-  position: relative; font-weight: 700;
-}
+.dossier { margin: 3rem 0; background: var(--card); border: 1px solid var(--border-bright); border-left: 4px solid var(--red-bright); padding: 2rem 2rem 1.8rem; position: relative; overflow: hidden; }
+.dossier-watermark { position: absolute; right: -0.4rem; top: -1.6rem; font-weight: 800; font-size: 7.5rem; color: rgba(232,32,32,0.05); line-height: 1; pointer-events: none; user-select: none; }
+.dossier-meta { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.4rem; font-size: 0.66rem; letter-spacing: 0.06em; color: var(--cream-dim); text-transform: uppercase; margin-bottom: 1.1rem; position: relative; font-weight: 700; }
 .dossier-meta strong { color: var(--red-bright); font-weight: 800; }
-.dossier h3 {
-  font-weight: 700; font-size: clamp(1.2rem, 2.4vw, 1.5rem);
-  color: var(--white); margin-bottom: 0.8rem; line-height: 1.3; position: relative; text-align: left;
-}
+.dossier h3 { font-weight: 700; font-size: clamp(1.2rem, 2.4vw, 1.5rem); color: var(--white); margin-bottom: 0.8rem; line-height: 1.3; position: relative; text-align: left; }
 .dossier p { font-size: 0.92rem; color: var(--cream); line-height: 1.75; margin-bottom: 0; position: relative; }
 .dossier-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 1.4rem; }
 .dossier-stat { background: var(--dark); padding: 0.9rem 0.5rem; text-align: center; }
@@ -264,7 +186,6 @@ p { text-align: justify; text-justify: inter-word; hyphens: auto; }
 .dossier-stat span { font-size: 0.56rem; color: var(--cream-dim); text-transform: uppercase; letter-spacing: 0.05em; line-height: 1.5; display: block; margin-top: 0.25rem; }
 .dossier-source { font-size: 0.66rem; color: var(--cream-dim); margin-top: 1.1rem; font-style: italic; position: relative; text-align: left; }
 
-/* BAR CHART - deletions by state */
 .chart-block { margin: 3rem 0; background: var(--card); border: 1px solid var(--border-bright); padding: 1.8rem 1.8rem 1.4rem; }
 .chart-title { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 1.6rem; }
 .bar-row { margin-bottom: 1.1rem; }
@@ -288,11 +209,7 @@ p { text-align: justify; text-justify: inter-word; hyphens: auto; }
 .proof-item.reject span { color: var(--cream-muted); }
 
 .spread-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(46px, 1fr)); gap: 6px; margin-bottom: 1.2rem; }
-.spread-tile {
-  aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
-  font-size: 0.62rem; font-weight: 800; letter-spacing: 0.02em; color: var(--white);
-  border-radius: 3px; text-transform: uppercase;
-}
+.spread-tile { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 0.62rem; font-weight: 800; letter-spacing: 0.02em; color: var(--white); border-radius: 3px; text-transform: uppercase; }
 .spread-tile.done { background: var(--red-dim); }
 .spread-tile.active { background: var(--red-bright); box-shadow: 0 0 10px rgba(232,32,32,0.5); animation: blink 2.2s ease-in-out infinite; }
 .spread-tile.upcoming { background: var(--border-bright); color: var(--cream-dim); }
@@ -305,22 +222,13 @@ p { text-align: justify; text-justify: inter-word; hyphens: auto; }
 .flow-list { display: flex; flex-direction: column; }
 .flow-step { display: flex; gap: 1rem; padding: 0.9rem 0; border-bottom: 1px solid var(--border-bright); }
 .flow-step.last { border-bottom: none; }
-.flow-num {
-  flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%;
-  background: var(--red-dim); color: var(--white); font-weight: 800; font-size: 0.75rem;
-  display: flex; align-items: center; justify-content: center;
-}
+.flow-num { flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: var(--red-dim); color: var(--white); font-weight: 800; font-size: 0.75rem; display: flex; align-items: center; justify-content: center; }
 .flow-step.last .flow-num { background: var(--red-bright); }
 .flow-text { font-size: 0.85rem; color: var(--cream-muted); line-height: 1.65; padding-top: 0.15rem; text-align: left; }
 .flow-text strong { color: var(--white); font-weight: 600; }
 
 .sides-tabs { display: flex; gap: 0.5rem; margin-bottom: 1.4rem; flex-wrap: wrap; }
-.sides-tab {
-  flex: 1; min-width: 140px; background: var(--dark); border: 1px solid var(--border-bright);
-  color: var(--cream-muted); font-family: inherit; font-size: 0.72rem; font-weight: 700;
-  letter-spacing: 0.02em; text-transform: uppercase; padding: 0.75rem 0.8rem; cursor: pointer;
-  transition: all 0.2s ease;
-}
+.sides-tab { flex: 1; min-width: 140px; background: var(--dark); border: 1px solid var(--border-bright); color: var(--cream-muted); font-family: inherit; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.02em; text-transform: uppercase; padding: 0.75rem 0.8rem; cursor: pointer; transition: all 0.2s ease; }
 .sides-tab:hover { border-color: var(--red-dim); color: var(--cream); }
 .sides-tab.active { background: var(--red-dim); border-color: var(--red-bright); color: var(--white); }
 .sides-panel { display: none; }
@@ -332,79 +240,32 @@ p { text-align: justify; text-justify: inter-word; hyphens: auto; }
 .verdict-grid { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); }
 .verdict-row { display: flex; align-items: center; justify-content: space-between; gap: 1.2rem; background: var(--dark); padding: 1rem 1.2rem; }
 .verdict-q { font-size: 0.82rem; color: var(--cream); line-height: 1.6; text-align: left; }
-.verdict-a {
-  flex-shrink: 0; font-weight: 800; font-size: 0.9rem;
-  color: var(--red-bright); border: 1.5px solid var(--red-bright); border-radius: 3px;
-  padding: 0.3rem 0.8rem; text-transform: uppercase; letter-spacing: 0.05em;
-}
+.verdict-a { flex-shrink: 0; font-weight: 800; font-size: 0.9rem; color: var(--red-bright); border: 1.5px solid var(--red-bright); border-radius: 3px; padding: 0.3rem 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; }
 
-/* ENDING */
 .ending { border-top: 1px solid var(--border-bright); margin-top: 5rem; padding-top: 3.5rem; text-align: center; }
 .ending-line { font-size: clamp(1.5rem, 3.5vw, 2.3rem); font-weight: 700; color: var(--white); line-height: 1.4; letter-spacing: -0.005em; margin-bottom: 2rem; text-align: center; }
 .ending-line .red { color: var(--red-bright); }
 .mono { font-weight: 700; color: var(--red-bright); background: rgba(204,17,17,0.1); padding: 0.1em 0.3em; }
 
-/* ===== THE CROWD, final banger visual ===== */
-.crowd-section {
-  position: relative;
-  background: #000;
-  padding: 5rem 1.5rem 6rem;
-  border-top: 3px solid var(--red-bright);
-  overflow: hidden;
-  text-align: center;
-}
+.crowd-section { position: relative; background: #000; padding: 5rem 1.5rem 6rem; border-top: 3px solid var(--red-bright); overflow: hidden; text-align: center; }
 .crowd-eyebrow { font-size: 0.62rem; font-weight: 800; letter-spacing: 0.25em; text-transform: uppercase; color: var(--red-bright); margin-bottom: 0.8rem; }
 .crowd-heading { font-size: clamp(1.6rem, 4vw, 2.6rem); font-weight: 700; color: var(--white); max-width: 720px; margin: 0 auto 0.8rem; line-height: 1.3; text-align: center; }
 .crowd-sub { font-size: 0.85rem; color: var(--cream-muted); max-width: 560px; margin: 0 auto 3rem; line-height: 1.7; text-align: center; }
 
-.crowd-grid {
-  display: grid;
-  grid-template-columns: repeat(28, 1fr);
-  gap: 4px;
-  max-width: 760px;
-  margin: 0 auto;
-  position: relative;
-}
-.crowd-dot {
-  width: 100%; aspect-ratio: 1;
-  background: var(--cream-dim);
-  border-radius: 50%;
-  opacity: 0.9;
-  transition: background 0.25s ease, transform 0.25s ease, opacity 0.25s ease;
-}
-.crowd-dot.gone {
-  background: var(--red-bright);
-  transform: scale(0.55);
-  opacity: 0.35;
-  box-shadow: 0 0 6px rgba(232,32,32,0.7);
-}
+.crowd-grid { display: grid; grid-template-columns: repeat(28, 1fr); gap: 4px; max-width: 760px; margin: 0 auto; position: relative; }
+.crowd-dot { width: 100%; aspect-ratio: 1; background: var(--cream-dim); border-radius: 50%; opacity: 0.9; transition: background 0.25s ease, transform 0.25s ease, opacity 0.25s ease; }
+.crowd-dot.gone { background: var(--red-bright); transform: scale(0.55); opacity: 0.35; box-shadow: 0 0 6px rgba(232,32,32,0.7); }
 
 .crowd-footer-number { margin-top: 3.2rem; font-size: clamp(2.4rem, 7vw, 4.2rem); font-weight: 800; color: var(--red-bright); letter-spacing: -0.02em; }
 .crowd-footer-label { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cream-dim); margin-top: 0.5rem; }
 .crowd-footer-line { margin-top: 2.5rem; font-size: clamp(1.1rem, 2.6vw, 1.5rem); font-weight: 800; color: var(--white); max-width: 620px; margin-left: auto; margin-right: auto; line-height: 1.5; text-align: center; }
 
-.live-ticker {
-  margin: 4rem auto 0; max-width: 480px;
-  border: 1px solid var(--red-dim); border-top: 3px solid var(--red-bright);
-  background: rgba(139,0,0,0.08);
-  padding: 2.2rem 1.8rem;
-}
-.live-ticker-label {
-  display: inline-flex; align-items: center; gap: 0.5rem;
-  font-size: 0.62rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--red-bright); margin-bottom: 1.2rem;
-}
-.live-ticker-number {
-  font-weight: 800;
-  font-size: clamp(2.6rem, 8vw, 4.4rem);
-  color: var(--white); line-height: 1; letter-spacing: -0.01em;
-  font-variant-numeric: tabular-nums;
-  margin-bottom: 0.9rem;
-}
+.live-ticker { margin: 4rem auto 0; max-width: 480px; border: 1px solid var(--red-dim); border-top: 3px solid var(--red-bright); background: rgba(139,0,0,0.08); padding: 2.2rem 1.8rem; }
+.live-ticker-label { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.62rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red-bright); margin-bottom: 1.2rem; }
+.live-ticker-number { font-weight: 800; font-size: clamp(2.6rem, 8vw, 4.4rem); color: var(--white); line-height: 1; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; margin-bottom: 0.9rem; }
 .live-ticker-sub { font-size: 0.78rem; color: var(--cream-muted); line-height: 1.6; margin-bottom: 1.2rem; text-align: center; }
 .live-ticker-note { font-size: 0.65rem; color: var(--cream-dim); line-height: 1.7; font-style: italic; border-top: 1px dashed var(--border-bright); padding-top: 1rem; text-align: left; }
 
-/* TRIBUNAL BACKLOG CALCULATOR */
 .calc-block { margin: 3rem 0; background: var(--card); border: 1px solid var(--border-bright); border-top: 3px solid var(--red-bright); padding: 2rem 1.8rem; }
 .calc-row { margin-bottom: 1.9rem; }
 .calc-label-row { display: flex; justify-content: space-between; align-items: baseline; font-size: 0.78rem; color: var(--cream-muted); margin-bottom: 0.7rem; }
@@ -420,7 +281,6 @@ p { text-align: justify; text-justify: inter-word; hyphens: auto; }
 .calc-result.fast { border-color: #2d6a4f; }
 .calc-note { font-size: 0.65rem; color: var(--cream-dim); margin-top: 1.2rem; line-height: 1.65; }
 
-/* QUOTE CAROUSEL */
 .quote-carousel { margin: 3.5rem 0; background: var(--card); border: 1px solid var(--border-bright); border-top: 3px solid var(--red-bright); padding: 2.2rem 1.9rem; position: relative; overflow: hidden; }
 .quote-carousel-label { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 1.6rem; }
 .quote-slide { display: none; min-height: 140px; }
@@ -439,7 +299,6 @@ p { text-align: justify; text-justify: inter-word; hyphens: auto; }
 .quote-arrow { background: var(--dark); border: 1px solid var(--border-bright); color: var(--cream); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-size: 0.95rem; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease; }
 .quote-arrow:hover { border-color: var(--red-bright); color: var(--red-bright); }
 
-/* EXPANDABLE PROOF CARDS */
 .proof-item.expandable { cursor: pointer; align-items: flex-start; }
 .proof-item.expandable .proof-body { flex: 1; }
 .proof-item.expandable .proof-toggle { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red-bright); margin-top: 0.35rem; display: inline-block; }
@@ -448,6 +307,36 @@ p { text-align: justify; text-justify: inter-word; hyphens: auto; }
 .proof-item.expandable.open .proof-toggle { color: var(--cream-dim); }
 
 .bar-row.compact { margin-bottom: 0.9rem; }
+
+.fight-tabs { display: flex; gap: 0.4rem; margin-bottom: 1.4rem; flex-wrap: wrap; }
+.fight-tab { flex: 1; min-width: 110px; background: var(--dark); border: 1px solid var(--border-bright); color: var(--cream-muted); font-family: inherit; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.03em; text-transform: uppercase; padding: 0.7rem 0.6rem; cursor: pointer; transition: all 0.2s ease; text-align: center; }
+.fight-tab:hover { border-color: var(--red-dim); color: var(--cream); }
+.fight-tab.active { background: var(--red-dim); border-color: var(--red-bright); color: var(--white); }
+.fight-panel { display: none; }
+.fight-panel.active { display: block; animation: fadeIn 0.3s ease; }
+.fight-panel p { font-size: 0.9rem; color: var(--cream); line-height: 1.75; margin: 0; text-align: left; }
+.fight-panel .fight-stat { display: inline-block; font-weight: 800; color: var(--red-bright); }
+
+.memorial-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); margin: 2rem 0; }
+.memorial-row { display: grid; grid-template-columns: 1.6fr 1.4fr 1fr 0.9fr; gap: 0.8rem; background: var(--dark); padding: 0.9rem 1.1rem; align-items: center; }
+.memorial-row.header { background: var(--card); font-size: 0.56rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cream-dim); }
+.memorial-name { font-size: 0.85rem; font-weight: 700; color: var(--white); }
+.memorial-role { font-size: 0.78rem; color: var(--cream-muted); }
+.memorial-loc { font-size: 0.78rem; color: var(--cream-muted); }
+.memorial-date { font-size: 0.72rem; color: var(--red-bright); font-weight: 700; text-align: right; }
+@media (max-width: 600px) { .memorial-row { grid-template-columns: 1fr; gap: 0.2rem; text-align: left; } .memorial-row.header { display: none; } .memorial-date { text-align: left; } }
+
+.lag-diagram { margin: 3rem 0; background: var(--card); border: 1px solid var(--border-bright); padding: 2rem 1.8rem; }
+.lag-title { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 2rem; }
+.lag-track { position: relative; padding-left: 1.6rem; }
+.lag-line { position: absolute; left: 5px; top: 6px; bottom: 6px; width: 2px; background: var(--border-bright); }
+.lag-point { position: relative; margin-bottom: 2.2rem; }
+.lag-point:last-child { margin-bottom: 0; }
+.lag-point::before { content: ''; position: absolute; left: -1.6rem; top: 0.25rem; width: 11px; height: 11px; border-radius: 50%; background: var(--red-dim); border: 2px solid var(--black); }
+.lag-point.ruling::before { background: var(--red-bright); box-shadow: 0 0 8px rgba(232,32,32,0.6); }
+.lag-date { font-size: 0.62rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red-bright); margin-bottom: 0.3rem; }
+.lag-event { font-size: 0.92rem; color: var(--cream); line-height: 1.6; text-align: left; }
+.lag-verdict { margin-top: 2rem; padding: 1.4rem; background: var(--dark); border-left: 3px solid var(--red-bright); font-size: 0.85rem; color: var(--cream-muted); line-height: 1.7; text-align: left; }
 
 @media (max-width: 600px) {
   .pull-quote { margin: 2.5rem 0; padding: 1.5rem; }
@@ -464,7 +353,6 @@ p { text-align: justify; text-justify: inter-word; hyphens: auto; }
 </head>
 <body>
 
-<!-- TICKER -->
 <div class="ticker-wrap">
   <div class="ticker-inner">
     <div class="ticker-track">
@@ -500,7 +388,6 @@ p { text-align: justify; text-justify: inter-word; hyphens: auto; }
   </div>
 </div>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-noise"></div>
@@ -518,7 +405,6 @@ p { text-align: justify; text-justify: inter-word; hyphens: auto; }
   <div class="scroll-cue">Read</div>
 </section>
 
-<!-- ARTICLE -->
 <main class="article-wrap">
 
   <div class="body">
@@ -527,7 +413,6 @@ p { text-align: justify; text-justify: inter-word; hyphens: auto; }
     <p>That ruling set a clock running. She was detained first and then a writ petition was filed by her brother on her behalf later. The Gauhati High Court threw the case out in August 2025, not on the evidence or facts, but because she was six years late. Weeks later, she was gone. Deported to a country she had never lived in. She is still there. Her case is now before the Supreme Court, argued through an affidavit her brother filed, because she cannot speak for herself.</p>
   </div>
 
-  <!-- CASE DOSSIER: AHEDA KHATUN -->
   <div class="dossier">
     <div class="dossier-watermark">01</div>
     <div class="dossier-meta">
@@ -544,11 +429,9 @@ p { text-align: justify; text-justify: inter-word; hyphens: auto; }
     <p class="dossier-source">Source: The India Forum, Gauhati High Court order, August 2025</p>
   </div>
 
-
   <div class="body">
     <p>Four women. Goalpara detention camp, Assam. A status-quo order keeping them there, for now, while the Court decides whether "for now" continues. Saleha Khatun, 50, was detained on March 2. She was declared a "Foreigner" in 2018. The same was confirmed by the Gauhati High Court in December 2025. Sarbhanu Begum's citizenship claim was rejected because her own name appeared differently across decades of official records: <em>"Sarbhanu," "Sorbhanu," "Saharbhanu."</em> Three spellings, one woman, a lifetime in India, and it was not enough. On May 5, 2026, a vacation bench of the Supreme Court granted the four women interim protection, and listed the matter for July 16th.</p>
 
-      <!-- COUNTDOWN -->
   <div class="countdown-block">
     <div class="countdown-status">
       <span class="live-dot"></span>
@@ -572,7 +455,6 @@ p { text-align: justify; text-justify: inter-word; hyphens: auto; }
     <p>The legal pathway now exists. The administrative machinery is already moving. Bihar came first. Now the Special Intensive Revision has spread across the country. Phase I and II have already covered nearly 59 crore electors. Phase III has put almost four lakh Booth Level Officers on the streets, going door to door across 16 States and 3 Union Territories to verify another 36.73 crore people. Only Himachal Pradesh, Jammu & Kashmir, and Ladakh remain outside the current schedule</p>
   </div>
 
-  <!-- SECTION 1 -->
   <div class="section-header">
     <span class="section-eyebrow">01 / The Machine</span>
     <h2 class="section-title">What the roll now decides</h2>
@@ -585,7 +467,6 @@ p { text-align: justify; text-justify: inter-word; hyphens: auto; }
     <div class="stat-card"><div class="stat-number">47 L</div><div class="stat-label">Bihar voters removed in Phase I</div></div>
   </div>
 
-  <!-- CHART: deletions by state -->
   <div class="chart-block">
     <div class="chart-title">Names Deleted, By State &nbsp;&middot;&nbsp; Since 2025</div>
     <div class="bar-row"><div class="bar-label-row"><span>Uttar Pradesh</span><strong>2.04 Cr</strong></div><div class="bar-track"><div class="bar-fill" data-pct="100"></div></div></div>
@@ -644,7 +525,6 @@ p { text-align: justify; text-justify: inter-word; hyphens: auto; }
     </div>
   </div>
 
- <!-- CASE DOSSIER: SIRAJUL SHEKH -->
   <div class="dossier">
     <div class="dossier-watermark">02</div>
     <div class="dossier-meta">
@@ -658,15 +538,24 @@ p { text-align: justify; text-justify: inter-word; hyphens: auto; }
       <div class="dossier-stat"><b>1</b><span>Voter ID Number Invalidated In March</span></div>
       <div class="dossier-stat"><b>&infin;</b><span>Days Until His Surgery Can Be Scheduled</span></div>
     </div>
+    <div class="pull-quote" style="margin: 1.6rem 0 0; padding: 1.5rem 1.6rem;">
+      <p>"Unless declared to be a citizen of India, you cannot be given a passport."</p>
+      <cite>Justice Kausik Chanda, Calcutta High Court (Jalpaiguri circuit bench), July 2026, to Sirajul Shekh</cite>
+    </div>
     <p class="dossier-source">Source: LiveLaw, Calcutta High Court order, July 2026</p>
   </div>
 
-    <div class="pull-quote">
-    <p>"Unless declared to be a citizen of India, you cannot be given a passport."</p>
-    <cite>Justice Kausik Chanda, Calcutta High Court (Jalpaiguri circuit bench), July 2026, to Sirajul Shekh, a man who needed to travel for medical treatment</cite>
+  <div class="alert-box">
+    <span class="alert-label">The trap, stated plainly</span>
+    <p>To get a passport, you must first prove citizenship. But the passport you receive cannot conclusively prove that citizenship. The tribunals meant to resolve the doubt are themselves trapped under a backlog, a Calcutta High Court bench estimated this month that clearing it could take 21 years. The machine demands proof, rejects proof, and sends people back to seek proof again. The uncertainty is not a flaw in the system. It is a circle built into the process.</p>
   </div>
-  
-  <!-- INTERACTIVE: TRIBUNAL BACKLOG CALCULATOR -->
+
+  <div class="mega-stat" id="megaStat">
+    <div class="mega-stat-lead">If you get flagged, and have to appeal, the current wait is</div>
+    <div class="mega-stat-num"><span id="megaStatNum">0</span><span class="mega-stat-unit"> YEARS</span></div>
+    <div class="mega-stat-sub">Long enough for a child born today to grow up and file the same paperwork.</div>
+  </div>
+
   <div class="calc-block">
     <div class="chart-title">Try It Yourself &nbsp;&middot;&nbsp; Why 21 Years</div>
     <div class="calc-row">
@@ -686,7 +575,6 @@ p { text-align: justify; text-justify: inter-word; hyphens: auto; }
     <p class="calc-note">Illustrative model, not an official figure: it holds an estimated pending-appeals backlog fixed at roughly 19,000, derived from the reported pace of 136 appeals decided by 19 functioning tribunals over about two months, and scales it against the sliders above. At those actual, real-world settings, the model lands on the same roughly 21 years a Calcutta High Court bench cited this month. Drag either slider to see what it would actually take to clear it faster.</p>
   </div>
 
-  <!-- BURDEN OF PROOF VISUAL, INTERACTIVE -->
   <div class="chart-block">
     <div class="chart-title">What Counts As Proof, And What Does Not &nbsp;&middot;&nbsp; Tap A Card</div>
     <div class="proof-grid">
@@ -734,7 +622,6 @@ p { text-align: justify; text-justify: inter-word; hyphens: auto; }
     <p class="chart-note">The burden of proving continuous Indian ancestry sits entirely with the individual. The tribunal or enumerator decides, case by case, which decades-old document is good enough.</p>
   </div>
 
-  <!-- CASE DOSSIER: RAJAGOPAL -->
   <div class="dossier">
     <div class="dossier-watermark">03</div>
     <div class="dossier-meta">
@@ -763,23 +650,6 @@ p { text-align: justify; text-justify: inter-word; hyphens: auto; }
     <p>Adil Hossain studies citizenship for a living. His own name got struck off the roll in Uttar Dinajpur constituency in West Bengal, weeks before the West Bengal election. He had a passport. He had land records going back to the 1950s. None of it arrived in time. His parents voted. His sister voted. He did not. "All of a sudden," he told Scroll, "the things I have read about are happening to me now." His read on the ration card order is the one worth keeping: the SIR was meant to draw up a list of the electorate; linking it to welfare benefits creates new categories of citizenship. Not new categories of voters. New categories of citizenship. Those are not the same thing, and the distinction is the ballgame.</p>
   </div>
 
-  <!-- INTERACTIVE: BOTH SIDES -->
-  <div class="chart-block sides-block">
-    <div class="chart-title">Two Accounts Of The Same Exercise</div>
-    <div class="sides-tabs">
-      <button class="sides-tab active" data-side="opp" type="button">What The Opposition Says</button>
-      <button class="sides-tab" data-side="ec" type="button">What The EC And Government Say</button>
-    </div>
-    <div class="sides-panel active" data-panel="opp">
-      <p>Twenty-three opposition parties and an independent MP wrote to the Chief Justice of India on June 30, 2026, asking the judiciary to intervene. “When all else fails, people still repose their trust in the judiciary… When this too fails, who do we now turn to?… We leave that question for you to ponder upon.”. Congress general secretary Jairam Ramesh has accused the Election Commission of functioning as an extension of the ruling party, calling the exercise <span class="quote-mark">"a vote chori on a gigantic scale."</span></p>
-    </div>
-    <div class="sides-panel" data-panel="ec">
-      <p>The Election Commission maintains the goal is simply accuracy: removing dead, duplicate, shifted and ineligible entries so that only genuine citizens remain on the rolls, and that every party gets a Booth Level Agent to watch the process. The Commission claims that the exercise is necessary for "free and fair" elections.</p>
-    </div>
-    <p class="chart-note">Both accounts are here because you deserve to read what each side is actually arguing, not a summary filtered through the other.</p>
-  </div>
-
-  <!-- UN SPECIAL RAPPORTEURS -->
   <div class="alert-box">
     <span class="alert-label">A third account, from outside India</span>
     <p>On May 1, 2026, three UN Special Rapporteurs, covering minority issues, freedom of opinion and expression, and freedom of religion or belief, wrote to the Government of India through the UN Human Rights Council's Special Procedures. Their letter cited the same 5.2 crore figure this article opened with, and pointed to Nandigram constituency in West Bengal, where by their account 95 percent of deleted voters were Muslim, in a constituency where Muslims make up roughly a quarter of the electorate. They asked New Delhi for a breakdown of the religion and ethnicity of everyone removed from the rolls, and noted that Article 25 of the ICCPR guarantees every citizen the right to vote without unreasonable restriction. As of this writing, no public reply by the Government of India has been made available.</p>
@@ -804,13 +674,25 @@ p { text-align: justify; text-justify: inter-word; hyphens: auto; }
     <div class="stat-card"><div class="stat-number">0</div><div class="stat-label">Dead voters a database can catch without a human checking</div></div>
   </div>
 
-  <div class="body">
-    <p>The first is Aadhaar. When the Bihar round began, the Election Commission left it off the list of eleven accepted documents. Its reasoning: Aadhaar proves identity, not citizenship. Petitioners pointed out that Aadhaar is the one document nearly every Indian holds, and excluding it would exclude them too. The Supreme Court agreed only partway. Aadhaar stayed off the core checklist, but anyone left off the draft roll could use it when filing a claim to get back on. Chief Justice Surya Kant put the worry bluntly: should a labourer, given an Aadhaar card only to collect subsidised rations, also get a ballot on that basis alone?</p>
-    <p>The second is the deletions nobody can explain. Association for Democratic Reforms pulled Bihar's own Chief Electoral Officer records. Of 3.66 lakh names struck from the first draft roll, 9,968 carried no reason at all. Not death. Not migration. Not duplication. Nothing. The Commission says 99 percent of deletions rest on legitimate grounds. Whether that holds depends on the roughly 1 percent it does not appear to cover, and the people inside it.</p>
-    <p>The third is the argument the Court had with the petitioners themselves. Justice Joymalya Bagchi told Kapil Sibal, arguing for West Bengal and Kerala, that software can catch a duplicate registration, but nothing catches a dead voter except a human checking, and whichever party benefits from uncleaned rolls has every incentive to leave them uncleaned. Fair point. It also turned a routine cleanup into an argument, on the record, about who India's electoral machinery actually protects.</p>
+  <div class="chart-block">
+    <div class="chart-title">Three Fights Inside The Numbers &nbsp;&middot;&nbsp; Pick One</div>
+    <div class="fight-tabs">
+      <button class="fight-tab active" data-fight="aadhaar" type="button">The Aadhaar Fight</button>
+      <button class="fight-tab" data-fight="unexplained" type="button">The Unexplained Deletions</button>
+      <button class="fight-tab" data-fight="humancheck" type="button">The Human-Check Argument</button>
+    </div>
+    <div class="fight-panel active" data-fpanel="aadhaar">
+      <p>When the Bihar round began, the Election Commission left Aadhaar off the list of eleven accepted documents, arguing it proves identity, not citizenship. Petitioners countered that Aadhaar is the <span class="fight-stat">one document nearly every Indian holds</span>, and excluding it would exclude them too. The Supreme Court agreed only partway: Aadhaar stayed off the core checklist, but anyone left off the draft roll could use it when filing a claim to get back on.</p>
+    </div>
+    <div class="fight-panel" data-fpanel="unexplained">
+      <p>Association for Democratic Reforms pulled Bihar's own Chief Electoral Officer records. Of 3.66 lakh names struck from the first draft roll, <span class="fight-stat">9,968 carried no reason at all</span>. Not death. Not migration. Not duplication. Nothing. The Commission says 99 percent of deletions rest on legitimate grounds. Whether that holds depends on the roughly 1 percent it does not appear to cover, and the people inside it.</p>
+    </div>
+    <div class="fight-panel" data-fpanel="humancheck">
+      <p>Justice Joymalya Bagchi told Kapil Sibal, arguing for West Bengal and Kerala, that software can catch a duplicate registration, but <span class="fight-stat">nothing catches a dead voter except a human checking</span>, and whichever party benefits from uncleaned rolls has every incentive to leave them uncleaned. Fair point. It also turned a routine cleanup into an argument, on the record, about who India's electoral machinery actually protects.</p>
+    </div>
+    <p class="chart-note">All three arguments were live in front of the same bench, in the same set of hearings.</p>
   </div>
 
-  <!-- SECTION 1b: THE ENUMERATORS -->
   <div class="section-header">
     <span class="section-eyebrow">01b / The Enumerators</span>
     <h2 class="section-title">The People Running The Machine Are Dying Inside It</h2>
@@ -826,12 +708,23 @@ p { text-align: justify; text-justify: inter-word; hyphens: auto; }
     <div class="stat-card"><div class="stat-number">3</div><div class="stat-label">SIR-duty deaths in Karnataka's first weeks</div></div>
   </div>
 
-  <div class="body">
-    <p>West Bengal recorded the most deaths. Shantimuni Ekka, an anganwadi worker in Jalpaiguri, found dead near her home in November 2025; her husband said she could not bear the pressure, and had been turned away when she sought relief from the local block office. Rinku Tarafdar, a part-time teacher serving as a BLO in Krishnanagar, died weeks later, leaving a note that held the Commission responsible. Haradhan Mandal, a headmaster deployed to Ranibandh in Bankura, died the same month; his note pointed to the workload too. In Malda, two BLOs who were also schoolteachers, Abul Barkat and Anikul Alam, died of heart disease within weeks of each other. A third, Utpal Thakur, followed in March. In January, Hamimul Islam, a primary school teacher and BLO in Murshidabad, became the eighth BLO death reported in the state since the exercise began.</p>
-    <p>The deaths did not stay confined to Bengal. Karnataka's house-to-house round, which began in late June alongside Delhi's, had already produced three deaths among government staff on SIR duty within its first weeks: two BLOs and a Village Administrative Officer. Employee unions blame excessive workload and pressure from superiors.</p>
+  <div class="chart-block">
+    <div class="chart-title">West Bengal &nbsp;&middot;&nbsp; Those Who Did Not Survive The Assignment</div>
+    <div class="memorial-list">
+      <div class="memorial-row header">
+        <span>Name</span><span>Role</span><span>Location</span><span>Date</span>
+      </div>
+      <div class="memorial-row"><span class="memorial-name">Shantimuni Ekka</span><span class="memorial-role">Anganwadi worker</span><span class="memorial-loc">Jalpaiguri</span><span class="memorial-date">Nov 2025</span></div>
+      <div class="memorial-row"><span class="memorial-name">Rinku Tarafdar</span><span class="memorial-role">Part-time teacher, BLO</span><span class="memorial-loc">Krishnanagar</span><span class="memorial-date">Nov 2025</span></div>
+      <div class="memorial-row"><span class="memorial-name">Haradhan Mandal</span><span class="memorial-role">Headmaster, BLO</span><span class="memorial-loc">Ranibandh, Bankura</span><span class="memorial-date">Nov 2025</span></div>
+      <div class="memorial-row"><span class="memorial-name">Abul Barkat</span><span class="memorial-role">Schoolteacher, BLO</span><span class="memorial-loc">Malda</span><span class="memorial-date">Dec 2025</span></div>
+      <div class="memorial-row"><span class="memorial-name">Anikul Alam</span><span class="memorial-role">Schoolteacher, BLO</span><span class="memorial-loc">Malda</span><span class="memorial-date">Dec 2025</span></div>
+      <div class="memorial-row"><span class="memorial-name">Utpal Thakur</span><span class="memorial-role">BLO</span><span class="memorial-loc">Malda</span><span class="memorial-date">Mar 2026</span></div>
+      <div class="memorial-row"><span class="memorial-name">Hamimul Islam</span><span class="memorial-role">Primary school teacher, BLO</span><span class="memorial-loc">Murshidabad</span><span class="memorial-date">Jan 2026</span></div>
+    </div>
+    <p class="chart-note">Seven of nine BLO deaths reported in West Bengal, by name, role and location. Karnataka's house-to-house round, which began in late June alongside Delhi's, had already added three more deaths among government staff on SIR duty within its first weeks: two BLOs and a Village Administrative Officer. Employee unions blame excessive workload and pressure from superiors.</p>
   </div>
 
-  <!-- DOSSIER: BLO DEATHS -->
   <div class="dossier">
     <div class="dossier-watermark">04</div>
     <div class="dossier-meta">
@@ -848,7 +741,6 @@ p { text-align: justify; text-justify: inter-word; hyphens: auto; }
     <p class="dossier-source">Sources: The SPECT Foundation; PTI; The Federal; The Week; Outlook India, November 2025 to July 2026</p>
   </div>
 
-  <!-- COMPARATIVE BAR CHART: BLO DEATH COUNTS -->
   <div class="chart-block">
     <div class="chart-title">Three Numbers, One Crisis &nbsp;&middot;&nbsp; Whose Count Do You Believe</div>
     <div class="bar-row compact"><div class="bar-label-row"><span>TMC claim, West Bengal alone (incl. panic deaths)</span><strong>50+</strong></div><div class="bar-track"><div class="bar-fill" data-pct="100"></div></div></div>
@@ -867,7 +759,6 @@ p { text-align: justify; text-justify: inter-word; hyphens: auto; }
     <p>The Bench, led by Chief Justice Surya Kant with Justice Joymalya Bagchi, ordered states to supply additional manpower and cut individual workloads, replace employees facing genuine hardship such as illness or pregnancy, and left the question of compensation for the families of the dead open for later. Relief, of a kind. It arrived after the deaths it was responding to, not before them.</p>
   </div>
 
-  <!-- SECTION 1c: THE BENCH, OFF THE CUFF -->
   <div class="section-header">
     <span class="section-eyebrow">01c / The Bench, Off The Cuff</span>
     <h2 class="section-title">Even the officers running the SIR got caught inside it</h2>
@@ -877,7 +768,6 @@ p { text-align: justify; text-justify: inter-word; hyphens: auto; }
     <p>On April 24, 2026, in the middle of West Bengal's own two-phase election, a fresh irony reached the Supreme Court. Roughly 65 people who were themselves on election duty, their names and EPIC numbers printed on their own official duty orders, discovered the SIR had deleted them from the very rolls they had been assigned to help clean. M.R. Shamshad, representing the petitioners, called the deletions arbitrary and unexplained, and put the irony plainly: the people conducting the election could no longer vote in it.</p>
   </div>
 
-  <!-- INTERACTIVE: QUOTE CAROUSEL -->
   <div class="quote-carousel">
     <div class="quote-carousel-label">Four Moments From The Bench &nbsp;&middot;&nbsp; Click Through</div>
 
@@ -927,7 +817,6 @@ p { text-align: justify; text-justify: inter-word; hyphens: auto; }
     <p>The Bench of Chief Justice Surya Kant, Justice Bagchi and Justice Vipul Pancholi declined to intervene directly and sent the officers to the same appellate tribunals already carrying a backlog a Calcutta High Court bench, in a separate order that same month, estimated would take 21 years to clear. Justice Bagchi framed the trade-off as the more durable right, staying on the rolls at all, over the immediate one, casting a ballot in the election already under way, and said the tribunal would pass appropriate orders in due course. Whether it reached all 65 officers before polling closed on April 29 is not something the public record answers. What the exchange captured, in miniature, was the machine's basic shape: even the people the state deputes to run it are not exempt from what it does.</p>
   </div>
 
-  <!-- SECTION 2 -->
   <div class="section-header">
     <span class="section-eyebrow">02 / The Precedent</span>
     <h2 class="section-title">Assam already ran this experiment</h2>
@@ -949,7 +838,6 @@ p { text-align: justify; text-justify: inter-word; hyphens: auto; }
 
   <div class="pull-quote"><p>Just think about it, a spelling variation by a bureaucrat in your father's name from twenty years ago, and you must prove you belong in the country you have never left.</p></div>
 
-  <!-- SECTION 3 -->
   <div class="section-header">
     <span class="section-eyebrow">03 / The Court</span>
     <h2 class="section-title">A Verdict That Arrived After It Could Still Matter</h2>
@@ -992,7 +880,7 @@ p { text-align: justify; text-justify: inter-word; hyphens: auto; }
   </div>
 
   <div class="body">
-    <p>For seven months the Supreme Court supervised, directing transparency, ordering Aadhaar acceptance, setting up tribunals. The Court was doing everything except deciding the one question that mattered: whether the ECI had the constitutional authority to run this exercise at all.</p>
+    <p>For seven months it supervised implementation: directing transparency, ordering Aadhaar acceptance, setting up tribunals. It was doing everything except deciding the one question that mattered: whether the ECI had the constitutional authority to run this exercise at all.</p>
     <p>Bihar voted in November 2025. The Bharatiya Janata Party (BJP) won the election and a government was formed, and on May 27, 2026, six months after the election it was meant to protect, the Court upheld the SIR in full.</p>
   </div>
 
@@ -1002,9 +890,28 @@ p { text-align: justify; text-justify: inter-word; hyphens: auto; }
     <div class="stat-card"><div class="stat-number">May 27</div><div class="stat-label">2026: verdict arrives, government already formed</div></div>
   </div>
 
-  <div class="body">
-    <p>The sequencing is the criticism. Not a footnote to it. By supervising implementation before ruling on legality, the Court made it impossible to rule against the exercise. A sitting government had been formed. The harm was already done. Judicial restraint, in this case, was not neutral. It had a direction. It ran toward the executive, past the warnings, past Assam's three-decade record, and arrived at a constitutional blessing for a machine that was already running.</p>
-    <p>Legal scholars have made the point directly: the ruling resolves the legality of an exercise that was, by the time the ink dried, already complete. Pausing it until the Court had decided would have cost nothing but time. Not pausing it meant the answer, once it came, could no longer change what had already happened in Bihar, and could only bless what would happen next in fifteen more states.</p>
+  <div class="lag-diagram">
+    <div class="lag-title">The Six-Month Gap</div>
+    <div class="lag-track">
+      <div class="lag-line"></div>
+      <div class="lag-point">
+        <div class="lag-date">July 2025</div>
+        <div class="lag-event">Sibal, Singhvi and Bhushan warn the Court this risks becoming a citizenship filter wearing an electoral-roll costume. Court calls the questions serious, declines to stay the exercise four days later.</div>
+      </div>
+      <div class="lag-point">
+        <div class="lag-date">Aug &ndash; Oct 2025</div>
+        <div class="lag-event">Court supervises implementation: directing transparency, ordering Aadhaar acceptance, setting up tribunals, without ruling on whether the exercise is constitutional at all.</div>
+      </div>
+      <div class="lag-point">
+        <div class="lag-date">November 2025</div>
+        <div class="lag-event">Bihar votes on the rolls the SIR produced. BJP wins. A government is formed.</div>
+      </div>
+      <div class="lag-point ruling">
+        <div class="lag-date">May 27, 2026</div>
+        <div class="lag-event"><strong>The Court rules.</strong> Six months after the election it was meant to protect, the SIR is upheld in full.</div>
+      </div>
+    </div>
+    <div class="lag-verdict">By supervising implementation before ruling on legality, the Court made it structurally impossible to rule against the exercise by the time it finally did. A sitting government had already been formed. Pausing until the Court decided would have cost nothing but time; not pausing meant the ruling, once it came, could no longer change what had already happened in Bihar, it could only bless what happens next in fifteen more states.</div>
   </div>
 
   <div class="chart-block">
@@ -1087,7 +994,6 @@ p { text-align: justify; text-justify: inter-word; hyphens: auto; }
     </div>
   </section>
 
-  <!-- ENDING (text) -->
   <div class="ending">
     <p class="ending-line">
       The Machine does not know your name yet.<br>
@@ -1095,13 +1001,12 @@ p { text-align: justify; text-justify: inter-word; hyphens: auto; }
       Door to door. State by state.
     </p>
     <div class="body" style="text-align: left; margin-top: 2.5rem;">
-      <p>Saleha Khatun and Sarbhanu Begum's protection runs out July 16 2026, unless the Court says otherwise. Sirajul Shekh still can't travel for treatment. R. Rajagopal got his passport back — because his name was well-known enough to matter. Aheda Khatun is in Bangladesh. Five point two crore names, already gone. Sixteen states, still to come.</p>
+      <p>Saleha Khatun and Sarbhanu Begum's protection runs out July 16 2026, unless the Court says otherwise. Sirajul Shekh still can't travel for treatment. R. Rajagopal got his passport back, because his name was well-known enough to matter. Aheda Khatun is in Bangladesh. Five point two crore names, already gone. Sixteen states, still to come.</p>
       <p>A voter list was supposed to record who could vote. It has quietly become the document deciding who gets to stay a citizen at all. That machine now has a Supreme Court ruling behind it. A door-to-door survey running in your city right now. A 21-year queue waiting for anyone caught in it. And not one person in power who's shown any sign of slowing it down.</p>
     </div>
   </div>
 </main>
 
-<!-- ===== THE CROWD, closing visual ===== -->
 <section class="crowd-section" id="crowdSection">
   <div class="crowd-eyebrow">Every dot below is 2 lakh people</div>
   <h2 class="crowd-heading">This is the electorate the SIR has processed so far.</h2>
@@ -1137,7 +1042,6 @@ p { text-align: justify; text-justify: inter-word; hyphens: auto; }
 </section>
 
 <script>
-// Countdown to July 16, 2026 10:30 AM IST
 const target = new Date('2026-07-16T10:30:00+05:30');
 function updateCountdown() {
   const now = new Date();
@@ -1155,7 +1059,6 @@ function updateCountdown() {
 updateCountdown();
 setInterval(updateCountdown, 1000);
 
-// Hero counter animation
 function formatIndian(n) {
   const s = Math.round(n).toString();
   if (s.length <= 3) return s;
@@ -1179,7 +1082,6 @@ const heroObs = new IntersectionObserver(entries => {
 });
 heroObs.observe(el);
 
-// VERIFICATION FORM: fields check in, then stamp red, one by one
 (function() {
   const section = document.getElementById('verifySection');
   if (!section) return;
@@ -1213,7 +1115,6 @@ heroObs.observe(el);
   obs.observe(section);
 })();
 
-// STATUS TRACKER: live case-log terminal feed
 (function() {
   const section = document.getElementById('statusTracker');
   const log = document.getElementById('statusLog');
@@ -1258,7 +1159,6 @@ heroObs.observe(el);
   obs.observe(section);
 })();
 
-// MEGA STAT: 21 YEARS, staged reveal + count-up + urgency pulse
 (function() {
   const section = document.getElementById('megaStat');
   if (!section) return;
@@ -1293,7 +1193,6 @@ heroObs.observe(el);
   obs.observe(section);
 })();
 
-// TERMINAL ENDING: interactive name search, then absence
 (function() {
   const promptBox = document.getElementById('terminalPrompt');
   const input = document.getElementById('nameSearchInput');
@@ -1311,7 +1210,7 @@ heroObs.observe(el);
         result.textContent = '';
         typeText('No record found.', 65, () => {
           setTimeout(() => {
-            result.innerHTML = 'No record found.<br><span style="font-size:0.65em; color:#2d6a4f;">This search was not real. The next one might be.</span>';
+            result.innerHTML = 'No record found.<span class="terminal-note">This search was not real. The next one might be.</span>';
           }, 900);
         });
       }, 1400);
@@ -1329,7 +1228,6 @@ heroObs.observe(el);
   input.addEventListener('keydown', e => { if (e.key === 'Enter') runSearch(); });
 })();
 
-// HERO NAME-ERASURE GRID
 const commonNames = ["Aheda Khatun","Saleha Khatun","Sarbhanu Begum","Sirajul Shekh","R. Rajagopal","Adil Hossain","Rahul Kumar","Fatima Begum","Suresh Yadav","Anita Devi","Mohammed Ali","Lakshmi Nair","Rajesh Singh","Salma Khatun","Vijay Prasad","Kavita Sharma","Abdul Rahman","Meena Kumari","Ramesh Gupta","Nasreen Bibi","Sunita Rani","Iqbal Hussain","Geeta Devi","Sanjay Verma","Ayesha Siddiqui","Manoj Yadav","Rukhsana Bano","Deepak Rao","Farida Khatun","Ashok Mehta","Nazma Begum","Vinod Chaudhary","Shabana Ansari","Pooja Das","Aslam Sheikh","Radha Krishnan","Tabassum Ara","Ravi Shankar","Hasina Khatoon","Naresh Patel","Salim Mondal","Kamla Devi","Yusuf Ansari","Bimla Devi","Karim Sheikh","Sarita Kumari","Firoz Alam","Mamta Singh","Jamila Khatun","Prakash Jha","Rashida Begum"];
 const nameGrid = document.getElementById('heroNameGrid');
 if (nameGrid) {
@@ -1353,7 +1251,6 @@ if (nameGrid) {
   setInterval(cycleName, 220);
 }
 
-// Generic bar-fill reveal (chart + phase tracker)
 const bars = document.querySelectorAll('.bar-fill, .phase-bar-fill');
 const barObs = new IntersectionObserver(entries => {
   entries.forEach(e => {
@@ -1366,23 +1263,20 @@ const barObs = new IntersectionObserver(entries => {
 }, { threshold: 0.4 });
 bars.forEach(b => barObs.observe(b));
 
-// THE CROWD grid
 const grid = document.getElementById('crowdGrid');
 const TOTAL_DOTS = 784;
-const GONE_COUNT = 78; // ~10%
+const GONE_COUNT = 78;
 for (let i = 0; i < TOTAL_DOTS; i++) {
   const d = document.createElement('div');
   d.className = 'crowd-dot';
   grid.appendChild(d);
 }
 const allDots = Array.from(grid.children);
-// pick a pseudo-random but stable-looking scatter of "gone" indices
 const goneIndices = new Set();
 let seed = 42;
 function rand() { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; }
 while (goneIndices.size < GONE_COUNT) { goneIndices.add(Math.floor(rand() * TOTAL_DOTS)); }
 
-// Both-sides interactive tabs
 document.querySelectorAll('.sides-tab').forEach(tab => {
   tab.addEventListener('click', () => {
     const side = tab.getAttribute('data-side');
@@ -1393,8 +1287,7 @@ document.querySelectorAll('.sides-tab').forEach(tab => {
   });
 });
 
-// LIVE TICKER, starts counting the moment the page opens, never stops
-const tickerRatePerSecond = 60000000 / (365 * 24 * 60 * 60); // ~6 crore over roughly a year
+const tickerRatePerSecond = 60000000 / (365 * 24 * 60 * 60);
 const tickerStart = performance.now();
 const tickerEl = document.getElementById('liveTickerNumber');
 function updateTicker() {
@@ -1415,7 +1308,6 @@ const crowdObs = new IntersectionObserver(entries => {
         setTimeout(() => { allDots[idx].classList.add('gone'); }, order * 22);
       });
 
-      // animate footer number
       const numEl = document.getElementById('crowdFooterNumber');
       const numTarget = 52000000;
       const numStart = performance.now();
@@ -1434,7 +1326,6 @@ const crowdObs = new IntersectionObserver(entries => {
 }, { threshold: 0.3 });
 crowdObs.observe(document.getElementById('crowdSection'));
 
-// TRIBUNAL BACKLOG CALCULATOR
 (function() {
   const tribunalsSlider = document.getElementById('calcTribunals');
   const rateSlider = document.getElementById('calcRate');
@@ -1468,7 +1359,6 @@ crowdObs.observe(document.getElementById('crowdSection'));
   updateCalc();
 })();
 
-// EXPANDABLE PROOF CARDS
 document.querySelectorAll('.proof-item.expandable').forEach(item => {
   item.addEventListener('click', () => {
     const toggle = item.querySelector('.proof-toggle');
@@ -1477,7 +1367,6 @@ document.querySelectorAll('.proof-item.expandable').forEach(item => {
   });
 });
 
-// QUOTE CAROUSEL
 (function() {
   const slides = Array.from(document.querySelectorAll('.quote-slide'));
   const dots = Array.from(document.querySelectorAll('.quote-dot'));
@@ -1496,6 +1385,16 @@ document.querySelectorAll('.proof-item.expandable').forEach(item => {
   if (prevBtn) prevBtn.addEventListener('click', () => goTo(current - 1));
   if (nextBtn) nextBtn.addEventListener('click', () => goTo(current + 1));
 })();
+
+document.querySelectorAll('.fight-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    const fight = tab.getAttribute('data-fight');
+    document.querySelectorAll('.fight-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.fight-panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.querySelector(`.fight-panel[data-fpanel="${fight}"]`).classList.add('active');
+  });
+});
 </script>
 </body>
 </html>
