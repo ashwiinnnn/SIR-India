@@ -317,14 +317,33 @@ p { text-align: justify; text-justify: inter-word; hyphens: auto; }
 .fight-panel p { font-size: 0.9rem; color: var(--cream); line-height: 1.75; margin: 0; text-align: left; }
 .fight-panel .fight-stat { font-weight: 800; color: var(--red-bright); }
 
-.memorial-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); margin: 2rem 0; }
-.memorial-row { display: grid; grid-template-columns: 1.6fr 1.4fr 1fr 0.9fr; gap: 0.8rem; background: var(--dark); padding: 0.9rem 1.1rem; align-items: center; }
-.memorial-row.header { background: var(--card); font-size: 0.56rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cream-dim); }
-.memorial-name { font-size: 0.85rem; font-weight: 700; color: var(--white); }
-.memorial-role { font-size: 0.78rem; color: var(--cream-muted); }
-.memorial-loc { font-size: 0.78rem; color: var(--cream-muted); }
-.memorial-date { font-size: 0.72rem; color: var(--red-bright); font-weight: 700; text-align: right; }
-@media (max-width: 600px) { .memorial-row { grid-template-columns: 1fr; gap: 0.2rem; text-align: left; } .memorial-row.header { display: none; } .memorial-date { text-align: left; } }
+.memorial-wrap { background: #000; border: 1px solid var(--red-dim); border-top: 3px solid var(--red-bright); margin: 2rem 0; box-shadow: 0 0 40px rgba(204,17,17,0.08) inset; }
+.memorial-banner { display: flex; align-items: center; gap: 0.6rem; padding: 1rem 1.2rem; border-bottom: 1px solid var(--red-dim); background: rgba(139,0,0,0.1); }
+.memorial-banner .live-dot { background: var(--red-bright); }
+.memorial-banner-text { font-family: 'Courier New', monospace; font-size: 0.62rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red-bright); }
+.memorial-list { display: flex; flex-direction: column; font-family: 'Courier New', monospace; }
+.memorial-row { display: grid; grid-template-columns: 2rem 1.6fr 1.5fr 1.1fr 0.85fr; gap: 0.7rem; padding: 0.95rem 1.2rem; align-items: center; border-bottom: 1px solid #1a0808; background: linear-gradient(90deg, rgba(139,0,0,0.05), transparent 40%); text-align: left; opacity: 0; transform: translateX(-8px); transition: opacity 0.5s ease, transform 0.5s ease; }
+.memorial-row.visible { opacity: 1; transform: translateX(0); }
+.memorial-row:last-child { border-bottom: none; }
+.memorial-row.header { background: #0a0a0a; font-size: 0.56rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--red-dim); border-bottom: 1px solid var(--red-dim); opacity: 1; transform: none; padding: 0.75rem 1.2rem; }
+.memorial-mark { font-size: 0.85rem; color: var(--red-bright); text-align: center; }
+.memorial-row.header .memorial-mark { color: var(--red-dim); }
+.memorial-name { font-size: 0.85rem; font-weight: 700; color: var(--white); letter-spacing: 0.01em; }
+.memorial-role { font-size: 0.74rem; color: var(--cream-muted); text-transform: uppercase; letter-spacing: 0.03em; }
+.memorial-loc { font-size: 0.74rem; color: var(--cream-dim); }
+.memorial-date { font-size: 0.72rem; color: var(--red-bright); font-weight: 700; text-align: right; letter-spacing: 0.04em; }
+.memorial-footer { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 1.2rem; border-top: 1px solid var(--red-dim); background: rgba(139,0,0,0.06); flex-wrap: wrap; }
+.memorial-footer-count { font-family: 'Courier New', monospace; font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cream-dim); }
+.memorial-footer-count strong { color: var(--red-bright); font-size: 0.9rem; }
+@media (max-width: 600px) {
+  .memorial-row { grid-template-columns: 1.4rem 1fr 0.8fr; grid-template-areas: "mark name date" "mark role loc"; row-gap: 0.25rem; text-align: left; padding: 1rem 1rem; }
+  .memorial-row.header { display: none; }
+  .memorial-mark { grid-area: mark; }
+  .memorial-name { grid-area: name; }
+  .memorial-role { grid-area: role; }
+  .memorial-loc { grid-area: loc; }
+  .memorial-date { grid-area: date; text-align: right; }
+}
 
 .lag-diagram { margin: 3rem 0; background: var(--card); border: 1px solid var(--border-bright); padding: 2rem 1.8rem; }
 .lag-title { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 2rem; }
@@ -400,7 +419,7 @@ p { text-align: justify; text-justify: inter-word; hyphens: auto; }
   <p class="hero-counter-label">Indians removed from electoral rolls</p>
   <div class="hero-divider"></div>
   <h1 class="hero-title">The Machine That Erases You</h1>
-  <p class="hero-punch">Somewhere in India, right now, someone is being asked to prove they are real.</p>
+  <p class="hero-punch">Somewhere in India, right now, someone is being asked to prove that belong here.</p>
   <p class="hero-deck">You don't think this story is about you.<br>But, that is how every story like this <span style="color: var(--red-bright);">begins</span>.</p>
   <div class="scroll-cue">Read</div>
 </section>
@@ -710,17 +729,27 @@ p { text-align: justify; text-justify: inter-word; hyphens: auto; }
 
   <div class="chart-block">
     <div class="chart-title">West Bengal &nbsp;&middot;&nbsp; Those Who Did Not Survive The Assignment</div>
-    <div class="memorial-list">
-      <div class="memorial-row header">
-        <span>Name</span><span>Role</span><span>Location</span><span>Date</span>
+    <div class="memorial-wrap" id="memorialWrap">
+      <div class="memorial-banner">
+        <span class="live-dot"></span>
+        <span class="memorial-banner-text">In Memoriam &nbsp;&middot;&nbsp; Confirmed By Name</span>
       </div>
-      <div class="memorial-row"><span class="memorial-name">Shantimuni Ekka</span><span class="memorial-role">Anganwadi worker</span><span class="memorial-loc">Jalpaiguri</span><span class="memorial-date">Nov 2025</span></div>
-      <div class="memorial-row"><span class="memorial-name">Rinku Tarafdar</span><span class="memorial-role">Part-time teacher, BLO</span><span class="memorial-loc">Krishnanagar</span><span class="memorial-date">Nov 2025</span></div>
-      <div class="memorial-row"><span class="memorial-name">Haradhan Mandal</span><span class="memorial-role">Headmaster, BLO</span><span class="memorial-loc">Ranibandh, Bankura</span><span class="memorial-date">Nov 2025</span></div>
-      <div class="memorial-row"><span class="memorial-name">Abul Barkat</span><span class="memorial-role">Schoolteacher, BLO</span><span class="memorial-loc">Malda</span><span class="memorial-date">Dec 2025</span></div>
-      <div class="memorial-row"><span class="memorial-name">Anikul Alam</span><span class="memorial-role">Schoolteacher, BLO</span><span class="memorial-loc">Malda</span><span class="memorial-date">Dec 2025</span></div>
-      <div class="memorial-row"><span class="memorial-name">Utpal Thakur</span><span class="memorial-role">BLO</span><span class="memorial-loc">Malda</span><span class="memorial-date">Mar 2026</span></div>
-      <div class="memorial-row"><span class="memorial-name">Hamimul Islam</span><span class="memorial-role">Primary school teacher, BLO</span><span class="memorial-loc">Murshidabad</span><span class="memorial-date">Jan 2026</span></div>
+      <div class="memorial-list">
+        <div class="memorial-row header">
+          <span class="memorial-mark">&nbsp;</span><span>Name</span><span>Role</span><span>Location</span><span>Date</span>
+        </div>
+        <div class="memorial-row"><span class="memorial-mark">&dagger;</span><span class="memorial-name">Shantimuni Ekka</span><span class="memorial-role">Anganwadi worker</span><span class="memorial-loc">Jalpaiguri</span><span class="memorial-date">Nov 2025</span></div>
+        <div class="memorial-row"><span class="memorial-mark">&dagger;</span><span class="memorial-name">Rinku Tarafdar</span><span class="memorial-role">Part-time teacher, BLO</span><span class="memorial-loc">Krishnanagar</span><span class="memorial-date">Nov 2025</span></div>
+        <div class="memorial-row"><span class="memorial-mark">&dagger;</span><span class="memorial-name">Haradhan Mandal</span><span class="memorial-role">Headmaster, BLO</span><span class="memorial-loc">Ranibandh, Bankura</span><span class="memorial-date">Nov 2025</span></div>
+        <div class="memorial-row"><span class="memorial-mark">&dagger;</span><span class="memorial-name">Abul Barkat</span><span class="memorial-role">Schoolteacher, BLO</span><span class="memorial-loc">Malda</span><span class="memorial-date">Dec 2025</span></div>
+        <div class="memorial-row"><span class="memorial-mark">&dagger;</span><span class="memorial-name">Anikul Alam</span><span class="memorial-role">Schoolteacher, BLO</span><span class="memorial-loc">Malda</span><span class="memorial-date">Dec 2025</span></div>
+        <div class="memorial-row"><span class="memorial-mark">&dagger;</span><span class="memorial-name">Utpal Thakur</span><span class="memorial-role">BLO</span><span class="memorial-loc">Malda</span><span class="memorial-date">Mar 2026</span></div>
+        <div class="memorial-row"><span class="memorial-mark">&dagger;</span><span class="memorial-name">Hamimul Islam</span><span class="memorial-role">Primary school teacher, BLO</span><span class="memorial-loc">Murshidabad</span><span class="memorial-date">Jan 2026</span></div>
+      </div>
+      <div class="memorial-footer">
+        <span class="memorial-footer-count">Shown here: <strong>7</strong> of 9 confirmed, West Bengal</span>
+        <span class="memorial-footer-count">Nationwide, per SPECT Foundation: <strong>33</strong></span>
+      </div>
     </div>
     <p class="chart-note">Seven of nine BLO deaths reported in West Bengal, by name, role and location. Karnataka's house-to-house round, which began in late June alongside Delhi's, had already added three more deaths among government staff on SIR duty within its first weeks: two BLOs and a Village Administrative Officer. Employee unions blame excessive workload and pressure from superiors.</p>
   </div>
@@ -732,21 +761,21 @@ p { text-align: justify; text-justify: inter-word; hyphens: auto; }
       <strong>Ongoing, since November 2025</strong>
     </div>
     <h3>Two counts of the dead, and no agreement on either</h3>
-    <p>An independent think tank, The SPECT Foundation, documented at least 33 verified deaths of BLOs across several states, attributing them to stress-induced cardiac arrests, strokes and suicide. Trinamool Congress, campaigning in West Bengal at the time, put the toll in that state alone above 50, folding in ordinary citizens who died of SIR-linked panic alongside the BLOs. The Election Commission's own counsel called the wider allegations of workload pressure baseless before the Supreme Court, arguing it was reluctance among some BLOs to perform statutory duty, not overwork, that had forced the Commission to consider criminal action against defaulters. The Bharatiya Janata Party accused the state government of politicising natural deaths for electoral advantage. At no point did the two sides agree on a single number.</p>
+    <p>The SPECT Foundation, a New Delhi—based non-profit research organisation, published a report on December 8, 2025 documenting at least 33 BLO deaths by suicide or medical emergency across six states, built from family statements and suicide notes left by the officers themselves. The report's tally does not include West Bengal, where Chief Minister Mamata Banerjee separately claimed the toll among SIR-linked government staff exceeded 40. Weeks later, on December 29, Rajya Sabha MP Kapil Sibal cited the same nationwide figure of 33 in a post on X, asking why 33 BLO deaths drew less alarm from the government than a single alleged "infiltrator" on the rolls. The Election Commission's own counsel called the wider allegations of workload pressure baseless before the Supreme Court, arguing it was reluctance among some BLOs to perform statutory duty, not overwork, that had forced the Commission to consider criminal action against defaulters. The Bharatiya Janata Party accused opposition-ruled states of politicising natural deaths for electoral advantage. No official, independently audited count has been published by the Election Commission or the government. At no point did the sides agree on a single number.</p>
     <div class="dossier-stats">
-      <div class="dossier-stat"><b>33+</b><span>Deaths Independently Verified, Nationwide</span></div>
-      <div class="dossier-stat"><b>50+</b><span>Deaths Claimed By TMC, West Bengal Alone</span></div>
+      <div class="dossier-stat"><b>33</b><span>Deaths Documented By SPECT Foundation, 6 States</span></div>
+      <div class="dossier-stat"><b>40+</b><span>Deaths Claimed By WB CM Mamata Banerjee</span></div>
       <div class="dossier-stat"><b>9</b><span>BLO Deaths Specifically Reported In West Bengal</span></div>
     </div>
-    <p class="dossier-source">Sources: The SPECT Foundation; PTI; The Federal; The Week; Outlook India, November 2025 to July 2026</p>
+    <p class="dossier-source">Sources: The SPECT Foundation report (The Wire, Dec 8, 2025); Kapil Sibal (X post, Dec 29, 2025); PTI; The Federal</p>
   </div>
 
   <div class="chart-block">
     <div class="chart-title">Three Numbers, One Crisis &nbsp;&middot;&nbsp; Whose Count Do You Believe</div>
-    <div class="bar-row compact"><div class="bar-label-row"><span>TMC claim, West Bengal alone (incl. panic deaths)</span><strong>50+</strong></div><div class="bar-track"><div class="bar-fill" data-pct="100"></div></div></div>
-    <div class="bar-row compact"><div class="bar-label-row"><span>SPECT Foundation, verified, nationwide</span><strong>33+</strong></div><div class="bar-track"><div class="bar-fill" data-pct="66"></div></div></div>
-    <div class="bar-row compact"><div class="bar-label-row"><span>BLO deaths specifically reported, West Bengal</span><strong>9</strong></div><div class="bar-track"><div class="bar-fill" data-pct="18"></div></div></div>
-    <p class="chart-note">Three different organisations, three different methods, three different numbers, and the gap between the smallest and the largest is itself the story: nobody, including the Election Commission, has published one count everyone accepts.</p>
+    <div class="bar-row compact"><div class="bar-label-row"><span>Mamata Banerjee claim, West Bengal govt staff alone</span><strong>40+</strong></div><div class="bar-track"><div class="bar-fill" data-pct="100"></div></div></div>
+    <div class="bar-row compact"><div class="bar-label-row"><span>SPECT Foundation, six states (excl. West Bengal)</span><strong>33</strong></div><div class="bar-track"><div class="bar-fill" data-pct="83"></div></div></div>
+    <div class="bar-row compact"><div class="bar-label-row"><span>BLO deaths specifically reported, West Bengal</span><strong>9</strong></div><div class="bar-track"><div class="bar-fill" data-pct="23"></div></div></div>
+    <p class="chart-note">Three different figures, from three different sources, counted three different ways, and none officially audited by the Election Commission. The gap between the smallest and the largest is itself the story: nobody has published one number everyone accepts.</p>
   </div>
 
   <div class="pull-quote">
@@ -1250,6 +1279,25 @@ if (nameGrid) {
   }
   setInterval(cycleName, 220);
 }
+
+(function() {
+  const wrap = document.getElementById('memorialWrap');
+  if (!wrap) return;
+  const rows = Array.from(wrap.querySelectorAll('.memorial-row:not(.header)'));
+  let triggered = false;
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting && !triggered) {
+        triggered = true;
+        obs.disconnect();
+        rows.forEach((row, i) => {
+          setTimeout(() => { row.classList.add('visible'); }, i * 260);
+        });
+      }
+    });
+  }, { threshold: 0.25 });
+  obs.observe(wrap);
+})();
 
 const bars = document.querySelectorAll('.bar-fill, .phase-bar-fill');
 const barObs = new IntersectionObserver(entries => {
