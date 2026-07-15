@@ -43,7 +43,7 @@ p { text-align: justify; text-justify: inter-word; hyphens: auto; }
 .ticker-inner { display: flex; align-items: center; gap: 0; }
 .ticker-label { background: #fff; color: var(--red); font-size: 0.62rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.15rem 0.7rem; white-space: nowrap; flex-shrink: 0; margin-right: 1.5rem; }
 .ticker-track { display: flex; gap: 4rem; animation: ticker 32s linear infinite; white-space: nowrap; }
-.ticker-track span { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #fff; }
+.ticker-track span { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #fff; }
 .ticker-dot { color: rgba(255,255,255,0.5); }
 @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
@@ -53,7 +53,8 @@ p { text-align: justify; text-justify: inter-word; hyphens: auto; }
 .hero-map-bg { position: absolute; inset: 0; z-index: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 0; opacity: 0.65; pointer-events: none; mask-image: radial-gradient(ellipse 60% 60% at 50% 46%, transparent 0%, transparent 40%, black 78%); -webkit-mask-image: radial-gradient(ellipse 60% 60% at 50% 46%, transparent 0%, transparent 40%, black 78%); }
 .hero-name { font-size: 0.72rem; font-weight: 600; line-height: 1.2; color: var(--cream-dim); padding: 0.55rem 0.4rem; text-align: center; letter-spacing: 0.02em; transition: color 0.6s ease, opacity 0.6s ease; position: relative; }
 .hero-name.struck { color: var(--red-bright); opacity: 0.9; }
-.hero-name.struck::after { content: ''; position: absolute; left: 8%; right: 8%; top: 50%; height: 2px; background: var(--red-bright); transform: translateY(-50%) scaleX(0); transform-origin: left; animation: strike 0.45s ease forwards; }
+.hero-name.struck { text-decoration: line-through; text-decoration-color: var(--red-bright); text-decoration-thickness: 2px; }
+.hero-name.struck::after { content: ''; position: absolute; left: 8%; right: 8%; top: 50%; height: 2px; background: var(--red-bright); transform: translateY(-50%) scaleX(0); transform-origin: left; animation: strike 0.45s ease forwards; opacity: 0; }
 @keyframes strike { to { transform: translateY(-50%) scaleX(1); } }
 .hero > * { position: relative; z-index: 1; }
 .hero-map-bg { position: absolute !important; inset: 0; z-index: 0 !important; }
